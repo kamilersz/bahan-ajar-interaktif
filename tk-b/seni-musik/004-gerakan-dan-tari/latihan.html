@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Gerakan dan Tari - TK-B Seni Musik</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Comic Neue', cursive; }
+        .title-font { font-family: 'Fredoka One', cursive; }
+        .wiggle { animation: wiggle 1s ease-in-out infinite; }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-orange-100 via-pink-100 to-rose-100 min-h-screen" x-data="movementGame()">
+    <header class="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="title-font text-4xl md:text-5xl mb-2 wiggle inline-block">🎮 Latihan Gerakan dan Tari 🎮</h1>
+            <p class="text-xl">Ayo Bermain dengan Gerakan!</p>
+            <div class="mt-4 bg-white/20 rounded-full px-6 py-2 inline-block">
+                <span class="text-2xl">⭐ Skor: <span x-text="score"></span> ⭐</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Game 1: Guess the Dance -->
+        <div x-show="gameStage === 1" class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-orange-300">
+            <h2 class="title-font text-3xl text-center text-orange-600 mb-6">🎭 Tebak Tarian! 🎭</h2>
+            <p class="text-center text-xl text-gray-700 mb-6">Dari daerah mana tarian ini?</p>
+
+            <div class="text-center mb-8">
+                <div class="text-9xl mb-4" x-text="currentDance.emoji"></div>
+                <p class="title-font text-3xl text-gray-800" x-text="currentDance.name"></p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <template x-for="region in regions" :key="region">
+                    <button @click="checkDance(region)"
+                            class="p-6 rounded-2xl title-font text-xl shadow-lg transition-all hover:scale-105"
+                            :class="getRegionClass(region)">
+                        <span x-text="region"></span>
+                    </button>
+                </template>
+            </div>
+
+            <div x-show="showDanceFeedback" class="text-center p-6 rounded-2xl text-2xl"
+                 :class="isDanceCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
+                <div class="text-5xl mb-2" x-text="isDanceCorrect ? '🎉' : '😅'"></div>
+                <p class="title-font" x-text="danceFeedbackText"></p>
+                <button x-show="isDanceCorrect" @click="nextDance()"
+                        class="mt-4 bg-gradient-to-r from-orange-400 to-pink-600 text-white px-6 py-3 rounded-full title-font text-xl">
+                    ➡️ Tarian Berikutnya
+                </button>
+            </div>
+        </div>
+
+        <!-- Game 2: Movement Type -->
+        <div x-show="gameStage === 2" class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-pink-300">
+            <h2 class="title-font text-3xl text-center text-pink-600 mb-6">🏃 Jenis Gerakan Apa Ini? 🏃</h2>
+            <p class="text-center text-xl text-gray-700 mb-6">Tentukan jenis gerakannya!</p>
+
+            <div class="text-center mb-8">
+                <div class="text-8xl mb-4" x-text="movementQuestion.emoji"></div>
+                <p class="title-font text-2xl text-gray-800 mb-4" x-text="movementQuestion.action"></p>
+                <div class="bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl p-6">
+                    <p class="text-xl text-gray-700" x-text="movementQuestion.description"></p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+                <template x-for="type in movementTypes" :key="type">
+                    <button @click="checkMovement(type)"
+                            class="p-5 rounded-2xl title-font text-lg shadow-lg transition-all hover:scale-105 bg-gradient-to-br from-pink-100 to-rose-100 hover:from-pink-200 hover:to-rose-200 text-pink-700">
+                        <span x-text="type"></span>
+                    </button>
+                </template>
+            </div>
+
+            <div x-show="showMovementFeedback" class="text-center p-6 rounded-2xl text-2xl"
+                 :class="isMovementCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
+                <div class="text-5xl mb-2" x-text="isMovementCorrect ? '🌟' : '💭'"></div>
+                <p class="title-font" x-text="movementFeedbackText"></p>
+                <button x-show="isMovementCorrect" @click="nextMovement()"
+                        class="mt-4 bg-gradient-to-r from-pink-400 to-rose-400 text-white px-6 py-3 rounded-full title-font text-xl">
+                    ➡️ Gerakan Berikutnya
+                </button>
+            </div>
+        </div>
+
+        <!-- Game 3: True or False -->
+        <div x-show="gameStage === 3" class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-rose-300">
+            <h2 class="title-font text-3xl text-center text-rose-600 mb-6">✅ Benar atau Salah? ✅</h2>
+            <p class="text-center text-xl text-gray-700 mb-6">Pernyataan ini benar atau salah?</p>
+
+            <div class="bg-gradient-to-br from-yellow-100 to-orange-100 rounded-2xl p-6 mb-8">
+                <p class="title-font text-2xl text-center text-gray-800" x-text="tfStatement.statement"></p>
+            </div>
+
+            <div class="flex justify-center gap-6 mb-6">
+                <button @click="checkTF(true)"
+                        class="px-12 py-6 rounded-2xl title-font text-2xl shadow-lg transition-all hover:scale-105 bg-gradient-to-r from-green-400 to-green-600 text-white">
+                    ✅ BENAR
+                </button>
+                <button @click="checkTF(false)"
+                        class="px-12 py-6 rounded-2xl title-font text-2xl shadow-lg transition-all hover:scale-105 bg-gradient-to-r from-red-400 to-red-600 text-white">
+                    ❌ SALAH
+                </button>
+            </div>
+
+            <div x-show="showTFFeedback" class="text-center p-6 rounded-2xl text-2xl"
+                 :class="isTFCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
+                <div class="text-5xl mb-2" x-text="isTFCorrect ? '🎊' : '🤔'"></div>
+                <p class="title-font" x-text="tffeedbackText"></p>
+                <button x-show="isTFCorrect" @click="nextTF()"
+                        class="mt-4 bg-gradient-to-r from-orange-400 to-pink-400 text-white px-6 py-3 rounded-full title-font text-xl">
+                    ➡️ Pernyataan Berikutnya
+                </button>
+            </div>
+        </div>
+
+        <!-- Completion -->
+        <div x-show="gameStage === 4" class="bg-white rounded-3xl shadow-xl p-8 border-4 border-yellow-400">
+            <div class="text-center">
+                <div class="text-8xl mb-4">🏆</div>
+                <h2 class="title-font text-4xl text-yellow-600 mb-4">LUAR BIASA!</h2>
+                <p class="text-2xl text-gray-700 mb-6">Adik-adik sudah menyelesaikan semua latihan gerakan dan tari!</p>
+                <div class="bg-gradient-to-r from-yellow-200 to-orange-200 rounded-2xl p-6 mb-6">
+                    <p class="title-font text-3xl text-orange-700">Skor Akhir: <span x-text="score"></span> ⭐</p>
+                </div>
+                <div class="space-y-4">
+                    <a href="evaluasi.html" class="inline-block bg-gradient-to-r from-orange-400 to-pink-600 text-white title-font text-2xl px-8 py-4 rounded-full shadow-lg">
+                        ➡️ Lanjut ke Evaluasi
+                    </a>
+                    <br>
+                    <button @click="restartGame()" class="inline-block bg-gradient-to-r from-orange-400 to-rose-400 text-white title-font text-xl px-6 py-3 rounded-full shadow-lg">
+                        🔄 Main Lagi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 text-white py-4 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg">© 2024 Bahan Ajar Interaktif - TK-B Seni Musik</p>
+        </div>
+    </footer>
+
+    <script>
+        function movementGame() {
+            return {
+                score: 0,
+                gameStage: 1,
+                danceIndex: 0,
+                movementIndex: 0,
+                tfIndex: 0,
+                showDanceFeedback: false,
+                isDanceCorrect: false,
+                danceFeedbackText: '',
+                showMovementFeedback: false,
+                isMovementCorrect: false,
+                movementFeedbackText: '',
+                showTFFeedback: false,
+                isTFCorrect: false,
+                tffeedbackText: '',
+                dances: [
+                    { emoji: '🍽️', name: 'Tari Piring', region: 'Sumatera Barat' },
+                    { emoji: '🤝', name: 'Tari Saman', region: 'Aceh' },
+                    { emoji: '🙌', name: 'Tari Kecak', region: 'Bali' },
+                    { emoji: '💃', name: 'Tari Jaipong', region: 'Jawa Barat' }
+                ],
+                regions: ['Sumatera Barat', 'Aceh', 'Bali', 'Jawa Barat', 'Jawa Tengah', 'Papua'],
+                movementQuestions: [
+                    { emoji: '👋', action: 'Melambai', description: 'Menggerakkan tangan ke kiri dan kanan', answer: 'Gerakan Tangan' },
+                    { emoji: '🦶', action: 'Melangkah', description: 'Memindahkan kaki dari satu tempat ke tempat lain', answer: 'Gerakan Kaki' },
+                    { emoji: '😊', action: 'Tersenyum', description: 'Menggerakkan bibir dan pipi', answer: 'Gerakan Wajah' },
+                    { emoji: '🤸', action: 'Membungkuk', description: 'Menundukkan badan ke depan', answer: 'Gerakan Badan' }
+                ],
+                movementTypes: ['Gerakan Tangan', 'Gerakan Kaki', 'Gerakan Wajah', 'Gerakan Badan'],
+                tfStatements: [
+                    { statement: 'Tari Piring berasal dari Jawa Tengah', answer: false },
+                    { statement: 'Tari Saman dimainkan berkelompok', answer: true },
+                    { statement: 'Tari Kecak berasal dari Bali', answer: true },
+                    { statement: 'Tari Jaipong berasal dari Sumatera', answer: false },
+                    { statement: 'Menari bisa membuat tubuh sehat', answer: true }
+                ],
+                get currentDance() { return this.dances[this.danceIndex]; },
+                get movementQuestion() { return this.movementQuestions[this.movementIndex]; },
+                get tfStatement() { return this.tfStatements[this.tfIndex]; },
+                getRegionClass(region) {
+                    const colors = {
+                        'Sumatera Barat': 'bg-gradient-to-br from-amber-400 to-yellow-500 text-white',
+                        'Aceh': 'bg-gradient-to-br from-red-400 to-rose-500 text-white',
+                        'Bali': 'bg-gradient-to-br from-orange-400 to-amber-500 text-white',
+                        'Jawa Barat': 'bg-gradient-to-br from-pink-400 to-rose-500 text-white',
+                        'Jawa Tengah': 'bg-gradient-to-br from-gray-400 to-slate-500 text-white',
+                        'Papua': 'bg-gradient-to-br from-brown-400 to-orange-600 text-white'
+                    };
+                    return colors[region] || 'bg-gray-400 text-white';
+                },
+                checkDance(region) {
+                    this.showDanceFeedback = true;
+                    this.isDanceCorrect = region === this.currentDance.region;
+                    if (this.isDanceCorrect) {
+                        this.score += 10;
+                        this.danceFeedbackText = `🎉 Benar! ${this.currentDance.name} berasal dari ${region}!`;
+                    } else {
+                        this.danceFeedbackText = `😅 Almost! ${this.currentDance.name} bukan dari ${region}`;
+                        setTimeout(() => { this.showDanceFeedback = false; }, 1500);
+                    }
+                },
+                nextDance() {
+                    this.danceIndex++;
+                    this.showDanceFeedback = false;
+                    if (this.danceIndex >= this.dances.length) {
+                        this.gameStage = 2;
+                    }
+                },
+                checkMovement(type) {
+                    this.showMovementFeedback = true;
+                    this.isMovementCorrect = type === this.movementQuestion.answer;
+                    if (this.isMovementCorrect) {
+                        this.score += 15;
+                        this.movementFeedbackText = `✅ Benar! Itu adalah ${type}!`;
+                    } else {
+                        this.movementFeedbackText = `💭 Hmm, itu bukan ${type}`;
+                        setTimeout(() => { this.showMovementFeedback = false; }, 2000);
+                    }
+                },
+                nextMovement() {
+                    this.movementIndex++;
+                    this.showMovementFeedback = false;
+                    if (this.movementIndex >= this.movementQuestions.length) {
+                        this.gameStage = 3;
+                    }
+                },
+                checkTF(answer) {
+                    this.showTFFeedback = true;
+                    this.isTFCorrect = answer === this.tfStatement.answer;
+                    if (this.isTFCorrect) {
+                        this.score += 20;
+                        this.tffeedbackText = `✅ Benar! "${this.tfStatement.statement}" adalah ${this.tfStatement.answer ? 'pernyataan yang benar' : 'pernyataan yang salah'}!`;
+                    } else {
+                        this.tffeedbackText = `🤔 Hmm, pernyataan itu sebenarnya ${this.tfStatement.answer ? 'benar' : 'salah'}!`;
+                        setTimeout(() => { this.showTFFeedback = false; }, 2500);
+                    }
+                },
+                nextTF() {
+                    this.tfIndex++;
+                    this.showTFFeedback = false;
+                    if (this.tfIndex >= this.tfStatements.length) {
+                        this.gameStage = 4;
+                    }
+                },
+                restartGame() {
+                    this.score = 0;
+                    this.gameStage = 1;
+                    this.danceIndex = 0;
+                    this.movementIndex = 0;
+                    this.tfIndex = 0;
+                    this.showDanceFeedback = false;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

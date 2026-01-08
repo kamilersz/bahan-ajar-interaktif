@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidup & Tak Hidup - Teori | Sains TK-B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .font-comic { font-family: 'Comic Neue', cursive; }
+        .card:hover { transform: scale(1.02); transition: all 0.3s ease; }
+        .bounce { animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-green-100 via-emerald-100 to-teal-100 min-h-screen">
+
+    <header class="bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <a href="../index.html" class="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/30"><span>⬅️</span><span class="font-bold">Kembali</span></a>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-center">Hidup & Tak Hidup</h1>
+                <div class="w-24"></div>
+            </div>
+        </div>
+    </header>
+
+    <section class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-green-300">
+            <div class="flex items-center gap-3 mb-4"><span class="text-4xl bounce">🌍</span><h2 class="text-2xl font-bold font-comic">Makhluk Hidup & Tak Hidup</h2></div>
+            <p class="text-lg text-gray-700"><strong class="text-green-600">Adik-adik</strong>, di sekitar kita ada banyak benda. Ada yang hidup dan ada yang tidak hidup. Yuk, belajar membedakannya!</p>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-6">
+        <h3 class="text-2xl font-bold text-center mb-6 font-comic">Makhluk Hidup</h3>
+
+        <div class="card bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl shadow-2xl p-6 mb-6 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-8xl">🌱</div>
+                <div class="flex-1">
+                    <h4 class="text-3xl font-bold mb-2">Ciri-ciri Makhluk Hidup:</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-white/20 rounded-xl p-3"><span class="text-2xl">🍽️</span><p>Makan untuk mendapatkan energi</p></div>
+                        <div class="bg-white/20 rounded-xl p-3"><span class="text-2xl">👶</span><p>Berkembang biak</p></div>
+                        <div class="bg-white/20 rounded-xl p-3"><span class="text-2xl">💨</span><p>Bernapas</p></div>
+                        <div class="bg-white/20 rounded-xl p-3"><span class="text-2xl">🚶</span><p>Bergerak</p></div>
+                        <div class="bg-white/20 rounded-xl p-3"><span class="text-2xl">📏</span><p>Tumbuh dan berkembang</p></div>
+                        <div class="bg-white/20 rounded-xl p-3"><span class="text-2xl">😢</span><p>Merespon lingkungan</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="text-2xl font-bold text-center mt-8 mb-6 font-comic">Contoh Makhluk Hidup</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+            <div class="bg-white rounded-2xl p-4 shadow-lg text-center"><div class="text-5xl mb-2">👤</div><p class="font-bold">Manusia</p></div>
+            <div class="bg-white rounded-2xl p-4 shadow-lg text-center"><div class="text-5xl mb-2">🐕</div><p class="font-bold">Hewan</p></div>
+            <div class="bg-white rounded-2xl p-4 shadow-lg text-center"><div class="text-5xl mb-2">🌳</div><p class="font-bold">Tanaman</p></div>
+            <div class="bg-white rounded-2xl p-4 shadow-lg text-center"><div class="text-5xl mb-2">🦠</div><p class="font-bold">Mikroba</p></div>
+        </div>
+
+        <h3 class="text-2xl font-bold text-center mt-8 mb-6 font-comic">Benda Tak Hidup</h3>
+        <div class="card bg-gradient-to-br from-gray-500 to-gray-700 rounded-3xl shadow-2xl p-6 mb-6 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-8xl">🪑</div>
+                <div class="flex-1">
+                    <h4 class="text-3xl font-bold mb-2">Ciri-ciri Benda Tak Hidup:</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-white/20 rounded-xl p-3"><span class="text-2xl">❌</span><p>Tidak makan</p></div>
+                        <div class="bg-white/20 rounded-xl p-3"><span class="text-2xl">❌</span><p>Tidak bernapas</p></div>
+                        <div class="bg-white/20 rounded-xl p-3"><span class="text-2xl">❌</span><p>Tidak bergerak sendiri</p></div>
+                        <div class="bg-white/20 rounded-xl p-3"><span class="text-2xl">❌</span><p>Tidak berkembang biak</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="text-2xl font-bold text-center mt-8 mb-6 font-comic">Contoh Benda Tak Hidup</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div class="bg-white rounded-2xl p-4 shadow-lg text-center"><div class="text-5xl mb-2">🪑</div><p class="font-bold">Kursi</p></div>
+            <div class="bg-white rounded-2xl p-4 shadow-lg text-center"><div class="text-5xl mb-2">📚</div><p class="font-bold">Buku</p></div>
+            <div class="bg-white rounded-2xl p-4 shadow-lg text-center"><div class="text-5xl mb-2">🚗</div><p class="font-bold">Mobil</p></div>
+            <div class="bg-white rounded-2xl p-4 shadow-lg text-center"><div class="text-5xl mb-2">⌚</div><p class="font-bold">Jam</p></div>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row justify-center gap-4">
+            <a href="../index.html" class="flex-1 max-w-xs bg-gray-500 text-white text-center py-4 px-6 rounded-2xl font-bold shadow-xl hover:shadow-2xl transition">⬅️ Kembali ke Menu</a>
+            <a href="latihan.html" class="flex-1 max-w-xs bg-green-500 text-white text-center py-4 px-6 rounded-2xl font-bold shadow-xl hover:shadow-2xl transition">Lanjut ke Latihan ➡️</a>
+        </div>
+    </section>
+
+    <footer class="bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4"><div class="container mx-auto px-4 text-center"><p class="font-semibold">© 2025 Bahan Ajar Interaktif - TK-B Sains</p></div></footer>
+</body>
+</html>

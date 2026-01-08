@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hewan - Teori | Sains TK-B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .font-comic { font-family: 'Comic Neue', cursive; }
+        .animal-card:hover { transform: scale(1.03); }
+        .animal-card { transition: all 0.3s ease; }
+        .bounce { animation: bounce 2s infinite; }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-cyan-100 to-sky-100 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-500 via-cyan-500 to-sky-500 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <a href="../index.html" class="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/30 transition">
+                    <span>⬅️</span>
+                    <span class="font-bold">Kembali</span>
+                </a>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-center">Hewan</h1>
+                <div class="w-24"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Introduction -->
+    <section class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-blue-300">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl bounce">🐾</span>
+                <h2 class="text-2xl font-bold text-gray-800 font-comic">Kenali Dunia Hewan!</h2>
+            </div>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                <strong class="text-blue-600">Adik-adik</strong>, hewan adalah makhluk hidup yang ada di sekitar kita.
+                Ada banyak jenis hewan di dunia ini! Ada yang hidup di darat, di air, dan di udara.
+                Yuk, kenalan dengan berbagai hewan! 🌍
+            </p>
+        </div>
+    </section>
+
+    <!-- Animal Groups -->
+    <section class="container mx-auto px-4 py-6">
+        <h3 class="text-2xl font-bold text-center text-gray-800 mb-6 font-comic">Jenis-jenis Hewan</h3>
+
+        <!-- Darat -->
+        <div class="animal-card bg-gradient-to-br from-amber-500 to-orange-600 rounded-3xl shadow-2xl p-6 mb-6 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-8xl">🦁</div>
+                <div class="flex-1">
+                    <h4 class="text-3xl font-bold mb-2">Hewan Darat</h4>
+                    <p class="text-lg mb-3">Hewan yang hidup di darat. Mereka berjalan atau berlari menggunakan kaki.</p>
+                    <div class="bg-white/20 rounded-2xl p-4">
+                        <p class="font-semibold mb-2">🦁 Contoh hewan darat:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-white px-3 py-1 rounded-full text-amber-600 font-bold">🐱 Kucing</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-amber-600 font-bold">🐶 Anjing</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-amber-600 font-bold">🐘 Gajah</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-amber-600 font-bold">🦁 Singa</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-amber-600 font-bold">🦒 Jerapah</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-amber-600 font-bold">🐒 Monyet</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Air -->
+        <div class="animal-card bg-gradient-to-br from-blue-500 to-cyan-600 rounded-3xl shadow-2xl p-6 mb-6 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-8xl">🐟</div>
+                <div class="flex-1">
+                    <h4 class="text-3xl font-bold mb-2">Hewan Air</h4>
+                    <p class="text-lg mb-3">Hewan yang hidup di air. Mereka berenang menggunakan sirip dan ekor.</p>
+                    <div class="bg-white/20 rounded-2xl p-4">
+                        <p class="font-semibold mb-2">🐠 Contoh hewan air:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-white px-3 py-1 rounded-full text-blue-600 font-bold">🐟 Ikan</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-blue-600 font-bold">🐙 Gurita</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-blue-600 font-bold">🦀 Kepiting</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-blue-600 font-bold">🐬 Lumba-lumba</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-blue-600 font-bold">🐋 Paus</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-blue-600 font-bold">🐢 Penyu</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Udara -->
+        <div class="animal-card bg-gradient-to-br from-sky-500 to-indigo-600 rounded-3xl shadow-2xl p-6 mb-6 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-8xl">🦅</div>
+                <div class="flex-1">
+                    <h4 class="text-3xl font-bold mb-2">Hewan Udara</h4>
+                    <p class="text-lg mb-3">Hewan yang terbang di udara. Mereka memiliki sayap untuk terbang.</p>
+                    <div class="bg-white/20 rounded-2xl p-4">
+                        <p class="font-semibold mb-2">🦅 Contoh hewan udara:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-white px-3 py-1 rounded-full text-sky-600 font-bold">🐦 Burung</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-sky-600 font-bold">🦋 Kupu-kupu</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-sky-600 font-bold">🦇 Kelelawar</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-sky-600 font-bold">🦅 Elang</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-sky-600 font-bold">🐝 Lebah</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-sky-600 font-bold">🦢 Angsa</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Animal Homes -->
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-green-200 to-emerald-200 rounded-3xl shadow-2xl p-6 border-4 border-green-400">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">🏠</span>
+                <h3 class="text-2xl font-bold text-gray-800 font-comic">Rumah Hewan</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3">
+                    <span class="text-3xl">🦁</span>
+                    <p class="text-gray-700">Singa tinggal di <strong>padang savana</strong></p>
+                </div>
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3">
+                    <span class="text-3xl">🐟</span>
+                    <p class="text-gray-700">Ikan tinggal di <strong>air</strong></p>
+                </div>
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3">
+                    <span class="text-3xl">🐦</span>
+                    <p class="text-gray-700">Burung tinggal di <strong>sarang</strong></p>
+                </div>
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3">
+                    <span class="text-3xl">🐰</span>
+                    <p class="text-gray-700">Kelinci tinggal di <strong>lubang tanah</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Animal Food -->
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-yellow-200 to-orange-200 rounded-3xl shadow-2xl p-6 border-4 border-yellow-400">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">🍽️</span>
+                <h3 class="text-2xl font-bold text-gray-800 font-comic">Makanan Hewan</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3">
+                    <span class="text-3xl">🦁</span>
+                    <p class="text-gray-700">Karnivora: <strong>Daging</strong> (Singa, Harimau)</p>
+                </div>
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3">
+                    <span class="text-3xl">🐰</span>
+                    <p class="text-gray-700">Herbivora: <strong>Tumbuhan</strong> (Kelinci, Sapi)</p>
+                </div>
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3">
+                    <span class="text-3xl">🐻</span>
+                    <p class="text-gray-700">Omnivora: <strong>Daging & Tumbuhan</strong> (Beruang, Ayam)</p>
+                </div>
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3">
+                    <span class="text-3xl">🐝</span>
+                    <p class="text-gray-700">Insektivora: <strong>Serangga</strong> (Kadal, Tokek)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Important Note -->
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-rose-200 to-pink-200 rounded-3xl shadow-2xl p-6 border-4 border-rose-400">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">💡</span>
+                <h3 class="text-2xl font-bold text-gray-800 font-comic">Sayangi Hewan!</h3>
+            </div>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Hewan adalah makhluk hidup yang juga punya perasaan. Kita harus <strong>menyayangi</strong> dan
+                <strong>melindungi</strong> hewan. Jangan menyakiti hewan, ya! Kita bisa merawat hewan peliharaan kita
+                dengan memberikan makan, minum, dan kasih sayang. 🐾💖
+            </p>
+        </div>
+    </section>
+
+    <!-- Navigation Buttons -->
+    <section class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row justify-center gap-4">
+            <a href="../index.html" class="flex-1 max-w-xs bg-gradient-to-r from-gray-500 to-gray-600 text-white text-center py-4 px-6 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition">
+                ⬅️ Kembali ke Menu
+            </a>
+            <a href="latihan.html" class="flex-1 max-w-xs bg-gradient-to-r from-green-500 to-emerald-600 text-white text-center py-4 px-6 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition">
+                Lanjut ke Latihan ➡️
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-4">
+        <div class="container mx-auto px-4 text-center">
+            <p class="font-semibold">© 2025 Bahan Ajar Interaktif - TK-B Sains</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn Family - TK-B English</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+    body {
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .family-card {
+      transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .family-card:hover {
+      transform: translateY(-8px) scale(1.05);
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen">
+  <div x-data="{ 
+    selectedMember: null,
+    familyMembers: [
+      { id: 'father', name: 'Father', emoji: '👨', desc: 'Father is strong and takes care of us.' },
+      { id: 'mother', name: 'Mother', emoji: '👩', desc: 'Mother is kind and loves us very much.' },
+      { id: 'brother', name: 'Brother', emoji: '👦', desc: 'A brother is a boy sibling who plays with you!' },
+      { id: 'sister', name: 'Sister', emoji: '👧', desc: 'A sister is a girl sibling who shares toys!' },
+      { id: 'grandfather', name: 'Grandfather', emoji: '👴', desc: 'Grandfather tells the best stories!' },
+      { id: 'grandmother', name: 'Grandmother', emoji: '👵', desc: 'Grandmother gives the warmest hugs.' },
+      { id: 'uncle', name: 'Uncle', emoji: '🤵', desc: 'Uncle is mother or father\'s brother!' },
+      { id: 'aunt', name: 'Aunt', emoji: '👩‍💼', desc: 'Aunt is mother or father\'s sister!' }
+    ]
+  }">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white py-8 shadow-lg text-center">
+      <div class="container mx-auto px-4">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-2">👨‍👩‍👧‍👦 My Family</h1>
+        <p class="text-xl text-white/90">Let's meet my wonderful family!</p>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+      <!-- Intro Section -->
+      <section class="bg-white rounded-3xl shadow-xl p-8 mb-10 transform hover:shadow-2xl transition-shadow">
+        <div class="flex flex-col md:flex-row items-center gap-6">
+          <div class="text-7xl">🏠</div>
+          <div class="text-center md:text-left">
+            <h2 class="text-3xl font-bold text-purple-700 mb-2">What is a Family?</h2>
+            <p class="text-xl text-gray-700 leading-relaxed">
+              A family is a group of people who love and care for each other. 
+              We live together and help one another every day!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Member Selection -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-center text-purple-800 mb-8 font-primary">✨ Click to Meet a Family Member!</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+          <template x-for="member in familyMembers" :key="member.id">
+            <button @click="selectedMember = member" 
+              class="family-card bg-white p-6 rounded-3xl shadow-lg border-b-8 border-purple-200 hover:border-purple-400 flex flex-col items-center">
+              <span class="text-6xl mb-4" x-text="member.emoji"></span>
+              <span class="font-bold text-purple-900 text-xl" x-text="member.name"></span>
+            </button>
+          </template>
+        </div>
+      </section>
+
+      <!-- Detail Modal/Section -->
+      <div x-show="selectedMember" x-transition.opacity.scale.origin.top 
+           class="bg-white rounded-[3rem] shadow-2xl p-10 mb-12 border-4 border-purple-100 relative overflow-hidden">
+        <!-- Decorative Circle -->
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-purple-50 rounded-full opacity-50"></div>
+        
+        <div class="relative z-10 flex flex-col items-center text-center">
+          <h3 class="text-4xl font-extrabold text-blue-600 mb-4" x-text="'Hello, ' + selectedMember.name + '!'"></h3>
+          <div class="text-[10rem] mb-6 drop-shadow-xl" x-text="selectedMember.emoji"></div>
+          
+          <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-8 w-full max-w-2xl">
+            <p class="text-2xl text-purple-900 mb-4 font-semibold italic" x-text="selectedMember.desc"></p>
+            <p class="text-lg text-gray-600">We say: <span class="text-pink-500 font-bold" x-text="selectedMember.name"></span></p>
+          </div>
+          
+          <button @click="selectedMember = null" 
+            class="mt-10 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-4 px-12 rounded-full text-xl shadow-lg hover:scale-105 transition-transform active:scale-95">
+            See More Family 🏠
+          </button>
+        </div>
+      </div>
+
+      <!-- Love & Interaction Section -->
+      <div class="grid md:grid-cols-2 gap-8 mb-12">
+        <section class="bg-blue-100 rounded-3xl p-8 shadow-inner border-t-8 border-blue-400">
+          <h2 class="text-2xl font-bold text-blue-700 mb-4 flex items-center">
+            <span class="mr-3 text-3xl">💖</span> We Love Our Family!
+          </h2>
+          <p class="text-lg text-blue-900">
+            Show love by:
+            <ul class="mt-4 space-y-2 list-disc list-inside text-blue-800">
+              <li>Giving big hugs!</li>
+              <li>Saying "I love you"</li>
+              <li>Helping clean up toys</li>
+            </ul>
+          </p>
+        </section>
+
+        <section class="bg-pink-100 rounded-3xl p-8 shadow-inner border-t-8 border-pink-400">
+          <h2 class="text-2xl font-bold text-pink-700 mb-4 flex items-center">
+            <span class="mr-3 text-3xl">🗣️</span> Practice Saying...
+          </h2>
+          <div class="space-y-3">
+            <div class="bg-white/60 p-3 rounded-xl font-bold text-pink-900">"This is my Mother!"</div>
+            <div class="bg-white/60 p-3 rounded-xl font-bold text-pink-900">"My Brother likes to play!"</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Action Button -->
+      <div class="text-center">
+        <a href="latihan.html" 
+           class="inline-block bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 text-white font-bold py-5 px-16 rounded-full text-2xl shadow-xl transform hover:scale-110 transition-all hover:rotate-2">
+          🎮 Play Family Games!
+        </a>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-12 mt-16">
+      <div class="container mx-auto px-4 text-center">
+        <div class="text-4xl mb-4">🏠👨‍👩‍👧‍👦</div>
+        <p class="text-xl font-semibold opacity-90">Family is where love begins.</p>
+        <p class="text-sm opacity-60 mt-4">© 2025 Interactive Learning - Family Module</p>
+      </div>
+    </footer>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bagian Tubuh - Teori | Sains TK-B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .font-comic { font-family: 'Comic Neue', cursive; }
+        .part-card:hover { transform: scale(1.05) translateY(-5px); }
+        .part-card { transition: all 0.3s ease; }
+        .bounce { animation: bounce 2s infinite; }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-yellow-100 via-amber-100 to-orange-100 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <a href="../index.html" class="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/30 transition">
+                    <span>⬅️</span>
+                    <span class="font-bold">Kembali</span>
+                </a>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-center">Bagian Tubuh</h1>
+                <div class="w-24"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Introduction -->
+    <section class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-yellow-300">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl bounce">🙆</span>
+                <h2 class="text-2xl font-bold text-gray-800 font-comic">Kenali Tubuh Kita!</h2>
+            </div>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                <strong class="text-amber-600">Adik-adik,</strong> tubuh kita terdiri dari banyak bagian yang bekerja sama.
+                Setiap bagian tubuh memiliki <strong>fungsi</strong> dan <strong>tugas</strong> masing-masing.
+                Yuk, kenalan dengan bagian-bagian tubuh kita! 🌟
+            </p>
+        </div>
+    </section>
+
+    <!-- Body Parts -->
+    <section class="container mx-auto px-4 py-6">
+        <h3 class="text-2xl font-bold text-center text-gray-800 mb-6 font-comic">Bagian-bagian Tubuh Kita</h3>
+
+        <!-- Head Section -->
+        <div class="part-card bg-gradient-to-br from-blue-400 to-blue-600 rounded-3xl shadow-2xl p-6 mb-6 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-8xl">🗣️</div>
+                <div class="flex-1">
+                    <h4 class="text-3xl font-bold mb-2">Kepala</h4>
+                    <p class="text-lg mb-3">Kepala adalah bagian tubuh yang ada di paling atas. Di dalam kepala ada otak yang mengatur semua aktivitas tubuh.</p>
+                    <div class="bg-white/20 rounded-2xl p-4">
+                        <p class="font-semibold mb-2">📍 Bagian-bagian kepala:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-white px-3 py-1 rounded-full text-blue-600 font-bold">👀 Mata</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-blue-600 font-bold">👂 Telinga</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-blue-600 font-bold">👃 Hidung</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-blue-600 font-bold">👅 Mulut</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-blue-600 font-bold">💇 Rambut</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arms and Hands -->
+        <div class="part-card bg-gradient-to-br from-green-400 to-green-600 rounded-3xl shadow-2xl p-6 mb-6 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-8xl">💪</div>
+                <div class="flex-1">
+                    <h4 class="text-3xl font-bold mb-2">Tangan dan Lengan</h4>
+                    <p class="text-lg mb-3">Tangan kita gunakan untuk memegang, menulis, makan, dan banyak aktivitas lainnya!</p>
+                    <div class="bg-white/20 rounded-2xl p-4">
+                        <p class="font-semibold mb-2">👍 Fungsi tangan:</p>
+                        <div class="grid grid-cols-2 gap-2 text-sm">
+                            <div>🖐️ Memegang benda</div>
+                            <div>✍️ Menulis dan menggambar</div>
+                            <div>👉 Menunjuk arah</div>
+                            <div>🤝 Bersalaman</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="part-card bg-gradient-to-br from-purple-400 to-purple-600 rounded-3xl shadow-2xl p-6 mb-6 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-8xl">🫁</div>
+                <div class="flex-1">
+                    <h4 class="text-3xl font-bold mb-2">Badan</h4>
+                    <p class="text-lg mb-3">Badan atau tubuh adalah bagian tengah yang melindungi organ penting seperti jantung dan paru-paru.</p>
+                    <div class="bg-white/20 rounded-2xl p-4">
+                        <p class="font-semibold mb-2">❤️ Organ penting di badan:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-white px-3 py-1 rounded-full text-purple-600 font-bold">❤️ Jantung</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-purple-600 font-bold">🫁 Paru-paru</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-purple-600 font-bold">🧠 Otak</span>
+                            <span class="bg-white px-3 py-1 rounded-full text-purple-600 font-bold">🫃 Perut</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legs and Feet -->
+        <div class="part-card bg-gradient-to-br from-orange-400 to-orange-600 rounded-3xl shadow-2xl p-6 mb-6 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-8xl">🦵</div>
+                <div class="flex-1">
+                    <h4 class="text-3xl font-bold mb-2">Kaki dan Tungkai</h4>
+                    <p class="text-lg mb-3">Kaki kita gunakan untuk berjalan, berlari, melompat, dan berdiri!</p>
+                    <div class="bg-white/20 rounded-2xl p-4">
+                        <p class="font-semibold mb-2">🏃 Fungsi kaki:</p>
+                        <div class="grid grid-cols-2 gap-2 text-sm">
+                            <div>🚶 Berjalan</div>
+                            <div>🏃 Berlari</div>
+                            <div>🦘 Melompat</div>
+                            <div>🧘 Berdiri</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Body Parts Count -->
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-pink-200 to-rose-200 rounded-3xl shadow-2xl p-6 border-4 border-pink-400">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">🔢</span>
+                <h3 class="text-2xl font-bold text-gray-800 font-comic">Jumlah Bagian Tubuh</h3>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white rounded-2xl p-4 text-center shadow-lg">
+                    <div class="text-4xl mb-2">👀</div>
+                    <p class="font-bold text-lg">Mata</p>
+                    <p class="text-3xl font-bold text-blue-600">2</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 text-center shadow-lg">
+                    <div class="text-4xl mb-2">👂</div>
+                    <p class="font-bold text-lg">Telinga</p>
+                    <p class="text-3xl font-bold text-purple-600">2</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 text-center shadow-lg">
+                    <div class="text-4xl mb-2">✋</div>
+                    <p class="font-bold text-lg">Tangan</p>
+                    <p class="text-3xl font-bold text-green-600">2</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 text-center shadow-lg">
+                    <div class="text-4xl mb-2">🦶</div>
+                    <p class="font-bold text-lg">Kaki</p>
+                    <p class="text-3xl font-bold text-orange-600">2</p>
+                </div>
+            </div>
+            <div class="mt-4 text-center text-gray-700">
+                <p class="text-lg">Tapi kita punya <strong>1 hidung</strong>, <strong>1 mulut</strong>, dan <strong>1 badan</strong> saja! 😊</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Importance of Body Parts -->
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-yellow-200 to-amber-200 rounded-3xl shadow-2xl p-6 border-4 border-yellow-400">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">💡</span>
+                <h3 class="text-2xl font-bold text-gray-800 font-comic">Semua Bagian Tubuh Penting!</h3>
+            </div>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Setiap bagian tubuh kita sangat penting dan saling bekerja sama. Tanpa salah satu saja,
+                kita tidak bisa melakukan aktivitas dengan baik. Oleh karena itu, kita harus
+                <strong class="text-red-600">mensyukuri</strong> dan <strong class="text-red-600">merawat</strong> tubuh kita dengan baik, ya!
+                Caranya dengan makan makanan sehat, berolahraga, dan menjaga kebersihan. 💖
+            </p>
+        </div>
+    </section>
+
+    <!-- Navigation Buttons -->
+    <section class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row justify-center gap-4">
+            <a href="../index.html" class="flex-1 max-w-xs bg-gradient-to-r from-gray-500 to-gray-600 text-white text-center py-4 px-6 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition">
+                ⬅️ Kembali ke Menu
+            </a>
+            <a href="latihan.html" class="flex-1 max-w-xs bg-gradient-to-r from-green-500 to-emerald-600 text-white text-center py-4 px-6 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition">
+                Lanjut ke Latihan ➡️
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-yellow-600 to-amber-600 text-white py-4">
+        <div class="container mx-auto px-4 text-center">
+            <p class="font-semibold">© 2025 Bahan Ajar Interaktif - TK-B Sains</p>
+        </div>
+    </footer>
+
+</body>
+</html>

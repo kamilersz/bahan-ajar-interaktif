@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menggambar Bentuk - TK-B Seni</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive;
+        }
+        .title-font {
+            font-family: 'Fredoka One', cursive;
+        }
+        .bounce-hover:hover {
+            animation: bounce 0.5s ease infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .wiggle {
+            animation: wiggle 1s ease-in-out infinite;
+        }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+        .shape-card {
+            transition: all 0.3s ease;
+        }
+        .shape-card:hover {
+            transform: scale(1.05);
+        }
+        .pulse-border {
+            animation: pulse-border 2s ease-in-out infinite;
+        }
+        @keyframes pulse-border {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(147, 51, 234, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(147, 51, 234, 0); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-green-100 via-blue-100 to-purple-100 min-h-screen" x-data="{ selectedShape: null, showInfo: false }">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="title-font text-4xl md:text-5xl mb-2 wiggle inline-block">✏️ Menggambar Bentuk ✏️</h1>
+            <p class="text-xl">Belajar Menggambar dengan Ceria!</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Introduction -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-green-300">
+            <div class="text-center mb-6">
+                <div class="text-6xl mb-4">👋</div>
+                <h2 class="title-font text-3xl text-green-600 mb-4">Halo, Adik-adik!</h2>
+                <p class="text-xl text-gray-700 leading-relaxed">
+                    Hari ini kita akan belajar <strong class="text-purple-500">menggambar berbagai bentuk</strong>!
+                    Bentuk-bentuk ini ada di mana-mana sekitar kita. Are you ready? 🎨
+                </p>
+            </div>
+        </section>
+
+        <!-- Basic Shapes -->
+        <section class="mb-8">
+            <h2 class="title-font text-3xl text-center text-green-600 mb-6">✨ Bentuk-bentuk Dasar ✨</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Lingkaran -->
+                <div class="shape-card bg-gradient-to-br from-red-100 to-pink-100 rounded-3xl shadow-xl p-6 border-4 border-red-300 cursor-pointer pulse-border"
+                     @click="selectedShape = 'lingkaran'; showInfo = true"
+                     :class="{ 'ring-8 ring-red-400': selectedShape === 'lingkaran' }">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="title-font text-4xl mb-2 text-red-600">LINGKARAN</h3>
+                            <p class="text-lg text-gray-700">Bentuk yang Bulat!</p>
+                        </div>
+                        <div class="w-32 h-32 bg-gradient-to-br from-red-400 to-red-600 rounded-full flex items-center justify-center shadow-lg">
+                            <span class="text-white text-5xl">⚪</span>
+                        </div>
+                    </div>
+                    <div x-show="showInfo && selectedShape === 'lingkaran'" x-transition class="mt-4 bg-white rounded-2xl p-4">
+                        <p class="font-bold text-lg text-red-700 mb-2">Ciri-ciri Lingkaran:</p>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>🔵 Tidak ada sudut sama sekali</li>
+                            <li>🔵 Sudutnya melengkung semua</li>
+                            <li>🔵 Contoh: Bola, Koin, Donat!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Persegi/Kotak -->
+                <div class="shape-card bg-gradient-to-br from-blue-100 to-cyan-100 rounded-3xl shadow-xl p-6 border-4 border-blue-300 cursor-pointer pulse-border"
+                     @click="selectedShape = 'persegi'; showInfo = true"
+                     :class="{ 'ring-8 ring-blue-400': selectedShape === 'persegi' }">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="title-font text-4xl mb-2 text-blue-600">PERSEGI</h3>
+                            <p class="text-lg text-gray-700">Bentuk Kotak!</p>
+                        </div>
+                        <div class="w-32 h-32 bg-gradient-to-br from-blue-400 to-blue-600 rounded-none flex items-center justify-center shadow-lg">
+                            <span class="text-white text-5xl">⬜</span>
+                        </div>
+                    </div>
+                    <div x-show="showInfo && selectedShape === 'persegi'" x-transition class="mt-4 bg-white rounded-2xl p-4">
+                        <p class="font-bold text-lg text-blue-700 mb-2">Ciri-ciri Persegi:</p>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>🟦 Punya 4 sisi sama panjang</li>
+                            <li>🟦 Punya 4 sudut siku-siku</li>
+                            <li>🟦 Contoh: Kotak Tisu, Dadu!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Segitiga -->
+                <div class="shape-card bg-gradient-to-br from-yellow-100 to-orange-100 rounded-3xl shadow-xl p-6 border-4 border-yellow-300 cursor-pointer pulse-border"
+                     @click="selectedShape = 'segitiga'; showInfo = true"
+                     :class="{ 'ring-8 ring-yellow-400': selectedShape === 'segitiga' }">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="title-font text-4xl mb-2 text-yellow-600">SEGITIGA</h3>
+                            <p class="text-lg text-gray-700">Bentuk Lancip!</p>
+                        </div>
+                        <div class="w-32 h-32 flex items-center justify-center shadow-lg">
+                            <svg width="120" height="120" viewBox="0 0 120 120">
+                                <polygon points="60,10 110,110 10,110" fill="url(#yellowGradient)" stroke="#ca8a04" stroke-width="4"/>
+                                <defs>
+                                    <linearGradient id="yellowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#fde047;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#facc15;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                    </div>
+                    <div x-show="showInfo && selectedShape === 'segitiga'" x-transition class="mt-4 bg-white rounded-2xl p-4">
+                        <p class="font-bold text-lg text-yellow-700 mb-2">Ciri-ciri Segitiga:</p>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>🔺 Punya 3 sisi</li>
+                            <li>🔺 Punya 3 sudut lancip</li>
+                            <li>🔺 Contoh: Potongan Pizza, Topi!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Persegi Panjang -->
+                <div class="shape-card bg-gradient-to-br from-green-100 to-emerald-100 rounded-3xl shadow-xl p-6 border-4 border-green-300 cursor-pointer pulse-border"
+                     @click="selectedShape = 'persegipanjang'; showInfo = true"
+                     :class="{ 'ring-8 ring-green-400': selectedShape === 'persegipanjang' }">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="title-font text-4xl mb-2 text-green-600">PERSEGI PANJANG</h3>
+                            <p class="text-lg text-gray-700">Kotak Panjang!</p>
+                        </div>
+                        <div class="w-40 h-28 bg-gradient-to-br from-green-400 to-green-600 rounded-none flex items-center justify-center shadow-lg">
+                            <span class="text-white text-4xl">📱</span>
+                        </div>
+                    </div>
+                    <div x-show="showInfo && selectedShape === 'persegipanjang'" x-transition class="mt-4 bg-white rounded-2xl p-4">
+                        <p class="font-bold text-lg text-green-700 mb-2">Ciri-ciri Persegi Panjang:</p>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>🟩 Punya 4 sisi (2 panjang, 2 pendek)</li>
+                            <li>🟩 Punya 4 sudut siku-siku</li>
+                            <li>🟩 Contoh: Buku, HP, Pintu!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Oval -->
+                <div class="shape-card bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl shadow-xl p-6 border-4 border-purple-300 cursor-pointer pulse-border"
+                     @click="selectedShape = 'oval'; showInfo = true"
+                     :class="{ 'ring-8 ring-purple-400': selectedShape === 'oval' }">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="title-font text-4xl mb-2 text-purple-600">OVAL</h3>
+                            <p class="text-lg text-gray-700">Lingkaran Pipih!</p>
+                        </div>
+                        <div class="w-40 h-24 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                            <span class="text-white text-4xl">🥚</span>
+                        </div>
+                    </div>
+                    <div x-show="showInfo && selectedShape === 'oval'" x-transition class="mt-4 bg-white rounded-2xl p-4">
+                        <p class="font-bold text-lg text-purple-700 mb-2">Ciri-ciri Oval:</p>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>🟣 Seperti lingkaran tapi pipih</li>
+                            <li>🟣 Tidak ada sudut</li>
+                            <li>🟣 Contoh: Telur, Cermin!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Bintang -->
+                <div class="shape-card bg-gradient-to-br from-yellow-100 to-amber-100 rounded-3xl shadow-xl p-6 border-4 border-amber-300 cursor-pointer pulse-border"
+                     @click="selectedShape = 'bintang'; showInfo = true"
+                     :class="{ 'ring-8 ring-amber-400': selectedShape === 'bintang' }">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="title-font text-4xl mb-2 text-amber-600">BINTANG</h3>
+                            <p class="text-lg text-gray-700">Bentuk Bercahaya!</p>
+                        </div>
+                        <div class="text-8xl">⭐</div>
+                    </div>
+                    <div x-show="showInfo && selectedShape === 'bintang'" x-transition class="mt-4 bg-white rounded-2xl p-4">
+                        <p class="font-bold text-lg text-amber-700 mb-2">Ciri-ciri Bintang:</p>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>⭐ Punya 5 ujung lancip</li>
+                            <li>⭐ Punya 5 sudut</li>
+                            <li>⭐ Contoh: Bintang di Langit!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Drawing Steps -->
+        <section class="bg-gradient-to-br from-pink-200 to-purple-200 rounded-3xl shadow-xl p-6 mb-8 border-4 border-pink-400">
+            <h2 class="title-font text-3xl text-center text-purple-700 mb-6">📝 Cara Menggambar 📝</h2>
+            <p class="text-center text-lg text-gray-700 mb-6">Begini cara menggambar setiap bentuk:</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-2xl p-5 shadow-lg">
+                    <h3 class="title-font text-2xl text-red-600 mb-3 flex items-center gap-2">
+                        <span>⭕</span> Menggambar Lingkaran
+                    </h3>
+                    <ol class="space-y-2 text-gray-700">
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold text-red-500">1.</span>
+                            <span>Bayangkan bola di atas kertas</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold text-red-500">2.</span>
+                            <span>Gerakkan pensil melingkar terus</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold text-red-500">3.</span>
+                            <span>Tutup lingkaran sampai bertemu lagi</span>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="bg-white rounded-2xl p-5 shadow-lg">
+                    <h3 class="title-font text-2xl text-blue-600 mb-3 flex items-center gap-2">
+                        <span>⬜</span> Menggambar Persegi
+                    </h3>
+                    <ol class="space-y-2 text-gray-700">
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold text-blue-500">1.</span>
+                            <span>Gambar garis lurus ke atas</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold text-blue-500">2.</span>
+                            <span>Lanjut garis lurus ke samping</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold text-blue-500">3.</span>
+                            <span>Ulangi sampai kotak tertutup</span>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="bg-white rounded-2xl p-5 shadow-lg">
+                    <h3 class="title-font text-2xl text-yellow-600 mb-3 flex items-center gap-2">
+                        <span>🔺</span> Menggambar Segitiga
+                    </h3>
+                    <ol class="space-y-2 text-gray-700">
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold text-yellow-600">1.</span>
+                            <span>Gambar garis lurus ke bawah</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold text-yellow-600">2.</span>
+                            <span>Dari ujung bawah, tarik garis miring</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold text-yellow-600">3.</span>
+                            <span>Tarik garis miring lagi ke atas</span>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="bg-white rounded-2xl p-5 shadow-lg">
+                    <h3 class="title-font text-2xl text-green-600 mb-3 flex items-center gap-2">
+                        <span>📱</span> Menggambar Persegi Panjang
+                    </h3>
+                    <ol class="space-y-2 text-gray-700">
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold text-green-500">1.</span>
+                            <span>Sama seperti persegi</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold text-green-500">2.</span>
+                            <span>Tapi garis atas bawah lebih panjang</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="font-bold text-green-500">3.</span>
+                            <span>Garis kiri kanan lebih pendek</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fun Activities -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-amber-400">
+            <h2 class="title-font text-3xl text-center text-amber-600 mb-6">🎯 Aktivitas Seru! 🎯</h2>
+            <div class="space-y-4">
+                <div class="bg-gradient-to-r from-pink-100 to-purple-100 rounded-2xl p-5 flex items-start gap-4">
+                    <div class="text-5xl">🎨</div>
+                    <div>
+                        <h3 class="font-bold text-xl text-purple-700 mb-2">Gambar Rumah!</h3>
+                        <p class="text-gray-700">
+                            Gabungkan persegi (badan rumah) dan segitiga (atap) untuk menggambar rumah yang cantik!
+                        </p>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-blue-100 to-cyan-100 rounded-2xl p-5 flex items-start gap-4">
+                    <div class="text-5xl">🚗</div>
+                    <div>
+                        <h3 class="font-bold text-xl text-blue-700 mb-2">Gambar Mobil!</h3>
+                        <p class="text-gray-700">
+                            Gunakan persegi panjang (badan mobil) dan lingkaran (roda) untuk menggambar mobil!
+                        </p>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl p-5 flex items-start gap-4">
+                    <div class="text-5xl">🌳</div>
+                    <div>
+                        <h3 class="font-bold text-xl text-orange-700 mb-2">Gambar Pohon!</h3>
+                        <p class="text-gray-700">
+                            Gunakan persegi panjang (batang) dan lingkaran/oval (daun) untuk menggambar pohon!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tips -->
+        <section class="bg-gradient-to-br from-cyan-100 to-blue-100 rounded-3xl shadow-xl p-6 mb-8 border-4 border-cyan-400">
+            <h2 class="title-font text-3xl text-center text-cyan-700 mb-6">💡 Tips Menggambar 💡</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white rounded-2xl p-4 shadow-md flex items-start gap-3">
+                    <span class="text-3xl">✏️</span>
+                    <p class="text-gray-700">Gunakan pensil agar bisa dihapus jika salah</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 shadow-md flex items-start gap-3">
+                    <span class="text-3xl">📏</span>
+                    <p class="text-gray-700">Latihan menggambar garis lurus dulu</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 shadow-md flex items-start gap-3">
+                    <span class="text-3xl">🔄</span>
+                    <p class="text-gray-700">Ulangi terus sampai bagus</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 shadow-md flex items-start gap-3">
+                    <span class="text-3xl">🌈</span>
+                    <p class="text-gray-700">Warnai gambar dengan warna cantik</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <div class="text-center mt-8 space-y-4">
+            <a href="latihan.html" class="inline-block bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white title-font text-2xl px-8 py-4 rounded-full shadow-lg bounce-hover transition-all">
+                ➡️ Lanjut ke Latihan
+            </a>
+            <br>
+            <a href="../001-mengenal-warna/teori.html" class="inline-block bg-gradient-to-r from-gray-400 to-gray-500 hover:from-gray-500 hover:to-gray-600 text-white title-font text-lg px-6 py-3 rounded-full shadow-lg transition-all">
+                ⬅️ Sebelumnya: Mengenal Warna
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 text-white py-4 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg">© 2024 Bahan Ajar Interaktif - TK-B Seni</p>
+            <p class="text-sm mt-1">Belajar dengan Ceria dan Bahagia! 🌟</p>
+        </div>
+    </footer>
+</body>
+</html>

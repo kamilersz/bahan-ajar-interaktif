@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panca Indra - Rangkuman | Sains TK-B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .font-comic { font-family: 'Comic Neue', cursive; }
+        .sense-summary { transition: all 0.3s ease; }
+        .sense-summary:hover { transform: scale(1.02); }
+        .float { animation: float 3s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-100 via-pink-100 to-rose-100 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <a href="../index.html" class="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/30 transition">
+                    <span>⬅️</span>
+                    <span class="font-bold">Kembali</span>
+                </a>
+                <h1 class="text-xl md:text-2xl font-extrabold text-center">Rangkuman Panca Indra</h1>
+                <div class="w-24"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Introduction -->
+    <section class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-purple-300">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl float">📚</span>
+                <h2 class="text-2xl font-bold text-gray-800 font-comic">Apa yang Kita Pelajari?</h2>
+            </div>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                <strong class="text-purple-600">Adik-adik</strong>, hari ini kita sudah belajar tentang <strong>Panca Indra</strong>.
+                Panca indra adalah alat-alat di tubuh kita yang digunakan untuk merasakan dan mengenali segala sesuatu di sekitar kita.
+                Kita punya <strong class="text-rose-600">5 panca indra</strong> yang sangat berguna dalam kehidupan sehari-hari!
+            </p>
+        </div>
+    </section>
+
+    <!-- 5 Senses Summary -->
+    <section class="container mx-auto px-4 py-6">
+        <h3 class="text-2xl font-bold text-center text-gray-800 mb-6 font-comic">5 Panca Indra Kita</h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            <!-- Mata -->
+            <div class="sense-summary bg-gradient-to-br from-blue-400 to-blue-600 rounded-3xl shadow-2xl p-5 text-white">
+                <div class="text-center mb-3">
+                    <div class="text-6xl mb-2">👀</div>
+                    <h4 class="text-2xl font-bold">Mata</h4>
+                    <p class="text-sm bg-white/20 rounded-full px-3 py-1 mt-2">Indra Penglihatan</p>
+                </div>
+                <div class="bg-white/20 rounded-xl p-3">
+                    <p class="font-semibold mb-2">Fungsi:</p>
+                    <p class="text-sm">Melihat benda, warna, dan segala sesuatu di sekitar kita.</p>
+                </div>
+            </div>
+
+            <!-- Telinga -->
+            <div class="sense-summary bg-gradient-to-br from-purple-400 to-purple-600 rounded-3xl shadow-2xl p-5 text-white">
+                <div class="text-center mb-3">
+                    <div class="text-6xl mb-2">👂</div>
+                    <h4 class="text-2xl font-bold">Telinga</h4>
+                    <p class="text-sm bg-white/20 rounded-full px-3 py-1 mt-2">Indra Pendengaran</p>
+                </div>
+                <div class="bg-white/20 rounded-xl p-3">
+                    <p class="font-semibold mb-2">Fungsi:</p>
+                    <p class="text-sm">Mendengar suara dan bunyi-bunyian di sekitar kita.</p>
+                </div>
+            </div>
+
+            <!-- Hidung -->
+            <div class="sense-summary bg-gradient-to-br from-green-400 to-green-600 rounded-3xl shadow-2xl p-5 text-white">
+                <div class="text-center mb-3">
+                    <div class="text-6xl mb-2">👃</div>
+                    <h4 class="text-2xl font-bold">Hidung</h4>
+                    <p class="text-sm bg-white/20 rounded-full px-3 py-1 mt-2">Indra Penciuman</p>
+                </div>
+                <div class="bg-white/20 rounded-xl p-3">
+                    <p class="font-semibold mb-2">Fungsi:</p>
+                    <p class="text-sm">Mencium bau harum atau bau yang tidak enak.</p>
+                </div>
+            </div>
+
+            <!-- Lidah -->
+            <div class="sense-summary bg-gradient-to-br from-red-400 to-red-600 rounded-3xl shadow-2xl p-5 text-white">
+                <div class="text-center mb-3">
+                    <div class="text-6xl mb-2">👅</div>
+                    <h4 class="text-2xl font-bold">Lidah</h4>
+                    <p class="text-sm bg-white/20 rounded-full px-3 py-1 mt-2">Indra Perasa</p>
+                </div>
+                <div class="bg-white/20 rounded-xl p-3">
+                    <p class="font-semibold mb-2">Fungsi:</p>
+                    <p class="text-sm">Merasakan rasa makanan: manis, asam, asin, pahit.</p>
+                </div>
+            </div>
+
+            <!-- Kulit -->
+            <div class="sense-summary bg-gradient-to-br from-orange-400 to-orange-600 rounded-3xl shadow-2xl p-5 text-white md:col-span-2 lg:col-span-2">
+                <div class="flex flex-col md:flex-row items-center gap-4">
+                    <div class="text-center">
+                        <div class="text-6xl mb-2">✋</div>
+                        <h4 class="text-2xl font-bold">Kulit</h4>
+                        <p class="text-sm bg-white/20 rounded-full px-3 py-1 mt-2">Indra Peraba</p>
+                    </div>
+                    <div class="flex-1 bg-white/20 rounded-xl p-3">
+                        <p class="font-semibold mb-2">Fungsi:</p>
+                        <p class="text-sm">Merasakan sentuhan, panas, dingin, halus, atau kasar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flashback -->
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-blue-100 to-cyan-100 rounded-3xl shadow-2xl p-6 border-4 border-blue-300">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">⏪</span>
+                <h3 class="text-2xl font-bold text-gray-800 font-comic">Flashback</h3>
+            </div>
+            <p class="text-lg text-gray-700 leading-relaxed mb-3">
+                Sebelum belajar panca indra, adik-adik sudah belajar tentang <strong class="text-blue-600">tubuh kita</strong>.
+                Panca indra adalah bagian dari tubuh kita yang sangat penting. Dengan panca indra, kita bisa
+                <strong class="text-blue-600">melihat</strong> keindahan dunia, <strong class="text-blue-600">mendengar</strong> suara-suara,
+                <strong class="text-blue-600">mencium</strong> bau-bauan, <strong class="text-blue-600">merasakan</strong> makanan enak,
+                dan <strong class="text-blue-600">menyentuh</strong> berbagai benda. Tubuh kita sungguh luar biasa! 🌟
+            </p>
+        </div>
+    </section>
+
+    <!-- Flashforward -->
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-green-100 to-emerald-100 rounded-3xl shadow-2xl p-6 border-4 border-green-300">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">⏩</span>
+                <h3 class="text-2xl font-bold text-gray-800 font-comic">Flashforward</h3>
+            </div>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Setelah belajar tentang panca indra, adik-adik akan mempelajari lebih lanjut tentang
+                <strong class="text-green-600">bagian-bagian tubuh lainnya</strong> dan cara merawat tubuh kita.
+                Kita juga akan belajar tentang <strong class="text-green-600">hewan</strong> yang juga memiliki panca indra,
+                dan bagaimana mereka menggunakan panca indra mereka untuk bertahan hidup.
+                Penasaran? Tetap semangat belajar, ya! 🌱
+            </p>
+        </div>
+    </section>
+
+    <!-- Important Points -->
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-yellow-400">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">⭐</span>
+                <h3 class="text-2xl font-bold text-gray-800 font-comic">Poin Penting</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="flex items-start gap-2 bg-yellow-50 rounded-xl p-3">
+                    <span class="text-green-500 text-xl">✓</span>
+                    <p class="text-gray-700">Panca indra ada <strong>5</strong>: Mata, Telinga, Hidung, Lidah, dan Kulit</p>
+                </div>
+                <div class="flex items-start gap-2 bg-yellow-50 rounded-xl p-3">
+                    <span class="text-green-500 text-xl">✓</span>
+                    <p class="text-gray-700">Setiap panca indra memiliki <strong>fungsi berbeda</strong></p>
+                </div>
+                <div class="flex items-start gap-2 bg-yellow-50 rounded-xl p-3">
+                    <span class="text-green-500 text-xl">✓</span>
+                    <p class="text-gray-700">Panca indra membantu kita <strong>memahami dunia</strong> sekitar</p>
+                </div>
+                <div class="flex items-start gap-2 bg-yellow-50 rounded-xl p-3">
+                    <span class="text-green-500 text-xl">✓</span>
+                    <p class="text-gray-700">Kita harus <strong>menjaga panca indra</strong> dengan baik</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips to Protect Senses -->
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-rose-100 to-pink-100 rounded-3xl shadow-2xl p-6 border-4 border-rose-300">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">💡</span>
+                <h3 class="text-2xl font-bold text-gray-800 font-comic">Tips Menjaga Panca Indra</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3">
+                    <span class="text-3xl">👀</span>
+                    <p class="text-gray-700">Jaga kebersihan mata, jangan terlalu banyak menatap layar</p>
+                </div>
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3">
+                    <span class="text-3xl">👂</span>
+                    <p class="text-gray-700">Jangan memasukkan benda asing ke telinga</p>
+                </div>
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3">
+                    <span class="text-3xl">👃</span>
+                    <p class="text-gray-700">Jaga kebersihan hidung, jangan mengupil sembarangan</p>
+                </div>
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3">
+                    <span class="text-3xl">👅</span>
+                    <p class="text-gray-700">Rajin menyikat gigi dan menjaga kebersihan mulut</p>
+                </div>
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3 md:col-span-2">
+                    <span class="text-3xl">✋</span>
+                    <p class="text-gray-700">Selalu mandi dan jaga kebersihan kulit setiap hari</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Buttons -->
+    <section class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row justify-center gap-4">
+            <a href="../index.html" class="flex-1 max-w-xs bg-gradient-to-r from-gray-500 to-gray-600 text-white text-center py-4 px-6 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition">
+                ⬅️ Kembali ke Menu
+            </a>
+            <a href="../002-bagian-tubuh/teori.html" class="flex-1 max-w-xs bg-gradient-to-r from-green-500 to-emerald-600 text-white text-center py-4 px-6 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition">
+                Topik Berikutnya ➡️
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4">
+        <div class="container mx-auto px-4 text-center">
+            <p class="font-semibold">© 2025 Bahan Ajar Interaktif - TK-B Sains</p>
+        </div>
+    </footer>
+
+</body>
+</html>

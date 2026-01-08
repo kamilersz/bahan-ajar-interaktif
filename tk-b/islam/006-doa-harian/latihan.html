@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doa Harian - Latihan | Islam TK-B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .font-comic { font-family: 'Comic Neue', cursive; }
+        .option-card:hover { transform: scale(1.03); }
+        .option-card { transition: all 0.3s ease; }
+        .correct { animation: correctPulse 0.5s ease; }
+        .wrong { animation: wrongShake 0.5s ease; }
+        @keyframes correctPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        .bounce-in { animation: bounceIn 0.5s ease; }
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-sky-100 via-blue-100 to-cyan-100 min-h-screen"
+      x-data="doaHarianQuiz()">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-sky-500 via-blue-500 to-cyan-500 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <a href="teori.html" class="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/30 transition">
+                    <span>⬅️</span>
+                    <span class="font-bold">Kembali</span>
+                </a>
+                <h1 class="text-xl md:text-2xl font-extrabold text-center">Latihan Doa Harian</h1>
+                <div class="bg-white/20 px-4 py-2 rounded-full font-bold">
+                    Skor: <span x-text="score"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="container mx-auto px-4 py-4">
+        <div class="bg-white rounded-full h-4 shadow-lg overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-green-400 to-sky-500 transition-all duration-500"
+                 :style="'width: ' + ((currentQuestion / questions.length) * 100) + '%'"></div>
+        </div>
+        <p class="text-center mt-2 font-semibold text-gray-600">
+            Soal <span x-text="currentQuestion"></span> dari <span x-text="questions.length"></span>
+        </p>
+    </div>
+
+    <!-- Quiz Container -->
+    <main class="container mx-auto px-4 py-6" x-show="!showResult">
+
+        <!-- Question Card -->
+        <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-sky-300 mb-6 bounce-in">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">❓</span>
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800" x-text="questions[currentQuestion - 1].question"></h2>
+            </div>
+        </div>
+
+        <!-- Options -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <template x-for="(option, index) in questions[currentQuestion - 1].options" :key="index">
+                <div @click="checkAnswer(index)"
+                     :class="{
+                        'option-card cursor-pointer': !answered,
+                        'correct bg-green-500 text-white': answered && index === questions[currentQuestion - 1].correctIndex,
+                        'wrong bg-red-500 text-white opacity-60': answered && index !== questions[currentQuestion - 1].correctIndex && selectedOption === index,
+                        'opacity-60': answered && index !== questions[currentQuestion - 1].correctIndex && selectedOption !== index
+                     }"
+                     class="bg-gradient-to-br from-sky-50 to-blue-50 rounded-2xl shadow-lg p-6 border-4"
+                     :class="answered && index === questions[currentQuestion - 1].correctIndex ? 'border-green-500' : 'border-sky-200'">
+                    <div class="flex items-center gap-4">
+                        <span class="text-5xl" x-text="option.emoji"></span>
+                        <span class="text-lg md:text-xl font-bold" x-text="option.text"></span>
+                        <span x-show="answered && index === questions[currentQuestion - 1].correctIndex" class="text-3xl ml-auto">✅</span>
+                        <span x-show="answered && index === selectedOption && index !== questions[currentQuestion - 1].correctIndex" class="text-3xl ml-auto">❌</span>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <!-- Feedback Message -->
+        <div x-show="answered"
+             class="bg-white rounded-3xl shadow-2xl p-6 border-4 mb-6 bounce-in"
+             :class="isCorrect ? 'border-green-400 from-green-50 to-sky-50 bg-gradient-to-br' : 'border-red-400 from-red-50 to-rose-50 bg-gradient-to-br'">
+            <div class="text-center">
+                <div class="text-5xl mb-3" x-text="isCorrect ? '🌟' : '💪'"></div>
+                <h3 class="text-2xl font-bold mb-2" x-text="isCorrect ? 'Masya Allah! Benar!' : 'Tepat Sekali!'" :class="isCorrect ? 'text-green-600' : 'text-red-600'"></h3>
+                <p class="text-lg text-gray-700" x-text="questions[currentQuestion - 1].explanation"></p>
+            </div>
+        </div>
+
+        <!-- Next Button -->
+        <div x-show="answered" class="flex justify-center">
+            <button @click="nextQuestion()"
+                    class="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-8 py-4 rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl hover:scale-105 transition">
+                <span x-show="currentQuestion < questions.length">Soal Berikutnya ➡️</span>
+                <span x-show="currentQuestion === questions.length">Lihat Hasil 🏆</span>
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Result Screen -->
+    <div x-show="showResult" class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 border-4 border-yellow-400 max-w-2xl mx-auto text-center">
+            <div class="text-6xl mb-4">🏆</div>
+            <h2 class="text-3xl font-bold text-gray-800 mb-4 font-comic">Alhamdulillah, Adik-adik!</h2>
+            <p class="text-xl text-gray-700 mb-4">Adik sudah menyelesaikan latihan Doa Harian!</p>
+            <div class="bg-gradient-to-r from-sky-100 to-blue-100 rounded-2xl p-6 mb-6">
+                <p class="text-lg text-gray-600 mb-2">Skor Adik:</p>
+                <p class="text-5xl font-bold text-blue-600" x-text="score + ' / ' + (questions.length * 10)"></p>
+            </div>
+            <div class="flex flex-col gap-3">
+                <a href="teori.html" class="block bg-gradient-to-r from-sky-500 to-blue-500 text-white py-3 px-6 rounded-xl font-bold text-lg hover:shadow-xl transition">
+                    📖 Pelajari Lagi
+                </a>
+                <a href="evaluasi.html" class="block bg-gradient-to-r from-green-500 to-sky-500 text-white py-3 px-6 rounded-xl font-bold text-lg hover:shadow-xl transition">
+                    📝 Kerjakan Evaluasi
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-sky-600 to-blue-600 text-white py-4 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="font-semibold">© 2025 Bahan Ajar Interaktif - TK-B Islam</p>
+        </div>
+    </footer>
+
+    <script>
+        function doaHarianQuiz() {
+            return {
+                score: 0,
+                currentQuestion: 1,
+                answered: false,
+                isCorrect: false,
+                selectedOption: null,
+                showResult: false,
+                questions: [
+                    {
+                        question: "Kapan kita membaca doa bangun tidur?",
+                        options: [
+                            { text: "Sebelum tidur", emoji: "🌙" },
+                            { text: "Setelah bangun tidur", emoji: "🌅" },
+                            { text: "Saat makan", emoji: "🍽️" },
+                            { text: "Saat bermain", emoji: "🎮" }
+                        ],
+                        correctIndex: 1,
+                        explanation: "Masya Allah! Benar! Kita membaca doa bangun tidur setelah terbangun dari tidur."
+                    },
+                    {
+                        question: "Apa doa sebelum makan?",
+                        options: [
+                            { text: "Allahumma barik...", emoji: "🤲" },
+                            { text: "Bismillah...", emoji: "📖" },
+                            { text: "Alhamdulillah...", emoji: "😊" },
+                            { text: "Astaghfirullah...", emoji: "🙏" }
+                        ],
+                        correctIndex: 0,
+                        explanation: "Alhamdulillah! Tepat sekali! Doa sebelum makan adalah 'Allahumma barik lanaa fiimaa razaqtana...'"
+                    },
+                    {
+                        question: "Kapan kita membaca doa masuk kamar mandi?",
+                        options: [
+                            { text: "Saat keluar kamar mandi", emoji: "🚿" },
+                            { text: "Sebelum masuk kamar mandi", emoji: "🚪" },
+                            { text: "Saat makan", emoji: "🍽️" },
+                            { text: "Saat tidur", emoji: "😴" }
+                        ],
+                        correctIndex: 1,
+                        explanation: "Hebat! Doa masuk kamar mandi dibaca sebelum kita masuk ke dalam kamar mandi."
+                    },
+                    {
+                        question: "Apa arti 'Rabbighfir li walidaiya'?",
+                        options: [
+                            { text: "Ya Allah, berkahilah rezeki", emoji: "🍚" },
+                            { text: "Ampunilah dosa orang tuaku", emoji: "👨‍👩‍👧" },
+                            { text: "Jauhkan kami dari neraka", emoji: "🔥" },
+                            { text: "Berilah kami petunjuk", emoji: "✨" }
+                        ],
+                        correctIndex: 1,
+                        explanation: "Masya Allah! Benar! Artinya adalah meminta ampunan untuk kedua orang tua."
+                    },
+                    {
+                        question: "Untuk siapa kita berdoa dengan doa 'Rabbighfir li walidaiya'?",
+                        options: [
+                            { text: "Teman", emoji: "👫" },
+                            { text: "Guru", emoji: "👨‍🏫" },
+                            { text: "Orang tua", emoji: "👨‍👩‍👧" },
+                            { text: "Diri sendiri", emoji: "👦" }
+                        ],
+                        correctIndex: 2,
+                        explanation: "Alhamdulillah! Tepat! Doa ini dibaca untuk berbakti dan meminta ampunan untuk orang tua."
+                    },
+                    {
+                        question: "Apa doa setelah bangun tidur dimulai dengan?",
+                        options: [
+                            { text: "Alhamdulillahiilladzi...", emoji: "🌅" },
+                            { text: "Bismillah...", emoji: "📖" },
+                            { text: "Allahu Akbar...", emoji: "🕌" },
+                            { text: "Subhanallah...", emoji: "✨" }
+                        ],
+                        correctIndex: 0,
+                        explanation: "Pintar! Doa bangun tidur dimulai dengan 'Alhamdulillahiilladzi ahyana...'"
+                    },
+                    {
+                        question: "Mengapa kita harus berdoa sebelum makan?",
+                        options: [
+                            { text: "Agar makanan enak", emoji: "😋" },
+                            { text: "Agar makanan berkah", emoji: "🤲" },
+                            { text: "Agar cepat kenyang", emoji: "😊" },
+                            { text: "Agar tidak sakit", emoji: "💊" }
+                        ],
+                        correctIndex: 1,
+                        explanation: "Luar biasa! Kita berdoa sebelum makan agar makanan mendapatkan berkah dari Allah."
+                    },
+                    {
+                        question: "Apa yang diminta dalam doa sebelum makan?",
+                        options: [
+                            { text: "Hidup kekal", emoji: "♾️" },
+                            { text: "Berkah rezeki", emoji: "🤲" },
+                            { text: "Banyak uang", emoji: "💰" },
+                            { text: "Mainan baru", emoji: "🎮" }
+                        ],
+                        correctIndex: 1,
+                        explanation: "Masya Allah! Benar! Kita meminta berkah pada rezeki yang diberikan Allah."
+                    },
+                    {
+                        question: "Doa untuk orang tua adalah wujud...",
+                        options: [
+                            { text: "Sombong", emoji: "😎" },
+                            { text: "Berbakti", emoji: "🤲" },
+                            { text: "Malas", emoji: "😴" },
+                            { text: "Marah", emoji: "😠" }
+                        ],
+                        correctIndex: 1,
+                        explanation: "Alhamdulillah! Tepat! Berdoa untuk orang tua adalah wujud berbakti kepada mereka."
+                    },
+                    {
+                        question: "Kapan saja kita boleh berdoa?",
+                        options: [
+                            { text: "Hanya saat sholat", emoji: "🕌" },
+                            { text: "Hanya saat puasa", emoji: "🌙" },
+                            { text: "Kapan saja", emoji: "⏰" },
+                            { text: "Hanya saat lebaran", emoji: "🎉" }
+                        ],
+                        correctIndex: 2,
+                        explanation: "Hebat sekali! Kita boleh berdoa kepada Allah kapan saja dan di mana saja."
+                    }
+                ],
+                checkAnswer(index) {
+                    if (this.answered) return;
+
+                    this.answered = true;
+                    this.selectedOption = index;
+                    this.isCorrect = index === this.questions[this.currentQuestion - 1].correctIndex;
+
+                    if (this.isCorrect) {
+                        this.score += 10;
+                    }
+                },
+                nextQuestion() {
+                    if (this.currentQuestion < this.questions.length) {
+                        this.currentQuestion++;
+                        this.answered = false;
+                        this.selectedOption = null;
+                    } else {
+                        this.showResult = true;
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

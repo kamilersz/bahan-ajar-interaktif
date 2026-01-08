@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Shapes - TK-B English</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap");
+      body {
+        font-family: "Nunito", sans-serif;
+      }
+      .shape-card {
+        transition: all 0.3s ease;
+      }
+      .shape-card:hover {
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-purple-100 via-indigo-50 to-blue-100 min-h-screen"
+  >
+    <div x-data="{ selectedShape: null }">
+      <header
+        class="bg-gradient-to-r from-purple-400 via-indigo-400 to-blue-400 text-white py-6 shadow-lg"
+      >
+        <div class="container mx-auto px-4 text-center">
+          <h1 class="text-3xl md:text-4xl font-bold mb-2">🔺 Learn Shapes</h1>
+          <p class="text-lg">Let's learn all the shapes!</p>
+        </div>
+      </header>
+      <main class="container mx-auto px-4 py-8">
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8">
+          <div class="text-center mb-6">
+            <div class="text-6xl mb-4">🔺</div>
+            <h2 class="text-2xl font-bold text-indigo-700 mb-3">
+              What are Shapes?
+            </h2>
+            <p class="text-lg text-gray-700">
+              <strong>Shapes</strong> are everywhere! Circles, squares,
+              triangles, and more shapes are around us!
+            </p>
+          </div>
+        </section>
+        <section
+          class="bg-gradient-to-r from-purple-100 to-indigo-100 rounded-3xl shadow-xl p-6 mb-8"
+        >
+          <h2 class="text-2xl font-bold text-center text-indigo-700 mb-6">
+            🔺 Meet the Shapes!
+          </h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div
+              @click="selectedShape = {name:'Circle',emoji:'⭕',sides:'Round',example:'Ball'}"
+              class="shape-card bg-gradient-to-br from-purple-400 to-purple-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">⭕</div>
+              <p class="text-xl font-bold">Circle</p>
+            </div>
+            <div
+              @click="selectedShape = {name:'Square',emoji:'⬛',sides:'4 sides',example:'Box'}"
+              class="shape-card bg-gradient-to-br from-indigo-400 to-indigo-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">⬛</div>
+              <p class="text-xl font-bold">Square</p>
+            </div>
+            <div
+              @click="selectedShape = {name:'Triangle',emoji:'🔺',sides:'3 sides',example:'Pizza slice'}"
+              class="shape-card bg-gradient-to-br from-blue-400 to-blue-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">🔺</div>
+              <p class="text-xl font-bold">Triangle</p>
+            </div>
+            <div
+              @click="selectedShape = {name:'Rectangle',emoji:'📱',sides:'4 sides',example:'Book'}"
+              class="shape-card bg-gradient-to-br from-cyan-400 to-cyan-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">📱</div>
+              <p class="text-xl font-bold">Rectangle</p>
+            </div>
+            <div
+              @click="selectedShape = {name:'Star',emoji:'⭐',sides:'5 points',example:'Starfish'}"
+              class="shape-card bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">⭐</div>
+              <p class="text-xl font-bold">Star</p>
+            </div>
+            <div
+              @click="selectedShape = {name:'Heart',emoji:'❤️',sides:'2 curves',example:'Love'}"
+              class="shape-card bg-gradient-to-br from-pink-400 to-pink-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">❤️</div>
+              <p class="text-xl font-bold">Heart</p>
+            </div>
+            <div
+              @click="selectedShape = {name:'Oval',emoji:'🥚',sides:'Round',example:'Egg'}"
+              class="shape-card bg-gradient-to-br from-amber-400 to-amber-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">🥚</div>
+              <p class="text-xl font-bold">Oval</p>
+            </div>
+            <div
+              @click="selectedShape = {name:'Diamond',emoji:'💎',sides:'4 sides',example:'Kite'}"
+              class="shape-card bg-gradient-to-br from-teal-400 to-teal-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">💎</div>
+              <p class="text-xl font-bold">Diamond</p>
+            </div>
+          </div>
+        </section>
+        <div
+          x-show="selectedShape"
+          x-transition
+          class="bg-white rounded-3xl shadow-xl p-6 mb-8"
+        >
+          <h3 class="text-2xl font-bold text-indigo-700 mb-4 text-center">
+            <span x-text="selectedShape.emoji"></span>
+            <span x-text="selectedShape.name"></span>
+          </h3>
+          <div class="max-w-md mx-auto space-y-3">
+            <div class="bg-indigo-50 rounded-xl p-4">
+              <p class="text-lg">
+                <strong>Sides:</strong>
+                <span x-text="selectedShape.sides"></span>
+              </p>
+            </div>
+            <div class="bg-purple-50 rounded-xl p-4">
+              <p class="text-lg">
+                <strong>Example:</strong>
+                <span x-text="selectedShape.example"></span>
+              </p>
+            </div>
+          </div>
+          <button
+            @click="selectedShape = null"
+            class="mt-4 mx-auto block bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-6 rounded-full"
+          >
+            Close
+          </button>
+        </div>
+        <section
+          class="bg-gradient-to-r from-purple-200 to-indigo-200 rounded-3xl shadow-xl p-6 mb-8"
+        >
+          <h2 class="text-2xl font-bold text-indigo-700 mb-4 text-center">
+            💡 Learning Tips!
+          </h2>
+          <ul class="text-lg text-gray-700 space-y-3">
+            <li class="flex items-start">
+              <span class="text-2xl mr-3">🔍</span
+              ><span>Find shapes around your home!</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-2xl mr-3">✏️</span
+              ><span>Draw shapes on paper!</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-2xl mr-3">🧩</span
+              ><span>Play with shape puzzles!</span>
+            </li>
+          </ul>
+        </section>
+        <div class="text-center">
+          <a
+            href="latihan.html"
+            class="inline-block bg-gradient-to-r from-green-400 to-green-600 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition"
+            >🎮 Continue to Practice!</a
+          >
+        </div>
+      </main>
+      <footer class="bg-indigo-600 text-white py-6 mt-8">
+        <div class="container mx-auto px-4 text-center">
+          <p class="text-lg">
+            © 2025 Interactive Learning Materials - TK-B English
+          </p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

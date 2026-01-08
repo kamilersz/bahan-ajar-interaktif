@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mengenal Alat Musik - TK-B Seni Musik</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Comic Neue', cursive; }
+        .title-font { font-family: 'Fredoka One', cursive; }
+        .wiggle { animation: wiggle 1s ease-in-out infinite; }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        .float { animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .bounce-hover:hover { animation: bounce 0.5s ease; }
+        @keyframes bounce { 50% { transform: scale(1.05); } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-100 via-pink-100 to-red-100 min-h-screen" x-data="{ selectedInstrument: null, showInfo: false }">
+    <header class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="title-font text-4xl md:text-5xl mb-2 wiggle inline-block">🎵 Mengenal Alat Musik 🎵</h1>
+            <p class="text-xl">Belajar Alat Musik dengan Ceria!</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-purple-300">
+            <div class="text-center mb-6">
+                <div class="text-6xl mb-4">👋</div>
+                <h2 class="title-font text-3xl text-purple-600 mb-4">Halo, Adik-adik!</h2>
+                <p class="text-xl text-gray-700">
+                    Hari ini kita akan belajar mengenal berbagai <strong class="text-pink-500">alat musik</strong>!
+                    Alat musik bisa menghasilkan suara yang indah dan membuat kita bahagia! 🎶
+                </p>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="title-font text-3xl text-center text-purple-600 mb-6">🎸 Alat Musik yang Akan Kita Pelajari 🎸</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Gitar -->
+                <div class="bg-gradient-to-br from-amber-100 to-orange-100 rounded-3xl shadow-xl p-6 border-4 border-amber-300 cursor-pointer bounce-hover"
+                     @click="selectedInstrument = 'gitar'; showInfo = true"
+                     :class="{ 'ring-8 ring-amber-400': selectedInstrument === 'gitar' }">
+                    <div class="flex items-center gap-4">
+                        <div class="text-7xl">🎸</div>
+                        <div>
+                            <h3 class="title-font text-3xl text-amber-700">GITAR</h3>
+                            <p class="text-lg text-gray-700">Alat musik petik!</p>
+                        </div>
+                    </div>
+                    <div x-show="showInfo && selectedInstrument === 'gitar'" x-transition class="mt-4 bg-white rounded-2xl p-4">
+                        <p class="font-bold text-lg text-amber-700 mb-2">Tentang Gitar:</p>
+                        <ul class="space-y-1 text-gray-700">
+                            <li>🎵 Biasanya punya 6 senar</li>
+                            <li>🎵 Dimainkan dengan cara dipetik</li>
+                            <li>🎵 Suaranya merdu dan enak didengar</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Piano -->
+                <div class="bg-gradient-to-br from-gray-100 to-slate-100 rounded-3xl shadow-xl p-6 border-4 border-gray-300 cursor-pointer bounce-hover"
+                     @click="selectedInstrument = 'piano'; showInfo = true"
+                     :class="{ 'ring-8 ring-gray-400': selectedInstrument === 'piano' }">
+                    <div class="flex items-center gap-4">
+                        <div class="text-7xl">🎹</div>
+                        <div>
+                            <h3 class="title-font text-3xl text-gray-700">PIANO</h3>
+                            <p class="text-lg text-gray-700">Alat musik tuts!</p>
+                        </div>
+                    </div>
+                    <div x-show="showInfo && selectedInstrument === 'piano'" x-transition class="mt-4 bg-white rounded-2xl p-4">
+                        <p class="font-bold text-lg text-gray-700 mb-2">Tentang Piano:</p>
+                        <ul class="space-y-1 text-gray-700">
+                            <li>🎵 Punya banyak tuts hitam dan putih</li>
+                            <li>🎵 Dimainkan dengan menekan tuts</li>
+                            <li>🎵 Bisa menghasilkan banyak nada</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Drum -->
+                <div class="bg-gradient-to-br from-red-100 to-rose-100 rounded-3xl shadow-xl p-6 border-4 border-red-300 cursor-pointer bounce-hover"
+                     @click="selectedInstrument = 'drum'; showInfo = true"
+                     :class="{ 'ring-8 ring-red-400': selectedInstrument === 'drum' }">
+                    <div class="flex items-center gap-4">
+                        <div class="text-7xl">🥁</div>
+                        <div>
+                            <h3 class="title-font text-3xl text-red-700">DRUM</h3>
+                            <p class="text-lg text-gray-700">Alat musik pukul!</p>
+                        </div>
+                    </div>
+                    <div x-show="showInfo && selectedInstrument === 'drum'" x-transition class="mt-4 bg-white rounded-2xl p-4">
+                        <p class="font-bold text-lg text-red-700 mb-2">Tentang Drum:</p>
+                        <ul class="space-y-1 text-gray-700">
+                            <li>🎵 Dimainkan dengan dipukul</li>
+                            <li>🎵 Menghasilkan irama yang kuat</li>
+                            <li>🎵 Ada drum besar dan kecil</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Seruling -->
+                <div class="bg-gradient-to-br from-cyan-100 to-blue-100 rounded-3xl shadow-xl p-6 border-4 border-cyan-300 cursor-pointer bounce-hover"
+                     @click="selectedInstrument = 'seruling'; showInfo = true"
+                     :class="{ 'ring-8 ring-cyan-400': selectedInstrument === 'seruling' }">
+                    <div class="flex items-center gap-4">
+                        <div class="text-7xl">🎼</div>
+                        <div>
+                            <h3 class="title-font text-3xl text-cyan-700">SERULING</h3>
+                            <p class="text-lg text-gray-700">Alat musik tiup!</p>
+                        </div>
+                    </div>
+                    <div x-show="showInfo && selectedInstrument === 'seruling'" x-transition class="mt-4 bg-white rounded-2xl p-4">
+                        <p class="font-bold text-lg text-cyan-700 mb-2">Tentang Seruling:</p>
+                        <ul class="space-y-1 text-gray-700">
+                            <li>🎵 Bentuknya panjang dan kecil</li>
+                            <li>🎵 Dimainkan dengan ditiup</li>
+                            <li>🎵 Suaranya tinggi dan nyaring</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Angklung -->
+                <div class="bg-gradient-to-br from-yellow-100 to-amber-100 rounded-3xl shadow-xl p-6 border-4 border-yellow-300 cursor-pointer bounce-hover"
+                     @click="selectedInstrument = 'angklung'; showInfo = true"
+                     :class="{ 'ring-8 ring-yellow-400': selectedInstrument === 'angklung' }">
+                    <div class="flex items-center gap-4">
+                        <div class="text-7xl">🎋</div>
+                        <div>
+                            <h3 class="title-font text-3xl text-yellow-700">ANGKLUNG</h3>
+                            <p class="text-lg text-gray-700">Alat musik tradisional!</p>
+                        </div>
+                    </div>
+                    <div x-show="showInfo && selectedInstrument === 'angklung'" x-transition class="mt-4 bg-white rounded-2xl p-4">
+                        <p class="font-bold text-lg text-yellow-700 mb-2">Tentang Angklung:</p>
+                        <ul class="space-y-1 text-gray-700">
+                            <li>🎵 Terbuat dari bambu</li>
+                            <li>🎵 Dimainkan dengan digoyangkan</li>
+                            <li>🎵 Alat musik asli Indonesia!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Triangel -->
+                <div class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl shadow-xl p-6 border-4 border-purple-300 cursor-pointer bounce-hover"
+                     @click="selectedInstrument = 'triangel'; showInfo = true"
+                     :class="{ 'ring-8 ring-purple-400': selectedInstrument === 'triangel' }">
+                    <div class="flex items-center gap-4">
+                        <div class="text-7xl">🔺</div>
+                        <div>
+                            <h3 class="title-font text-3xl text-purple-700">TRIANGEL</h3>
+                            <p class="text-lg text-gray-700">Alat musik kecil!</p>
+                        </div>
+                    </div>
+                    <div x-show="showInfo && selectedInstrument === 'triangel'" x-transition class="mt-4 bg-white rounded-2xl p-4">
+                        <p class="font-bold text-lg text-purple-700 mb-2">Tentang Triangel:</p>
+                        <ul class="space-y-1 text-gray-700">
+                            <li>🎵 Bentuknya segitiga</li>
+                            <li>🎵 Dimainkan dengan dipukul</li>
+                            <li>🎵 Suaranya "ting!" yang nyaring</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-pink-300">
+            <h2 class="title-font text-3xl text-center text-pink-600 mb-6">🎵 Cara Memainkan Alat Musik 🎵</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-5 text-center">
+                    <div class="text-5xl mb-3">👆</div>
+                    <h3 class="title-font text-xl text-amber-700 mb-2">DIPETIK</h3>
+                    <p class="text-gray-700">Contoh: Gitar</p>
+                </div>
+                <div class="bg-gradient-to-br from-red-50 to-rose-50 rounded-2xl p-5 text-center">
+                    <div class="text-5xl mb-3">👊</div>
+                    <h3 class="title-font text-xl text-red-700 mb-2">DIPUKUL</h3>
+                    <p class="text-gray-700">Contoh: Drum, Triangel</p>
+                </div>
+                <div class="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-2xl p-5 text-center">
+                    <div class="text-5xl mb-3">👄</div>
+                    <h3 class="title-font text-xl text-cyan-700 mb-2">DITIUP</h3>
+                    <p class="text-gray-700">Contoh: Seruling</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl shadow-xl p-6 mb-8 border-4 border-purple-400">
+            <h2 class="title-font text-3xl text-center text-purple-700 mb-6">✨ Manfaat Belajar Alat Musik ✨</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white rounded-2xl p-4 flex items-start gap-3">
+                    <span class="text-3xl">🎵</span>
+                    <p class="text-gray-700"><strong>Melatih pendengaran</strong> untuk membedakan nada dan irama</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 flex items-start gap-3">
+                    <span class="text-3xl">👏</span>
+                    <p class="text-gray-700"><strong>Melatih koordinasi</strong> tangan dan jari</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 flex items-start gap-3">
+                    <span class="text-3xl">😊</span>
+                    <p class="text-gray-700"><strong>Membuat bahagia</strong> dan mengurangi stres</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 flex items-start gap-3">
+                    <span class="text-3xl">🧠</span>
+                    <p class="text-gray-700"><strong>Melatih konsentrasi</strong> dan fokus</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="text-center mt-8">
+            <a href="latihan.html" class="inline-block bg-gradient-to-r from-purple-400 to-pink-600 hover:from-purple-500 hover:to-pink-700 text-white title-font text-2xl px-8 py-4 rounded-full shadow-lg bounce-hover transition-all">
+                ➡️ Lanjut ke Latihan
+            </a>
+        </div>
+    </main>
+
+    <footer class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white py-4 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg">© 2024 Bahan Ajar Interaktif - TK-B Seni Musik</p>
+            <p class="text-sm mt-1">Belajar dengan Ceria dan Bahagia! 🌟</p>
+        </div>
+    </footer>
+</body>
+</html>

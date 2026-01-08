@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mengenal Allah - Evaluasi | Islam TK-B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .font-comic { font-family: 'Comic Neue', cursive; }
+        .option-card:hover { transform: scale(1.02); transition: all 0.3s ease; }
+        .bounce-in { animation: bounceIn 0.5s ease; }
+        @keyframes bounceIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .selected-option { border-color: #10b981 !important; background: linear-gradient(to bottom right, #d1fae5, #a7f3d0); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-green-100 via-emerald-100 to-teal-100 min-h-screen" x-data="evaluasiAllah()">
+
+    <header class="bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <a href="teori.html" class="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/30"><span>⬅️</span><span class="font-bold">Kembali</span></a>
+                <h1 class="text-xl font-bold">Evaluasi Mengenal Allah</h1>
+                <div class="bg-white/20 px-4 py-2 rounded-full font-bold"><span x-text="currentQuestion"></span>/<span x-text="questions.length"></span></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-6" x-show="!quizStarted && !quizFinished">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 border-4 border-green-300 max-w-2xl mx-auto text-center">
+            <div class="text-6xl mb-4">📝</div><h2 class="text-3xl font-bold mb-4 font-comic">Waktu Evaluasi!</h2>
+            <p class="text-lg mb-6">Adik-adik, sekarang saatnya mengukur pemahaman tentang Mengenal Allah SWT!</p>
+            <div class="bg-green-50 rounded-2xl p-4 mb-6 text-left"><h3 class="font-bold mb-2">📌 Ketentuan:</h3><ul class="space-y-1"><li>• Ada <strong>10 soal</strong></li><li>• Hasil muncul setelah submit</li></ul></div>
+            <button @click="startQuiz()" class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl transition">Mulai Evaluasi 🚀</button>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-6" x-show="quizStarted && !quizFinished">
+        <div class="bg-white rounded-full h-4 shadow-lg overflow-hidden mb-4"><div class="h-full bg-gradient-to-r from-green-400 to-emerald-500 transition-all" :style="'width: ' + ((currentQuestion / questions.length) * 100) + '%'"></div></div>
+        <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-green-300 mb-6 bounce-in"><h2 class="text-xl font-bold">Soal <span x-text="currentQuestion"></span></h2><p class="text-lg mt-2" x-text="questions[currentQuestion - 1].question"></p></div>
+        <div class="grid grid-cols-1 gap-3 mb-6">
+            <template x-for="(option, index) in questions[currentQuestion - 1].options" :key="index">
+                <div @click="selectAnswer(index)" :class="{'selected-option': answers[currentQuestion - 1] === index}" class="cursor-pointer border-4 border-green-200 hover:border-green-400 bg-green-50 rounded-2xl shadow-lg p-4 option-card">
+                    <div class="flex items-center gap-3"><span class="flex items-center justify-center w-8 h-8 rounded-full bg-green-500 text-white font-bold" x-text="String.fromCharCode(65 + index)"></span><span class="text-lg" x-text="option"></span></div>
+                </div>
+            </template>
+        </div>
+        <div class="flex justify-between">
+            <button @click="prevQuestion()" :disabled="currentQuestion === 1" :class="currentQuestion === 1 ? 'opacity-50' : ''" class="bg-gray-500 text-white px-6 py-3 rounded-xl font-bold">⬅️ Sebelumnya</button>
+            <button @click="nextQuestion()" x-show="currentQuestion < questions.length" class="bg-emerald-500 text-white px-6 py-3 rounded-xl font-bold">Selanjutnya ➡️</button>
+            <button @click="submitQuiz()" x-show="currentQuestion === questions.length" class="bg-teal-500 text-white px-8 py-3 rounded-xl font-bold text-lg">Kirim Jawaban ✅</button>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-6" x-show="quizFinished">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 border-4 border-green-300 max-w-4xl mx-auto">
+            <div class="text-center mb-8">
+                <div class="text-7xl mb-4" x-text="score >= 70 ? '🏆' : '⭐'"></div>
+                <h2 class="text-3xl font-bold mb-2 font-comic" x-text="score >= 70 ? 'Masya Allah, Luar Biasa!' : 'Bagus Sekali!'"></h2>
+                <div class="bg-green-100 rounded-2xl p-6 max-w-md mx-auto"><p class="text-5xl font-bold text-green-600" x-text="score + ' / 100'"></p></div>
+            </div>
+            <div class="mb-8"><h3 class="text-2xl font-bold mb-4 text-center">📋 Kunci Jawaban</h3><div class="space-y-3">
+                <template x-for="(q, index) in questions" :key="index">
+                    <div class="rounded-xl p-4 border-2" :class="answers[index] === q.correctIndex ? 'bg-green-50 border-green-300' : 'bg-red-50 border-red-300'">
+                        <div class="flex items-start gap-3"><span class="flex items-center justify-center w-8 h-8 rounded-full flex-shrink-0" :class="answers[index] === q.correctIndex ? 'bg-green-500 text-white' : 'bg-red-500 text-white'" x-text="index + 1"></span><div class="flex-1"><p class="font-bold mb-2" x-text="q.question"></p><div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <template x-for="(opt, optIndex) in q.options" :key="optIndex"><div class="text-sm p-2 rounded-lg" :class="{'bg-green-200 font-bold': optIndex === q.correctIndex, 'bg-red-200 line-through': optIndex === answers[index] && optIndex !== q.correctIndex, 'opacity-50': optIndex !== q.correctIndex && optIndex !== answers[index]}"><span x-text="String.fromCharCode(65 + optIndex)"></span>. <span x-text="opt"></span></div></template>
+                        </div></div></div></div>
+                    </div>
+                </template></div></div>
+            <div class="flex flex-col md:flex-row justify-center gap-3">
+                <a href="teori.html" class="bg-green-500 text-white py-3 px-6 rounded-xl font-bold text-lg text-center">📖 Pelajari Lagi</a>
+                <a href="rangkuman.html" class="bg-purple-500 text-white py-3 px-6 rounded-xl font-bold text-lg text-center">📚 Baca Rangkuman</a>
+                <button @click="resetQuiz()" class="bg-emerald-500 text-white py-3 px-6 rounded-xl font-bold text-lg">🔄 Ulangi</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 mt-8"><div class="container mx-auto px-4 text-center"><p class="font-semibold">© 2025 Bahan Ajar Interaktif - TK-B Islam</p></div></footer>
+
+    <script>
+        function evaluasiAllah() {
+            return {
+                quizStarted: false, quizFinished: false, currentQuestion: 1, score: 0, correctAnswers: 0,
+                answers: [null,null,null,null,null,null,null,null,null,null],
+                questions: [
+                    { question: "Allah SWT adalah...", options: ["Malaikat","Tuhan","Nabi","Manusia"], correctIndex: 1 },
+                    { question: "Allah itu...", options: ["Satu","Dua","Tiga","Banyak"], correctIndex: 0 },
+                    { question: "Allah menciptakan...", options: ["Langit saja","Bumi saja","Semuanya","Tidak ada"], correctIndex: 2 },
+                    { question: "Ar-Rahman artinya...", options: ["Maha Kuat","Maha Pengasih","Maha Melihat","Maha Mendengar"], correctIndex: 1 },
+                    { question: "Kita berdoa kepada...", options: ["Malaikat","Nabi","Allah","Batu"], correctIndex: 2 },
+                    { question: "Allah menciptakan matahari untuk...", options: ["Gelap","Terang","Panas","Dingin"], correctIndex: 1 },
+                    { question: "Ar-Rahim artinya...", options: ["Maha Penyayang","Maha Kuat","Maha Melihat","Maha Pencipta"], correctIndex: 0 },
+                    { question: "Allah melihat kita...", options: ["Hanya saat sholat","Selalu","Tidak pernah","Hanya malam"], correctIndex: 1 },
+                    { question: "Allah memberi kita...", options: ["Mata","Telinga","Semua anggota tubuh","Hanya tangan"], correctIndex: 2 },
+                    { question: "Kita harus...", options: ["Mengingkari Allah","Menyembah Allah","Lupa pada Allah","Tidak peduli"], correctIndex: 1 }
+                ],
+                startQuiz() { this.quizStarted = true; },
+                selectAnswer(index) { this.answers[this.currentQuestion - 1] = index; },
+                prevQuestion() { if (this.currentQuestion > 1) this.currentQuestion--; },
+                nextQuestion() { if (this.currentQuestion < this.questions.length) this.currentQuestion++; },
+                submitQuiz() { this.score = 0; for (let i = 0; i < this.questions.length; i++) { if (this.answers[i] === this.questions[i].correctIndex) this.score += 10; } this.quizFinished = true; },
+                resetQuiz() { this.quizStarted = false; this.quizFinished = false; this.currentQuestion = 1; this.score = 0; this.answers = [null,null,null,null,null,null,null,null,null,null]; }
+            }
+        }
+    </script>
+</body>
+</html>

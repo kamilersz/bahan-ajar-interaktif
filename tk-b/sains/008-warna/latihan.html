@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warna - Latihan | Sains TK-B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .option-card:hover { transform: scale(1.02); transition: all 0.3s ease; }
+        .bounce-in { animation: bounceIn 0.5s ease; }
+        @keyframes bounceIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pink-100 via-rose-100 to-red-100 min-h-screen" x-data="warnaQuiz()">
+    <header class="bg-gradient-to-r from-pink-500 via-rose-500 to-red-500 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <a href="teori.html" class="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/30"><span>⬅️</span><span class="font-bold">Kembali</span></a>
+                <h1 class="text-xl font-bold">Latihan Warna</h1>
+                <div class="bg-white/20 px-4 py-2 rounded-full font-bold">Skor: <span x-text="score"></span></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-4">
+        <div class="bg-white rounded-full h-4 shadow-lg overflow-hidden"><div class="h-full bg-gradient-to-r from-pink-400 to-rose-500 transition-all" :style="'width: ' + ((currentQuestion / questions.length) * 100) + '%'"></div></div>
+        <p class="text-center mt-2 text-gray-600">Soal <span x-text="currentQuestion"></span> dari <span x-text="questions.length"></span></p>
+    </div>
+
+    <main class="container mx-auto px-4 py-6" x-show="!showResult">
+        <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-pink-300 mb-6 bounce-in"><h2 class="text-xl font-bold" x-text="questions[currentQuestion - 1].question"></h2></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <template x-for="(option, index) in questions[currentQuestion - 1].options" :key="index">
+                <div @click="checkAnswer(index)" :class="{'cursor-pointer': !answered, 'bg-pink-500 text-white': answered && index === questions[currentQuestion - 1].correctIndex, 'opacity-60': answered && index !== questions[currentQuestion - 1].correctIndex}" class="bg-pink-50 rounded-2xl shadow-lg p-6 border-4 border-pink-200 option-card">
+                    <div class="flex items-center gap-4"><span class="text-4xl" x-text="option.emoji"></span><span class="text-lg font-bold" x-text="option.text"></span><span x-show="answered && index === questions[currentQuestion - 1].correctIndex" class="text-3xl ml-auto">✅</span></div>
+                </div>
+            </template>
+        </div>
+
+        <div x-show="answered" class="bg-white rounded-3xl shadow-2xl p-6 border-4 mb-6 bounce-in border-pink-400"><p class="text-lg text-center" x-text="questions[currentQuestion - 1].explanation"></p></div>
+
+        <div x-show="answered" class="flex justify-center">
+            <button @click="nextQuestion()" class="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-8 py-4 rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl transition">
+                <span x-show="currentQuestion < questions.length">Soal Berikutnya ➡️</span><span x-show="currentQuestion === questions.length">Lihat Hasil 🏆</span>
+            </button>
+        </div>
+    </main>
+
+    <div x-show="showResult" class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 border-4 border-yellow-400 max-w-2xl mx-auto text-center">
+            <div class="text-6xl mb-4">🏆</div><h2 class="text-3xl font-bold mb-4 font-comic">Selamat!</h2>
+            <div class="bg-pink-100 rounded-2xl p-6 mb-6"><p class="text-5xl font-bold text-pink-600" x-text="score + ' / ' + (questions.length * 10)"></p></div>
+            <div class="flex flex-col gap-3"><a href="teori.html" class="block bg-pink-500 text-white py-3 px-6 rounded-xl font-bold">📖 Pelajari Lagi</a><a href="evaluasi.html" class="block bg-rose-500 text-white py-3 px-6 rounded-xl font-bold">📝 Kerjakan Evaluasi</a></div>
+        </div>
+    </div>
+
+    <footer class="bg-gradient-to-r from-pink-600 to-rose-600 text-white py-4 mt-8"><div class="container mx-auto px-4 text-center"><p class="font-semibold">© 2025 Bahan Ajar Interaktif - TK-B Sains</p></div></footer>
+
+    <script>
+        function warnaQuiz() {
+            return {
+                score: 0, currentQuestion: 1, answered: false, showResult: false,
+                questions: [
+                    { question: "Warna apel adalah...", options: [{text:"Merah",emoji:"🔴"},{text:"Biru",emoji:"🔵"},{text:"Kuning",emoji:"🟡"},{text:"Hijau",emoji:"🟢"}], correctIndex: 0, explanation: "Benar! Apel biasanya berwarna merah." },
+                    { question: "Warna daun adalah...", options: [{text:"Merah",emoji:"🔴"},{text:"Hijau",emoji:"🟢"},{text:"Biru",emoji:"🔵"},{text:"Kuning",emoji:"🟡"}], correctIndex: 1, explanation: "Tepat! Daun berwarna hijau." },
+                    { question: "Langit berwarna...", options: [{text:"Hijau",emoji:"🟢"},{text:"Merah",emoji:"🔴"},{text:"Biru",emoji:"🔵"},{text:"Kuning",emoji:"🟡"}], correctIndex: 2, explanation: "Hebat! Langit berwarna biru." },
+                    { question: "Warna pisang adalah...", options: [{text:"Kuning",emoji:"🟡"},{text:"Merah",emoji:"🔴"},{text:"Ungu",emoji:"🟣"},{text:"Biru",emoji:"🔵"}], correctIndex: 0, explanation: "Pintar! Pisang berwarna kuning." },
+                    { question: "Pelangi memiliki berapa warna?", options: [{text:"3",emoji:"3️⃣"},{text:"5",emoji:"5️⃣"},{text:"7",emoji:"7️⃣"},{text:"10",emoji:"🔟"}], correctIndex: 2, explanation: "Luar biasa! Pelangi memiliki 7 warna." },
+                    { question: "Warna matahari adalah...", options: [{text:"Biru",emoji:"🔵"},{text:"Kuning",emoji:"🟡"},{text:"Merah",emoji:"🔴"},{text:"Hijau",emoji:"🟢"}], correctIndex: 1, explanation: "Benar! Matahari berwarna kuning." },
+                    { question: "Jeruk berwarna...", options: [{text:"Merah",emoji:"🔴"},{text:"Oranye",emoji:"🟠"},{text:"Biru",emoji:"🔵"},{text:"Ungu",emoji:"🟣"}], correctIndex: 1, explanation: "Tepat! Jeruk berwarna oranye." },
+                    { question: "Terong berwarna...", options: [{text:"Ungu",emoji:"🟣"},{text:"Merah",emoji:"🔴"},{text:"Kuning",emoji:"🟡"},{text:"Hijau",emoji:"🟢"}], correctIndex: 0, explanation: "Hebat! Terong berwarna ungu." },
+                    { question: "Semangka luar berwarna...", options: [{text:"Kuning",emoji:"🟡"},{text:"Hijau",emoji:"🟢"},{text:"Merah",emoji:"🔴"},{text:"Biru",emoji:"🔵"}], correctIndex: 1, explanation: "Pintar! Kulit semangka berwarna hijau." },
+                    { question: "Kucing bisa berwarna...", options: [{text:"Hanya hitam",emoji:"⚫"},{text:"Hanya putih",emoji:"⚪"},{text:"Hitam putih oranye",emoji:"🐈"},{text:"Hanya merah",emoji:"🔴"}], correctIndex: 2, explanation: "Tepat! Kucing memiliki berbagai warna." }
+                ],
+                checkAnswer(index) { if (this.answered) return; this.answered = true; if (index === this.questions[this.currentQuestion - 1].correctIndex) this.score += 10; },
+                nextQuestion() { if (this.currentQuestion < this.questions.length) { this.currentQuestion++; this.answered = false; } else this.showResult = true; }
+            }
+        }
+    </script>
+</body>
+</html>

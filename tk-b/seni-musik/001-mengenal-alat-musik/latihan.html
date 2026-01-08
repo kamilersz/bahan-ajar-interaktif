@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Alat Musik - TK-B Seni Musik</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Comic Neue', cursive; }
+        .title-font { font-family: 'Fredoka One', cursive; }
+        .wiggle { animation: wiggle 1s ease-in-out infinite; }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-100 via-pink-100 to-red-100 min-h-screen" x-data="instrumentGame()">
+    <header class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="title-font text-4xl md:text-5xl mb-2 wiggle inline-block">🎮 Latihan Alat Musik 🎮</h1>
+            <p class="text-xl">Ayo Bermain dengan Alat Musik!</p>
+            <div class="mt-4 bg-white/20 rounded-full px-6 py-2 inline-block">
+                <span class="text-2xl">⭐ Skor: <span x-text="score"></span> ⭐</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Game 1: Guess the Instrument -->
+        <div x-show="gameStage === 1" class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-purple-300">
+            <h2 class="title-font text-3xl text-center text-purple-600 mb-6">🎯 Tebak Alat Musik! 🎯</h2>
+            <p class="text-center text-xl text-gray-700 mb-6">Alat musik apa ini?</p>
+
+            <div class="text-center mb-8">
+                <div class="text-9xl mb-4" x-text="currentInstrument.emoji"></div>
+                <p class="title-font text-2xl text-gray-800" x-text="currentInstrument.name"></p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+                <template x-for="option in currentOptions" :key="option">
+                    <button @click="checkGuess(option)"
+                            class="p-6 rounded-2xl title-font text-xl shadow-lg transition-all hover:scale-105"
+                            :class="getOptionClass(option)">
+                        <span x-text="option"></span>
+                    </button>
+                </template>
+            </div>
+
+            <div x-show="showFeedback" class="text-center p-6 rounded-2xl text-2xl"
+                 :class="isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
+                <div class="text-5xl mb-2" x-text="isCorrect ? '🎉' : '😅'"></div>
+                <p class="title-font" x-text="feedbackText"></p>
+                <button x-show="isCorrect" @click="nextQuestion()"
+                        class="mt-4 bg-gradient-to-r from-blue-400 to-blue-600 text-white px-6 py-3 rounded-full title-font text-xl">
+                    ➡️ Alat Musik Berikutnya
+                </button>
+            </div>
+        </div>
+
+        <!-- Game 2: Match Instrument to Sound -->
+        <div x-show="gameStage === 2" class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-pink-300">
+            <h2 class="title-font text-3xl text-center text-pink-600 mb-6">🔊 Cocokkan dengan Cara Main! 🔊</h2>
+            <p class="text-center text-xl text-gray-700 mb-6">Cocokkan alat musik dengan cara memainkannya!</p>
+
+            <div class="text-center mb-8">
+                <div class="text-9xl mb-4" x-text="matchInstrument.emoji"></div>
+                <p class="title-font text-2xl text-gray-800" x-text="matchInstrument.name"></p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <template x-for="method in playMethods" :key="method">
+                    <button @click="checkMatch(method)"
+                            class="p-6 rounded-2xl title-font text-xl shadow-lg transition-all hover:scale-105 bg-gradient-to-br from-purple-100 to-pink-100 hover:from-purple-200 hover:to-pink-200 text-purple-700">
+                        <span x-text="method"></span>
+                    </button>
+                </template>
+            </div>
+
+            <div x-show="showMatchFeedback" class="text-center p-6 rounded-2xl text-2xl"
+                 :class="isMatchCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
+                <div class="text-5xl mb-2" x-text="isMatchCorrect ? '🌟' : '💭'"></div>
+                <p class="title-font" x-text="matchFeedbackText"></p>
+                <button x-show="isMatchCorrect" @click="nextMatch()"
+                        class="mt-4 bg-gradient-to-r from-pink-400 to-purple-400 text-white px-6 py-3 rounded-full title-font text-xl">
+                    ➡️ Alat Musik Berikutnya
+                </button>
+            </div>
+        </div>
+
+        <!-- Game 3: True or False -->
+        <div x-show="gameStage === 3" class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-red-300">
+            <h2 class="title-font text-3xl text-center text-red-600 mb-6">✅ Benar atau Salah? ✅</h2>
+            <p class="text-center text-xl text-gray-700 mb-6">Pernyataan ini benar atau salah?</p>
+
+            <div class="bg-gradient-to-br from-yellow-100 to-orange-100 rounded-2xl p-6 mb-8">
+                <p class="title-font text-2xl text-center text-gray-800" x-text="tfStatement.statement"></p>
+            </div>
+
+            <div class="flex justify-center gap-6 mb-6">
+                <button @click="checkTF(true)"
+                        class="px-12 py-6 rounded-2xl title-font text-2xl shadow-lg transition-all hover:scale-105 bg-gradient-to-r from-green-400 to-green-600 text-white">
+                    ✅ BENAR
+                </button>
+                <button @click="checkTF(false)"
+                        class="px-12 py-6 rounded-2xl title-font text-2xl shadow-lg transition-all hover:scale-105 bg-gradient-to-r from-red-400 to-red-600 text-white">
+                    ❌ SALAH
+                </button>
+            </div>
+
+            <div x-show="showTFFeedback" class="text-center p-6 rounded-2xl text-2xl"
+                 :class="isTFCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
+                <div class="text-5xl mb-2" x-text="isTFCorrect ? '🎊' : '🤔'"></div>
+                <p class="title-font" x-text="tffeedbackText"></p>
+                <button x-show="isTFCorrect" @click="nextTF()"
+                        class="mt-4 bg-gradient-to-r from-purple-400 to-pink-400 text-white px-6 py-3 rounded-full title-font text-xl">
+                    ➡️ Pernyataan Berikutnya
+                </button>
+            </div>
+        </div>
+
+        <!-- Completion -->
+        <div x-show="gameStage === 4" class="bg-white rounded-3xl shadow-xl p-8 border-4 border-yellow-400">
+            <div class="text-center">
+                <div class="text-8xl mb-4">🏆</div>
+                <h2 class="title-font text-4xl text-yellow-600 mb-4">LUAR BIASA!</h2>
+                <p class="text-2xl text-gray-700 mb-6">Adik-adik sudah menyelesaikan semua latihan!</p>
+                <div class="bg-gradient-to-r from-yellow-200 to-orange-200 rounded-2xl p-6 mb-6">
+                    <p class="title-font text-3xl text-orange-700">Skor Akhir: <span x-text="score"></span> ⭐</p>
+                </div>
+                <div class="space-y-4">
+                    <a href="evaluasi.html" class="inline-block bg-gradient-to-r from-green-400 to-green-600 text-white title-font text-2xl px-8 py-4 rounded-full shadow-lg">
+                        ➡️ Lanjut ke Evaluasi
+                    </a>
+                    <br>
+                    <button @click="restartGame()" class="inline-block bg-gradient-to-r from-purple-400 to-pink-400 text-white title-font text-xl px-6 py-3 rounded-full shadow-lg">
+                        🔄 Main Lagi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white py-4 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg">© 2024 Bahan Ajar Interaktif - TK-B Seni Musik</p>
+        </div>
+    </footer>
+
+    <script>
+        function instrumentGame() {
+            return {
+                score: 0,
+                gameStage: 1,
+                currentInstrumentIndex: 0,
+                matchInstrumentIndex: 0,
+                tfIndex: 0,
+                showFeedback: false,
+                isCorrect: false,
+                feedbackText: '',
+                showMatchFeedback: false,
+                isMatchCorrect: false,
+                matchFeedbackText: '',
+                showTFFeedback: false,
+                isTFCorrect: false,
+                tffeedbackText: '',
+                instruments: [
+                    { emoji: '🎸', name: 'Gitar' },
+                    { emoji: '🎹', name: 'Piano' },
+                    { emoji: '🥁', name: 'Drum' },
+                    { emoji: '🎼', name: 'Seruling' },
+                    { emoji: '🎋', name: 'Angklung' },
+                    { emoji: '🔺', name: 'Triangel' }
+                ],
+                playMethods: ['Dipetik', 'Dipukul', 'Ditiup'],
+                tfStatements: [
+                    { statement: 'Gitar dimainkan dengan cara ditiup', answer: false },
+                    { statement: 'Drum dimainkan dengan cara dipukul', answer: true },
+                    { statement: 'Piano punya banyak tuts', answer: true },
+                    { statement: 'Seruling dimainkan dengan cara dipetik', answer: false },
+                    { statement: 'Angklung adalah alat musik asli Indonesia', answer: true }
+                ],
+                get currentInstrument() { return this.instruments[this.currentInstrumentIndex]; },
+                get matchInstrument() { return this.instruments[this.matchInstrumentIndex]; },
+                get tfStatement() { return this.tfStatements[this.tfIndex]; },
+                get currentOptions() {
+                    const all = this.instruments.map(i => i.name);
+                    const correct = this.currentInstrument.name;
+                    const options = [correct];
+                    const remaining = all.filter(i => i !== correct);
+                    while (options.length < 3 && remaining.length > 0) {
+                        const idx = Math.floor(Math.random() * remaining.length);
+                        options.push(remaining.splice(idx, 1)[0]);
+                    }
+                    return options.sort(() => Math.random() - 0.5);
+                },
+                getOptionClass(option) {
+                    const colors = {
+                        'Gitar': 'bg-gradient-to-br from-amber-400 to-orange-500 text-white',
+                        'Piano': 'bg-gradient-to-br from-gray-400 to-slate-500 text-white',
+                        'Drum': 'bg-gradient-to-br from-red-400 to-rose-500 text-white',
+                        'Seruling': 'bg-gradient-to-br from-cyan-400 to-blue-500 text-white',
+                        'Angklung': 'bg-gradient-to-br from-yellow-400 to-amber-500 text-white',
+                        'Triangel': 'bg-gradient-to-br from-purple-400 to-pink-500 text-white'
+                    };
+                    return colors[option] || 'bg-gray-400 text-white';
+                },
+                checkGuess(guess) {
+                    this.showFeedback = true;
+                    this.isCorrect = guess === this.currentInstrument.name;
+                    if (this.isCorrect) {
+                        this.score += 10;
+                        this.feedbackText = `🎉 Benar! Itu adalah ${this.currentInstrument.name}!`;
+                    } else {
+                        this.feedbackText = `😅 Almost! Coba lagi ya!`;
+                        setTimeout(() => { this.showFeedback = false; }, 1500);
+                    }
+                },
+                nextQuestion() {
+                    this.currentInstrumentIndex++;
+                    this.showFeedback = false;
+                    if (this.currentInstrumentIndex >= this.instruments.length) {
+                        this.gameStage = 2;
+                    }
+                },
+                checkMatch(method) {
+                    this.showMatchFeedback = true;
+                    const correctMethods = {
+                        'Gitar': 'Dipetik',
+                        'Piano': 'Ditekan',
+                        'Drum': 'Dipukul',
+                        'Seruling': 'Ditiup',
+                        'Angklung': 'Digoyangkan',
+                        'Triangel': 'Dipukul'
+                    };
+                    this.isMatchCorrect = method === correctMethods[this.matchInstrument.name] || (this.matchInstrument.name === 'Drum' || this.matchInstrument.name === 'Triangel') && method === 'Dipukul';
+                    if (this.isMatchCorrect) {
+                        this.score += 15;
+                        this.matchFeedbackText = `✅ Benar! ${this.matchInstrument.name} dimainkan dengan ${method}!`;
+                    } else {
+                        this.matchFeedbackText = `💭 Hmm, ${this.matchInstrument.name} bukan dimainkan dengan ${method}`;
+                        setTimeout(() => { this.showMatchFeedback = false; }, 2000);
+                    }
+                },
+                nextMatch() {
+                    this.matchInstrumentIndex++;
+                    this.showMatchFeedback = false;
+                    if (this.matchInstrumentIndex >= this.instruments.length) {
+                        this.gameStage = 3;
+                    }
+                },
+                checkTF(answer) {
+                    this.showTFFeedback = true;
+                    this.isTFCorrect = answer === this.tfStatement.answer;
+                    if (this.isTFCorrect) {
+                        this.score += 20;
+                        this.tffeedbackText = `✅ Benar! "${this.tfStatement.statement}" adalah ${this.tfStatement.answer ? 'pernyataan yang benar' : 'pernyataan yang salah'}!`;
+                    } else {
+                        this.tffeedbackText = `🤔 Hmm, pernyataan itu sebenarnya ${this.tfStatement.answer ? 'benar' : 'salah'}!`;
+                        setTimeout(() => { this.showTFFeedback = false; }, 2500);
+                    }
+                },
+                nextTF() {
+                    this.tfIndex++;
+                    this.showTFFeedback = false;
+                    if (this.tfIndex >= this.tfStatements.length) {
+                        this.gameStage = 4;
+                    }
+                },
+                restartGame() {
+                    this.score = 0;
+                    this.gameStage = 1;
+                    this.currentInstrumentIndex = 0;
+                    this.matchInstrumentIndex = 0;
+                    this.tfIndex = 0;
+                    this.showFeedback = false;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

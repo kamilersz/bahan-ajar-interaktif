@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Pengurangan - TK-B Matematika</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .minus-sign { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-red-100 via-pink-50 to-purple-100 min-h-screen">
+    <header class="bg-gradient-to-r from-red-400 via-pink-400 to-purple-400 text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">➖ Belajar Pengurangan</h1>
+            <p class="text-lg">Mari belajar mengurangi angka, Adik-adik!</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8">
+            <div class="text-center mb-6">
+                <div class="text-6xl mb-4">➖</div>
+                <h2 class="text-2xl font-bold text-red-700 mb-3">Apa Itu Pengurangan?</h2>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    <strong>Pengurangan</strong> adalah mengambil benda dari kelompok untuk mencari <strong>sisa</strong>!
+                    Kita menggunakan tanda <strong>minus (-)</strong> untuk pengurangan.
+                    Ini kebalikan dari penjumlahan!
+                </p>
+            </div>
+        </section>
+
+        <section class="bg-gradient-to-r from-red-100 to-pink-100 rounded-3xl shadow-xl p-6 mb-8">
+            <h2 class="text-2xl font-bold text-red-700 mb-6 text-center">🎯 Contoh Pengurangan</h2>
+
+            <div class="space-y-6">
+                <div class="bg-white rounded-2xl p-6 shadow-lg">
+                    <h3 class="text-xl font-bold text-red-600 mb-4 text-center">Contoh 1: 5 - 2 = ?</h3>
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
+                        <div class="text-center"><div class="text-5xl mb-2">🍎🍎🍎🍎🍎</div><div class="bg-red-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl font-bold mx-auto">5</div></div>
+                        <div class="minus-sign text-5xl text-pink-600 font-bold">-</div>
+                        <div class="text-center"><div class="text-5xl mb-2">🍎🍎</div><div class="bg-red-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl font-bold mx-auto">2</div></div>
+                        <div class="text-5xl text-pink-600 font-bold">=</div>
+                        <div class="text-center"><div class="text-5xl mb-2">🍎🍎🍎</div><div class="bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl font-bold mx-auto">3</div></div>
+                    </div>
+                    <p class="text-center text-lg text-gray-700">5 apel <strong>dikurangi</strong> 2 apel <strong>sisa</strong> 3 apel!</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg">
+                    <h3 class="text-xl font-bold text-red-600 mb-4 text-center">Contoh 2: 8 - 3 = ?</h3>
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
+                        <div class="text-center"><div class="text-4xl mb-2">⭐⭐⭐⭐⭐⭐⭐⭐</div><div class="bg-blue-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl font-bold mx-auto">8</div></div>
+                        <div class="minus-sign text-5xl text-pink-600 font-bold">-</div>
+                        <div class="text-center"><div class="text-4xl mb-2">⭐⭐⭐</div><div class="bg-blue-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl font-bold mx-auto">3</div></div>
+                        <div class="text-5xl text-pink-600 font-bold">=</div>
+                        <div class="text-center"><div class="text-4xl mb-2">⭐⭐⭐⭐⭐</div><div class="bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl font-bold mx-auto">5</div></div>
+                    </div>
+                    <p class="text-center text-lg text-gray-700">8 bintang <strong>dikurangi</strong> 3 bintang <strong>sisa</strong> 5 bintang!</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8">
+            <h2 class="text-2xl font-bold text-center text-red-700 mb-6">🔢 Cara Menghitung Pengurangan</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-gradient-to-br from-red-100 to-pink-100 rounded-2xl p-6 shadow-lg">
+                    <div class="text-4xl mb-3">1️⃣</div>
+                    <h3 class="text-xl font-bold text-red-700 mb-2">Hitung Mundur</h3>
+                    <p class="text-gray-700">Mulai dari angka besar, lalu hitung mundur. Contoh: 5 - 2 = hitung 5, 4, 3 = 3!</p>
+                </div>
+                <div class="bg-gradient-to-br from-pink-100 to-purple-100 rounded-2xl p-6 shadow-lg">
+                    <div class="text-4xl mb-3">2️⃣</div>
+                    <h3 class="text-xl font-bold text-pink-700 mb-2">Gunakan Jari</h3>
+                    <p class="text-gray-700">Buka 5 jari, lalu tutup 2 jari. Berapa yang tersisa? 3 jari!</p>
+                </div>
+                <div class="bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl p-6 shadow-lg">
+                    <div class="text-4xl mb-3">3️⃣</div>
+                    <h3 class="text-xl font-bold text-purple-700 mb-2">Gunakan Benda</h3>
+                    <p class="text-gray-700">Gunakan kelereng atau mainan. Pindahkan sebagian, hitung sisanya!</p>
+                </div>
+                <div class="bg-gradient-to-br from-indigo-100 to-blue-100 rounded-2xl p-6 shadow-lg">
+                    <div class="text-4xl mb-3">4️⃣</div>
+                    <h3 class="text-xl font-bold text-indigo-700 mb-2">Hilangkan Visual</h3>
+                    <p class="text-gray-700">Coret atau tutup benda yang dikurangi, lalu hitung sisa yang terlihat!</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-gradient-to-r from-yellow-200 to-orange-200 rounded-3xl shadow-xl p-6 mb-8">
+            <h2 class="text-2xl font-bold text-orange-700 mb-4 text-center">💡 Tips Belajar Pengurangan!</h2>
+            <ul class="text-lg text-gray-700 space-y-3">
+                <li class="flex items-start"><span class="text-2xl mr-3">🔄</span><span>Ingat: Pengurangan adalah kebalikan penjumlahan. Jika 3 + 2 = 5, maka 5 - 2 = 3!</span></li>
+                <li class="flex items-start"><span class="text-2xl mr-3">👆</span><span>Gunakan jari untuk membantu menghitung mundur!</span></li>
+                <li class="flex items-start"><span class="text-2xl mr-3">🍎</span><span>Gunakan benda nyata untuk visualisasi yang lebih jelas!</span></li>
+                <li class="flex items-start"><span class="text-2xl mr-3">🎮</span><span>Praktik dengan permainan: berikan Adik beberapa benda, minta ambil sebagian, hitung sisa!</span></li>
+            </ul>
+        </section>
+
+        <div class="text-center space-y-4">
+            <a href="../003-penjumlahan/teori.html" class="inline-block bg-gradient-to-r from-blue-400 to-blue-600 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:scale-105 transition">← Sebelumnya: Penjumlahan</a>
+            <br>
+            <a href="latihan.html" class="inline-block bg-gradient-to-r from-green-400 to-green-600 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg hover:scale-105 transition">🎮 Lanjut ke Latihan!</a>
+        </div>
+    </main>
+
+    <footer class="bg-red-600 text-white py-6 mt-8">
+        <div class="container mx-auto px-4 text-center"><p class="text-lg">© 2025 Bahan Ajar Interaktif - TK-B Matematika</p><p class="text-sm opacity-75 mt-2">Belajar dengan Gembira! 🌟</p></div>
+    </footer>
+</body>
+</html>

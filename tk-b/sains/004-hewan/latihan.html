@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hewan - Latihan | Sains TK-B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .font-comic { font-family: 'Comic Neue', cursive; }
+        .option-card:hover { transform: scale(1.02); }
+        .option-card { transition: all 0.3s ease; }
+        .bounce-in { animation: bounceIn 0.5s ease; }
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-cyan-100 to-sky-100 min-h-screen"
+      x-data="hewanQuiz()">
+
+    <header class="bg-gradient-to-r from-blue-500 via-cyan-500 to-sky-500 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <a href="teori.html" class="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/30 transition">
+                    <span>⬅️</span><span class="font-bold">Kembali</span>
+                </a>
+                <h1 class="text-xl font-bold">Latihan Hewan</h1>
+                <div class="bg-white/20 px-4 py-2 rounded-full font-bold">Skor: <span x-text="score"></span></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-4">
+        <div class="bg-white rounded-full h-4 shadow-lg overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-blue-400 to-cyan-500 transition-all duration-500"
+                 :style="'width: ' + ((currentQuestion / questions.length) * 100) + '%'"></div>
+        </div>
+        <p class="text-center mt-2 text-gray-600">Soal <span x-text="currentQuestion"></span> dari <span x-text="questions.length"></span></p>
+    </div>
+
+    <main class="container mx-auto px-4 py-6" x-show="!showResult">
+        <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-blue-300 mb-6 bounce-in">
+            <h2 class="text-xl font-bold text-gray-800" x-text="questions[currentQuestion - 1].question"></h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <template x-for="(option, index) in questions[currentQuestion - 1].options" :key="index">
+                <div @click="checkAnswer(index)"
+                     :class="{
+                        'cursor-pointer': !answered,
+                        'bg-green-500 text-white': answered && index === questions[currentQuestion - 1].correctIndex,
+                        'opacity-60': answered && index !== questions[currentQuestion - 1].correctIndex
+                     }"
+                     class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl shadow-lg p-6 border-4 border-blue-200 option-card">
+                    <div class="flex items-center gap-4">
+                        <span class="text-4xl" x-text="option.emoji"></span>
+                        <span class="text-lg font-bold" x-text="option.text"></span>
+                        <span x-show="answered && index === questions[currentQuestion - 1].correctIndex" class="text-3xl ml-auto">✅</span>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <div x-show="answered" class="bg-white rounded-3xl shadow-2xl p-6 border-4 mb-6 bounce-in border-green-400">
+            <p class="text-lg text-gray-700 text-center" x-text="questions[currentQuestion - 1].explanation"></p>
+        </div>
+
+        <div x-show="answered" class="flex justify-center">
+            <button @click="nextQuestion()" class="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-8 py-4 rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl transition">
+                <span x-show="currentQuestion < questions.length">Soal Berikutnya ➡️</span>
+                <span x-show="currentQuestion === questions.length">Lihat Hasil 🏆</span>
+            </button>
+        </div>
+    </main>
+
+    <div x-show="showResult" class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 border-4 border-yellow-400 max-w-2xl mx-auto text-center">
+            <div class="text-6xl mb-4">🏆</div>
+            <h2 class="text-3xl font-bold mb-4 font-comic">Selamat!</h2>
+            <div class="bg-gradient-to-r from-blue-100 to-cyan-100 rounded-2xl p-6 mb-6">
+                <p class="text-5xl font-bold text-blue-600" x-text="score + ' / ' + (questions.length * 10)"></p>
+            </div>
+            <div class="flex flex-col gap-3">
+                <a href="teori.html" class="block bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-3 px-6 rounded-xl font-bold">📖 Pelajari Lagi</a>
+                <a href="evaluasi.html" class="block bg-gradient-to-r from-green-500 to-emerald-500 text-white py-3 px-6 rounded-xl font-bold">📝 Kerjakan Evaluasi</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-4 mt-8">
+        <div class="container mx-auto px-4 text-center"><p class="font-semibold">© 2025 Bahan Ajar Interaktif - TK-B Sains</p></div>
+    </footer>
+
+    <script>
+        function hewanQuiz() {
+            return {
+                score: 0, currentQuestion: 1, answered: false, selectedOption: null, showResult: false,
+                questions: [
+                    { question: "Hewan yang hidup di air disebut...", options: [{text:"Ikan",emoji:"🐟"},{text:"Burung",emoji:"🐦"},{text:"Kucing",emoji:"🐱"},{text:"Kelinci",emoji:"🐰"}], correctIndex: 0, explanation: "Benar! Ikan adalah hewan yang hidup di air." },
+                    { question: "Singa adalah hewan pemakan daging, disebut...", options: [{text:"Herbivora",emoji:"🐰"},{text:"Karnivora",emoji:"🦁"},{text:"Omnivora",emoji:"🐻"},{text:"Insektivora",emoji:"🦎"}], correctIndex: 1, explanation: "Tepat! Karnivora adalah pemakan daging." },
+                    { question: "Burung tinggal di...", options: [{text:"Air",emoji:"💧"},{text:"Sarang",emoji:"🪺"},{text:"Lubang",emoji:"🕳️"},{text:"Gua",emoji:"🦇"}], correctIndex: 1, explanation: "Hebat! Burung membuat sarang untuk tempat tinggal." },
+                    { question: "Kuda adalah hewan yang hidup di...", options: [{text:"Udara",emoji:"☁️"},{text:"Air",emoji:"💧"},{text:"Darat",emoji:"🏔️"},{text:"Gua",emoji:"🦇"}], correctIndex: 2, explanation: "Benar! Kuda adalah hewan darat." },
+                    { question: "Ayam memakan tumbuhan dan daging, disebut...", options: [{text:"Herbivora",emoji:"🐰"},{text:"Karnivora",emoji:"🦁"},{text:"Omnivora",emoji:"🐔"},{text:"Insektivora",emoji:"🦎"}], correctIndex: 2, explanation: "Tepat! Omnivora memakan tumbuhan dan daging." },
+                    { question: "Hewan yang bisa terbang memiliki...", options: [{text:"Sirip",emoji:"🐟"},{text:"Sayap",emoji:"🦋"},{text:"Kaki",emoji:"🐾"},{text:"Ekor",emoji:"🐒"}], correctIndex: 1, explanation: "Pintar! Sayap digunakan untuk terbang." },
+                    { question: "Sapi memakan rumput, disebut...", options: [{text:"Karnivora",emoji:"🦁"},{text:"Herbivora",emoji:"🐄"},{text:"Omnivora",emoji:"🐻"},{text:"Insektivora",emoji:"🦎"}], correctIndex: 1, explanation: "Benar! Herbivora adalah pemakan tumbuhan." },
+                    { question: "Ikan berenang menggunakan...", options: [{text:"Kaki",emoji:"🐾"},{text:"Sayap",emoji:"🦋"},{text:"Sirip",emoji:"🐟"},{text:"Tangan",emoji:"✋"}], correctIndex: 2, explanation: "Hebat! Sirip digunakan untuk berenang." },
+                    { question: "Kucing tinggal di...", options: [{text:"Dalam air",emoji:"💧"},{text:"Rumah manusia",emoji:"🏠"},{text:"Di langit",emoji:"☁️"},{text:"Di dalam tanah",emoji:"🕳️"}], correctIndex: 1, explanation: "Tepat! Kucing biasanya tinggal di rumah bersama manusia." },
+                    { question: "Kita harus...", options: [{text:"Menyakiti hewan",emoji:"😢"},{text:"Menyayangi hewan",emoji:"💖"},{text:"Membuang hewan",emoji:"🚫"},{text:"Mengabaikan hewan",emoji:"😔"}], correctIndex: 1, explanation: "Luar biasa! Kita harus menyayangi semua hewan." }
+                ],
+                checkAnswer(index) {
+                    if (this.answered) return;
+                    this.answered = true;
+                    this.selectedOption = index;
+                    if (index === this.questions[this.currentQuestion - 1].correctIndex) this.score += 10;
+                },
+                nextQuestion() {
+                    if (this.currentQuestion < this.questions.length) {
+                        this.currentQuestion++; this.answered = false; this.selectedOption = null;
+                    } else this.showResult = true;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

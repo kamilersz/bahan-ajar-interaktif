@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warna - Teori | Sains TK-B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .font-comic { font-family: 'Comic Neue', cursive; }
+        .color-card:hover { transform: scale(1.05); transition: all 0.3s ease; }
+        .float { animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pink-100 via-rose-100 to-red-100 min-h-screen">
+
+    <header class="bg-gradient-to-r from-pink-500 via-rose-500 to-red-500 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <a href="../index.html" class="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/30"><span>⬅️</span><span class="font-bold">Kembali</span></a>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-center">Warna</h1>
+                <div class="w-24"></div>
+            </div>
+        </div>
+    </header>
+
+    <section class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-pink-300">
+            <div class="flex items-center gap-3 mb-4"><span class="text-4xl float">🎨</span><h2 class="text-2xl font-bold font-comic">Kenali Warna!</h2></div>
+            <p class="text-lg text-gray-700"><strong class="text-pink-600">Adik-adik</strong>, dunia ini penuh dengan warna-warni yang indah! Mari belajar mengenal berbagai warna dan benda-benda berwarna di sekitar kita!</p>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-6">
+        <h3 class="text-2xl font-bold text-center mb-6 font-comic">Warna-warna Pelangi</h3>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="color-card bg-gradient-to-br from-red-400 to-red-600 rounded-3xl shadow-2xl p-6 text-white text-center">
+                <div class="text-6xl mb-2">🔴</div><h4 class="text-2xl font-bold">Merah</h4><p class="mt-2 bg-white/20 rounded-xl p-2 text-sm">Apel, Tomat, Bunga Mawar</p>
+            </div>
+            <div class="color-card bg-gradient-to-br from-orange-400 to-orange-600 rounded-3xl shadow-2xl p-6 text-white text-center">
+                <div class="text-6xl mb-2">🟠</div><h4 class="text-2xl font-bold">Oranye</h4><p class="mt-2 bg-white/20 rounded-xl p-2 text-sm">Jeruk, Wortel, Matahari Terbenam</p>
+            </div>
+            <div class="color-card bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-3xl shadow-2xl p-6 text-white text-center">
+                <div class="text-6xl mb-2">🟡</div><h4 class="text-2xl font-bold">Kuning</h4><p class="mt-2 bg-white/20 rounded-xl p-2 text-sm">Matahari, Pisang, Pisang</p>
+            </div>
+            <div class="color-card bg-gradient-to-br from-green-400 to-green-600 rounded-3xl shadow-2xl p-6 text-white text-center">
+                <div class="text-6xl mb-2">🟢</div><h4 class="text-2xl font-bold">Hijau</h4><p class="mt-2 bg-white/20 rounded-xl p-2 text-sm">Daun, Rumput, Semangka</p>
+            </div>
+            <div class="color-card bg-gradient-to-br from-blue-400 to-blue-600 rounded-3xl shadow-2xl p-6 text-white text-center">
+                <div class="text-6xl mb-2">🔵</div><h4 class="text-2xl font-bold">Biru</h4><p class="mt-2 bg-white/20 rounded-xl p-2 text-sm">Langit, Laut, Biru</p>
+            </div>
+            <div class="color-card bg-gradient-to-br from-indigo-400 to-indigo-600 rounded-3xl shadow-2xl p-6 text-white text-center">
+                <div class="text-6xl mb-2">🟣</div><h4 class="text-2xl font-bold">Ungu</h4><p class="mt-2 bg-white/20 rounded-xl p-2 text-sm">Terong, Anggur, Lavender</p>
+            </div>
+            <div class="color-card bg-gradient-to-br from-pink-400 to-pink-600 rounded-3xl shadow-2xl p-6 text-white text-center">
+                <div class="text-6xl mb-2">🩷</div><h4 class="text-2xl font-bold">Pink</h4><p class="mt-2 bg-white/20 rounded-xl p-2 text-sm">Bunga Tulip, Permen</p>
+            </div>
+            <div class="color-card bg-gradient-to-br from-gray-700 to-gray-900 rounded-3xl shadow-2xl p-6 text-white text-center">
+                <div class="text-6xl mb-2">⚫</div><h4 class="text-2xl font-bold">Hitam</h4><p class="mt-2 bg-white/20 rounded-xl p-2 text-sm">Kucing, Tinta, Malam</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-purple-200 to-pink-200 rounded-3xl shadow-2xl p-6 border-4 border-purple-400">
+            <div class="flex items-center gap-3 mb-4"><span class="text-4xl">🌈</span><h3 class="text-2xl font-bold font-comic">Pelangi</h3></div>
+            <p class="text-lg text-gray-700">Pelangi terdiri dari 7 warna: <strong>Merah, Jingga, Kuning, Hijau, Biru, Indigo, Ungu</strong>. Pelangi muncul setelah hujan saat matahari bersinar!</p>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row justify-center gap-4">
+            <a href="../index.html" class="flex-1 max-w-xs bg-gray-500 text-white text-center py-4 px-6 rounded-2xl font-bold shadow-xl hover:shadow-2xl transition">⬅️ Kembali ke Menu</a>
+            <a href="latihan.html" class="flex-1 max-w-xs bg-green-500 text-white text-center py-4 px-6 rounded-2xl font-bold shadow-xl hover:shadow-2xl transition">Lanjut ke Latihan ➡️</a>
+        </div>
+    </section>
+
+    <footer class="bg-gradient-to-r from-pink-600 to-rose-600 text-white py-4"><div class="container mx-auto px-4 text-center"><p class="font-semibold">© 2025 Bahan Ajar Interaktif - TK-B Sains</p></div></footer>
+</body>
+</html>

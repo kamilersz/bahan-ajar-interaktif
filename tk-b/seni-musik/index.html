@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seni Musik - TK-B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Comic Neue', cursive; }
+        .title-font { font-family: 'Fredoka One', cursive; }
+        .wiggle { animation: wiggle 1s ease-in-out infinite; }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        .float { animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .bounce-hover:hover { animation: bounce 0.5s ease; }
+        @keyframes bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-100 via-pink-100 to-red-100 min-h-screen">
+    <header class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white py-8 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <div class="text-6xl mb-4 float">🎵</div>
+            <h1 class="title-font text-5xl md:text-6xl mb-2 wiggle inline-block">Seni Musik</h1>
+            <p class="text-2xl">TK-B - Taman Kanak-kanak</p>
+            <p class="text-lg mt-2">Belajar musik dengan ceria dan bahagia!</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+        <section class="bg-white rounded-3xl shadow-xl p-8 mb-8 border-4 border-purple-300">
+            <div class="text-center">
+                <div class="text-5xl mb-4">👋</div>
+                <h2 class="title-font text-3xl text-purple-600 mb-4">Selamat Datang, Adik-adik!</h2>
+                <p class="text-xl text-gray-700">
+                    Ayo belajar <strong class="text-pink-500">Seni Musik</strong> bersama-sama!
+                    Pilih materi di bawah ini untuk memulai belajar yang seru! 🎶
+                </p>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="title-font text-4xl text-center text-purple-600 mb-8">📚 Materi Pembelajaran 📚</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Topic 1: Mengenal Alat Musik -->
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-purple-300 bounce-hover">
+                    <div class="bg-gradient-to-r from-purple-400 to-pink-400 p-6 text-white text-center">
+                        <div class="text-7xl mb-3">🎸</div>
+                        <h3 class="title-font text-3xl">Mengenal Alat Musik</h3>
+                        <p class="text-lg mt-2">Topic 1</p>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6 text-lg">
+                            Belajar mengenal berbagai alat musik seperti gitar, piano, drum, seruling, angklung, dan triangel!
+                        </p>
+                        <div class="grid grid-cols-2 gap-3">
+                            <a href="001-mengenal-alat-musik/teori.html" class="block bg-gradient-to-r from-purple-400 to-purple-600 text-white text-center py-3 px-4 rounded-full title-font shadow-lg hover:shadow-xl transition-all">
+                                📖 Teori
+                            </a>
+                            <a href="001-mengenal-alat-musik/latihan.html" class="block bg-gradient-to-r from-pink-400 to-pink-600 text-white text-center py-3 px-4 rounded-full title-font shadow-lg hover:shadow-xl transition-all">
+                                🎮 Latihan
+                            </a>
+                            <a href="001-mengenal-alat-musik/evaluasi.html" class="block bg-gradient-to-r from-red-400 to-red-600 text-white text-center py-3 px-4 rounded-full title-font shadow-lg hover:shadow-xl transition-all">
+                                📝 Evaluasi
+                            </a>
+                            <a href="001-mengenal-alat-musik/rangkuman.html" class="block bg-gradient-to-r from-amber-400 to-orange-500 text-white text-center py-3 px-4 rounded-full title-font shadow-lg hover:shadow-xl transition-all">
+                                📚 Rangkuman
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic 2: Mengenal Nada dan Irama -->
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-blue-300 bounce-hover">
+                    <div class="bg-gradient-to-r from-blue-400 to-cyan-400 p-6 text-white text-center">
+                        <div class="text-7xl mb-3">🎵</div>
+                        <h3 class="title-font text-3xl">Mengenal Nada dan Irama</h3>
+                        <p class="text-lg mt-2">Topic 2</p>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6 text-lg">
+                            Belajar tentang nada Do Re Mi Fa Sol La Si Do dan irama lambat, sedang, dan cepat!
+                        </p>
+                        <div class="grid grid-cols-2 gap-3">
+                            <a href="002-mengenal-nada-dan-irama/teori.html" class="block bg-gradient-to-r from-blue-400 to-blue-600 text-white text-center py-3 px-4 rounded-full title-font shadow-lg hover:shadow-xl transition-all">
+                                📖 Teori
+                            </a>
+                            <a href="002-mengenal-nada-dan-irama/latihan.html" class="block bg-gradient-to-r from-cyan-400 to-cyan-600 text-white text-center py-3 px-4 rounded-full title-font shadow-lg hover:shadow-xl transition-all">
+                                🎮 Latihan
+                            </a>
+                            <a href="002-mengenal-nada-dan-irama/evaluasi.html" class="block bg-gradient-to-r from-teal-400 to-teal-600 text-white text-center py-3 px-4 rounded-full title-font shadow-lg hover:shadow-xl transition-all">
+                                📝 Evaluasi
+                            </a>
+                            <a href="002-mengenal-nada-dan-irama/rangkuman.html" class="block bg-gradient-to-r from-amber-400 to-orange-500 text-white text-center py-3 px-4 rounded-full title-font shadow-lg hover:shadow-xl transition-all">
+                                📚 Rangkuman
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic 3: Bernyanyi Lagu Anak -->
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-green-300 bounce-hover">
+                    <div class="bg-gradient-to-r from-green-400 to-emerald-400 p-6 text-white text-center">
+                        <div class="text-7xl mb-3">🎤</div>
+                        <h3 class="title-font text-3xl">Bernyanyi Lagu Anak</h3>
+                        <p class="text-lg mt-2">Topic 3</p>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6 text-lg">
+                            Belajar bernyanyi lagu-lagu anak seperti Balonku, Bintang Kecil, Lihat Kebunku, dan Ampar-Ampar Pisang!
+                        </p>
+                        <div class="grid grid-cols-2 gap-3">
+                            <a href="003-bernyanyi-lagu-anak/teori.html" class="block bg-gradient-to-r from-green-400 to-green-600 text-white text-center py-3 px-4 rounded-full title-font shadow-lg hover:shadow-xl transition-all">
+                                📖 Teori
+                            </a>
+                            <a href="003-bernyanyi-lagu-anak/latihan.html" class="block bg-gradient-to-r from-emerald-400 to-emerald-600 text-white text-center py-3 px-4 rounded-full title-font shadow-lg hover:shadow-xl transition-all">
+                                🎮 Latihan
+                            </a>
+                            <a href="003-bernyanyi-lagu-anak/evaluasi.html" class="block bg-gradient-to-r from-teal-400 to-teal-600 text-white text-center py-3 px-4 rounded-full title-font shadow-lg hover:shadow-xl transition-all">
+                                📝 Evaluasi
+                            </a>
+                            <a href="003-bernyanyi-lagu-anak/rangkuman.html" class="block bg-gradient-to-r from-amber-400 to-orange-500 text-white text-center py-3 px-4 rounded-full title-font shadow-lg hover:shadow-xl transition-all">
+                                📚 Rangkuman
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic 4: Gerakan dan Tari -->
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-orange-300 bounce-hover">
+                    <div class="bg-gradient-to-r from-orange-400 to-pink-400 p-6 text-white text-center">
+                        <div class="text-7xl mb-3">💃</div>
+                        <h3 class="title-font text-3xl">Gerakan dan Tari</h3>
+                        <p class="text-lg mt-2">Topic 4</p>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6 text-lg">
+                            Belajar gerakan dan tarian tradisional Indonesia seperti Tari Piring, Saman, Kecak, dan Jaipong!
+                        </p>
+                        <div class="grid grid-cols-2 gap-3">
+                            <a href="004-gerakan-dan-tari/teori.html" class="block bg-gradient-to-r from-orange-400 to-orange-600 text-white text-center py-3 px-4 rounded-full title-font shadow-lg hover:shadow-xl transition-all">
+                                📖 Teori
+                            </a>
+                            <a href="004-gerakan-dan-tari/latihan.html" class="block bg-gradient-to-r from-pink-400 to-pink-600 text-white text-center py-3 px-4 rounded-full title-font shadow-lg hover:shadow-xl transition-all">
+                                🎮 Latihan
+                            </a>
+                            <a href="004-gerakan-dan-tari/evaluasi.html" class="block bg-gradient-to-r from-rose-400 to-rose-600 text-white text-center py-3 px-4 rounded-full title-font shadow-lg hover:shadow-xl transition-all">
+                                📝 Evaluasi
+                            </a>
+                            <a href="004-gerakan-dan-tari/rangkuman.html" class="block bg-gradient-to-r from-amber-400 to-orange-500 text-white text-center py-3 px-4 rounded-full title-font shadow-lg hover:shadow-xl transition-all">
+                                📚 Rangkuman
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl shadow-xl p-8 border-4 border-purple-400">
+            <h2 class="title-font text-3xl text-center text-purple-700 mb-6">✨ Tips Belajar ✨</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-6 text-center">
+                    <div class="text-5xl mb-3">1️⃣</div>
+                    <h3 class="title-font text-xl text-purple-700 mb-2">Mulai dari Teori</h3>
+                    <p class="text-gray-700">Baca materi teori terlebih dahulu untuk memahami konsep dasar</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 text-center">
+                    <div class="text-5xl mb-3">2️⃣</div>
+                    <h3 class="title-font text-xl text-pink-700 mb-2">Lanjut ke Latihan</h3>
+                    <p class="text-gray-700">Kerjakan latihan untuk melatih pemahaman dengan cara yang menyenangkan</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 text-center">
+                    <div class="text-5xl mb-3">3️⃣</div>
+                    <h3 class="title-font text-xl text-red-700 mb-2">Selesai dengan Evaluasi</h3>
+                    <p class="text-gray-700">Kerjakan evaluasi untuk mengukur seberapa jauh pemahaman Adik-adik</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white py-6 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-2xl title-font mb-2">© 2024 Bahan Ajar Interaktif - TK-B Seni Musik</p>
+            <p class="text-lg">Belajar dengan Ceria dan Bahagia! 🌟</p>
+            <div class="flex justify-center gap-2 mt-4 text-3xl">
+                🎵🎶🎼🎹🎸🎤🎺🥁💃🕺
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

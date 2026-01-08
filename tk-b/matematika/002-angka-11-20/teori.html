@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Angka 11-20 - TK-B Matematika</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .number-card {
+            transition: all 0.3s ease;
+        }
+
+        .number-card:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .ten-group {
+            display: inline-block;
+            margin: 0 2px;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-green-100 via-teal-50 to-blue-100 min-h-screen">
+    <div x-data="{ currentNumber: 0, showHint: false }">
+        <!-- Header -->
+        <header class="bg-gradient-to-r from-teal-400 via-green-400 to-blue-400 text-white py-6 shadow-lg">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-3xl md:text-4xl font-bold mb-2">🔢 Belajar Angka 11-20</h1>
+                <p class="text-lg">Mari belajar angka yang lebih besar, Adik-adik!</p>
+            </div>
+        </header>
+
+        <main class="container mx-auto px-4 py-8">
+            <!-- Introduction -->
+            <section class="bg-white rounded-3xl shadow-xl p-6 mb-8">
+                <div class="text-center mb-6">
+                    <div class="text-6xl mb-4">🌟</div>
+                    <h2 class="text-2xl font-bold text-teal-700 mb-3">Lanjut ke Angka yang Lebih Besar!</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Setelah belajar angka 1-10, sekarang Adik-adik akan belajar <strong>angka 11 sampai 20</strong>!
+                        Angka 11-20 terbentuk dari <strong>sepuluh (10)</strong> ditambah angka 1-9.
+                        Siap belajar? 🚀
+                    </p>
+                </div>
+            </section>
+
+            <!-- Concept Explanation -->
+            <section class="bg-gradient-to-r from-blue-100 to-teal-100 rounded-3xl shadow-xl p-6 mb-8">
+                <h2 class="text-2xl font-bold text-teal-700 mb-4 text-center">💡 Rahasia Angka 11-20!</h2>
+                <div class="bg-white rounded-2xl p-6">
+                    <p class="text-lg text-gray-700 mb-4 text-center">
+                        Angka 11-20 sebenarnya adalah <strong>10 + angka 1-9</strong>!
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
+                        <div class="bg-blue-50 rounded-xl p-4">
+                            <p class="text-3xl font-bold text-blue-600">11</p>
+                            <p class="text-gray-600">10 + 1 = Sepuluh ditambah satu</p>
+                        </div>
+                        <div class="bg-blue-50 rounded-xl p-4">
+                            <p class="text-3xl font-bold text-blue-600">12</p>
+                            <p class="text-gray-600">10 + 2 = Sepuluh ditambah dua</p>
+                        </div>
+                        <div class="bg-blue-50 rounded-xl p-4">
+                            <p class="text-3xl font-bold text-blue-600">13</p>
+                            <p class="text-gray-600">10 + 3 = Sepuluh ditambah tiga</p>
+                        </div>
+                    </div>
+                    <p class="text-md text-gray-600 mt-4 text-center">
+                        Dan seterusnya sampai 20! 🎉
+                    </p>
+                </div>
+            </section>
+
+            <!-- Number Cards -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-center text-teal-700 mb-6">🎯 Kenali Angka 11-20!</h2>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <!-- Number 11 -->
+                    <div @click="currentNumber = 11; showHint = true" class="number-card bg-gradient-to-br from-red-400 to-red-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-6xl font-bold mb-2">11</div>
+                        <div class="text-2xl mb-2">🍎🍎🍎🍎🍎 🍎🍎🍎🍎🍎 🍎</div>
+                        <p class="text-lg font-semibold">Sebelas</p>
+                        <p class="text-sm opacity-90">10 + 1</p>
+                    </div>
+
+                    <!-- Number 12 -->
+                    <div @click="currentNumber = 12; showHint = true" class="number-card bg-gradient-to-br from-orange-400 to-orange-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-6xl font-bold mb-2">12</div>
+                        <div class="text-2xl mb-2">🍊🍊🍊🍊🍊 🍊🍊🍊🍊🍊 🍊🍊</div>
+                        <p class="text-lg font-semibold">Dua Belas</p>
+                        <p class="text-sm opacity-90">10 + 2</p>
+                    </div>
+
+                    <!-- Number 13 -->
+                    <div @click="currentNumber = 13; showHint = true" class="number-card bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-6xl font-bold mb-2">13</div>
+                        <div class="text-2xl mb-2">🍌🍌🍌🍌🍌 🍌🍌🍌🍌🍌 🍌🍌🍌</div>
+                        <p class="text-lg font-semibold">Tiga Belas</p>
+                        <p class="text-sm opacity-90">10 + 3</p>
+                    </div>
+
+                    <!-- Number 14 -->
+                    <div @click="currentNumber = 14; showHint = true" class="number-card bg-gradient-to-br from-green-400 to-green-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-6xl font-bold mb-2">14</div>
+                        <div class="text-2xl mb-2">🍇🍇🍇🍇🍇 🍇🍇🍇🍇🍇 🍇🍇🍇🍇</div>
+                        <p class="text-lg font-semibold">Empat Belas</p>
+                        <p class="text-sm opacity-90">10 + 4</p>
+                    </div>
+
+                    <!-- Number 15 -->
+                    <div @click="currentNumber = 15; showHint = true" class="number-card bg-gradient-to-br from-blue-400 to-blue-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-6xl font-bold mb-2">15</div>
+                        <div class="text-2xl mb-2">🫐🫐🫐🫐🫐 🫐🫐🫐🫐🫐 🫐🫐🫐🫐🫐</div>
+                        <p class="text-lg font-semibold">Lima Belas</p>
+                        <p class="text-sm opacity-90">10 + 5</p>
+                    </div>
+
+                    <!-- Number 16 -->
+                    <div @click="currentNumber = 16; showHint = true" class="number-card bg-gradient-to-br from-indigo-400 to-indigo-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-6xl font-bold mb-2">16</div>
+                        <div class="text-2xl mb-2">⭐⭐⭐⭐⭐ ⭐⭐⭐⭐⭐ ⭐⭐⭐⭐⭐⭐</div>
+                        <p class="text-lg font-semibold">Enam Belas</p>
+                        <p class="text-sm opacity-90">10 + 6</p>
+                    </div>
+
+                    <!-- Number 17 -->
+                    <div @click="currentNumber = 17; showHint = true" class="number-card bg-gradient-to-br from-purple-400 to-purple-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-6xl font-bold mb-2">17</div>
+                        <div class="text-2xl mb-2">🌈🌈🌈🌈🌈 🌈🌈🌈🌈🌈 🌈🌈🌈🌈🌈🌈</div>
+                        <p class="text-lg font-semibold">Tujuh Belas</p>
+                        <p class="text-sm opacity-90">10 + 7</p>
+                    </div>
+
+                    <!-- Number 18 -->
+                    <div @click="currentNumber = 18; showHint = true" class="number-card bg-gradient-to-br from-pink-400 to-pink-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-6xl font-bold mb-2">18</div>
+                        <div class="text-2xl mb-2">🎈🎈🎈🎈🎈 🎈🎈🎈🎈🎈 🎈🎈🎈🎈🎈🎈🎈</div>
+                        <p class="text-lg font-semibold">Delapan Belas</p>
+                        <p class="text-sm opacity-90">10 + 8</p>
+                    </div>
+
+                    <!-- Number 19 -->
+                    <div @click="currentNumber = 19; showHint = true" class="number-card bg-gradient-to-br from-rose-400 to-rose-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-6xl font-bold mb-2">19</div>
+                        <div class="text-2xl mb-2">🎁🎁🎁🎁🎁 🎁🎁🎁🎁🎁 🎁🎁🎁🎁🎁🎁🎁🎁</div>
+                        <p class="text-lg font-semibold">Sembilan Belas</p>
+                        <p class="text-sm opacity-90">10 + 9</p>
+                    </div>
+
+                    <!-- Number 20 -->
+                    <div @click="currentNumber = 20; showHint = true" class="number-card bg-gradient-to-br from-teal-400 to-teal-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-6xl font-bold mb-2">20</div>
+                        <div class="text-2xl mb-2">🍀🍀🍀🍀🍀 🍀🍀🍀🍀🍀 🍀🍀🍀🍀🍀🍀🍀🍀🍀</div>
+                        <p class="text-lg font-semibold">Dua Puluh</p>
+                        <p class="text-sm opacity-90">10 + 10</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detail Section -->
+            <div x-show="showHint" x-transition class="bg-white rounded-3xl shadow-xl p-8 mb-8">
+                <h3 class="text-2xl font-bold text-teal-700 mb-4 text-center">
+                    <span x-show="currentNumber === 11">🍎 Angka 11 - Sebelas</span>
+                    <span x-show="currentNumber === 12">🍊 Angka 12 - Dua Belas</span>
+                    <span x-show="currentNumber === 13">🍌 Angka 13 - Tiga Belas</span>
+                    <span x-show="currentNumber === 14">🍇 Angka 14 - Empat Belas</span>
+                    <span x-show="currentNumber === 15">🫐 Angka 15 - Lima Belas</span>
+                    <span x-show="currentNumber === 16">⭐ Angka 16 - Enam Belas</span>
+                    <span x-show="currentNumber === 17">🌈 Angka 17 - Tujuh Belas</span>
+                    <span x-show="currentNumber === 18">🎈 Angka 18 - Delapan Belas</span>
+                    <span x-show="currentNumber === 19">🎁 Angka 19 - Sembilan Belas</span>
+                    <span x-show="currentNumber === 20">🍀 Angka 20 - Dua Puluh</span>
+                </h3>
+                <div class="bg-gradient-to-r from-teal-50 to-blue-50 rounded-2xl p-6">
+                    <p class="text-lg text-gray-700 text-center leading-relaxed">
+                        <span x-show="currentNumber === 11">Angka <strong>11</strong> dibaca <strong>Sebelas</strong>. Ini sama dengan 10 + 1. Contoh: sebelas jari (10 jari + 1), sebelas murid.</span>
+                        <span x-show="currentNumber === 12">Angka <strong>12</strong> dibaca <strong>Dua Belas</strong>. Ini sama dengan 10 + 2. Contoh: dua belas jam, dua belas bulan.</span>
+                        <span x-show="currentNumber === 13">Angka <strong>13</strong> dibaca <strong>Tiga Belas</strong>. Ini sama dengan 10 + 3. Contoh: tiga belas tanggal, tiga belas kue.</span>
+                        <span x-show="currentNumber === 14">Angka <strong>14</strong> dibaca <strong>Empat Belas</strong>. Ini sama dengan 10 + 4. Contoh: empat belas hari, empat belas buku.</span>
+                        <span x-show="currentNumber === 15">Angka <strong>15</strong> dibaca <strong>Lima Belas</strong>. Ini sama dengan 10 + 5. Contoh: lima belas menit, lima belas permen.</span>
+                        <span x-show="currentNumber === 16">Angka <strong>16</strong> dibaca <strong>Enam Belas</strong>. Ini sama dengan 10 + 6. Contoh: enam belas siswa, enam belas pensil.</span>
+                        <span x-show="currentNumber === 17">Angka <strong>17</strong> dibaca <strong>Tujuh Belas</strong>. Ini sama dengan 10 + 7. Contoh: tujuh belag tanggal, tujuh belas tahun.</span>
+                        <span x-show="currentNumber === 18">Angka <strong>18</strong> dibaca <strong>Delapan Belas</strong>. Ini sama dengan 10 + 8. Contoh: delapan belas lubang, delapan belas telur.</span>
+                        <span x-show="currentNumber === 19">Angka <strong>19</strong> dibaca <strong>Sembilan Belas</strong>. Ini sama dengan 10 + 9. Contoh: sembilan belas kelereng, sembilan belas bunga.</span>
+                        <span x-show="currentNumber === 20">Angka <strong>20</strong> dibaca <strong>Dua Puluh</strong>. Ini sama dengan 10 + 10. Contoh: dua puluh jari kaki dan tangan, dua puluh halaman.</span>
+                    </p>
+                </div>
+                <button @click="showHint = false" class="mt-4 mx-auto block bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-6 rounded-full transition">
+                    Tutup
+                </button>
+            </div>
+
+            <!-- Tips Section -->
+            <section class="bg-gradient-to-r from-yellow-200 to-orange-200 rounded-3xl shadow-xl p-6 mb-8">
+                <h2 class="text-2xl font-bold text-orange-700 mb-4 text-center">💡 Tips Menguasai Angka 11-20!</h2>
+                <ul class="text-lg text-gray-700 space-y-3">
+                    <li class="flex items-start">
+                        <span class="text-2xl mr-3">1️⃣</span>
+                        <span><strong>Kelompokkan 10:</strong> Pisahkan benda menjadi kelompok 10 dan sisanya. Contoh: 11 = 10 + 1.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-2xl mr-3">2️⃣</span>
+                        <span><strong>Gunakan Jari:</strong> 10 jari di tangan + 1 jari = 11!</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-2xl mr-3">3️⃣</span>
+                        <span><strong>Berhitung Bertahap:</strong> Mulai dari 1, hitung terus sampai 20 setiap hari.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-2xl mr-3">4️⃣</span>
+                        <span><strong>Praktik Sehari-hari:</strong> Hitung benda di rumah dalam kelompok 11-20!</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Navigation -->
+            <div class="text-center space-y-4">
+                <a href="../001-angka-1-10/teori.html" class="inline-block bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition">
+                    ← Sebelumnya: Angka 1-10
+                </a>
+                <br>
+                <a href="latihan.html" class="inline-block bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition">
+                    🎮 Lanjut ke Latihan!
+                </a>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-teal-600 text-white py-6 mt-8">
+            <div class="container mx-auto px-4 text-center">
+                <p class="text-lg">© 2025 Bahan Ajar Interaktif - TK-B Matematika</p>
+                <p class="text-sm opacity-75 mt-2">Belajar dengan Gembira! 🌟</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

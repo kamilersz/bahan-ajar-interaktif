@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Angka 1-10 - TK-B Matematika</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .option-btn {
+            transition: all 0.3s ease;
+        }
+
+        .option-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .correct-answer {
+            animation: celebrate 0.6s ease-out;
+        }
+
+        @keyframes celebrate {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .wrong-answer {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            animation: fall 3s linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-yellow-100 via-pink-50 to-blue-100 min-h-screen">
+    <div x-data="latihanAngka()">
+        <!-- Header -->
+        <header class="bg-gradient-to-r from-green-400 via-teal-400 to-blue-400 text-white py-6 shadow-lg">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-3xl md:text-4xl font-bold mb-2">🎮 Latihan Angka 1-10</h1>
+                <p class="text-lg">Ayo bermain dan belajar, Adik-adik!</p>
+                <div class="mt-3 bg-white/20 rounded-full px-6 py-2 inline-block">
+                    <span class="font-bold">Skor: </span>
+                    <span x-text="score" class="font-bold text-yellow-300 text-2xl"></span>
+                </div>
+            </div>
+        </header>
+
+        <main class="container mx-auto px-4 py-8">
+            <!-- Progress Bar -->
+            <div class="mb-8">
+                <div class="bg-white rounded-full h-6 shadow-lg overflow-hidden">
+                    <div class="bg-gradient-to-r from-green-400 to-blue-500 h-full transition-all duration-500 rounded-full flex items-center justify-center text-white font-bold text-sm"
+                         :style="'width: ' + ((currentQuestion / questions.length) * 100) + '%'">
+                        <span x-text="currentQuestion + '/' + questions.length"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div x-show="!finished" class="bg-white rounded-3xl shadow-2xl p-8 max-w-3xl mx-auto">
+                <!-- Question Type 1: Count and Choose -->
+                <div x-show="questions[currentQuestionIndex].type === 'count'">
+                    <h2 class="text-2xl font-bold text-purple-700 mb-6 text-center">🔢 Hitung Benda-Benda Ini!</h2>
+
+                    <div class="flex justify-center mb-6">
+                        <div class="text-8xl">
+                            <template x-for="i in Array(questions[currentQuestionIndex].count).fill(0)" :key="i">
+                                <span x-text="questions[currentQuestionIndex].emoji" class="inline-block mx-1 animate-bounce"></span>
+                            </template>
+                        </div>
+                    </div>
+
+                    <p class="text-xl text-center text-gray-700 mb-6">Berapa jumlah benda di atas?</p>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <template x-for="option in questions[currentQuestionIndex].options" :key="option">
+                            <button @click="checkAnswer(option)"
+                                    class="option-btn bg-gradient-to-br from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white font-bold py-6 rounded-2xl text-4xl shadow-lg">
+                                <span x-text="option"></span>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Question Type 2: Match Number to Objects -->
+                <div x-show="questions[currentQuestionIndex].type === 'match'">
+                    <h2 class="text-2xl font-bold text-purple-700 mb-6 text-center">🎯 Pilih Jumlah yang Tepat!</h2>
+
+                    <div class="flex justify-center mb-6">
+                        <div class="text-9xl font-bold text-purple-600" x-text="questions[currentQuestionIndex].number"></div>
+                    </div>
+
+                    <p class="text-xl text-center text-gray-700 mb-6">Pilih gambar yang jumlahnya sesuai dengan angka di atas!</p>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <template x-for="option in questions[currentQuestionIndex].options" :key="option.emoji">
+                            <button @click="checkAnswer(option.count)"
+                                    class="option-btn bg-gradient-to-br from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white font-bold py-4 rounded-2xl shadow-lg">
+                                <div class="text-4xl mb-2" x-text="option.emoji"></div>
+                                <div class="text-sm" x-text="option.count + ' buah'"></div>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Question Type 3: Number Sequence -->
+                <div x-show="questions[currentQuestionIndex].type === 'sequence'">
+                    <h2 class="text-2xl font-bold text-purple-700 mb-6 text-center">🔣 Lengkapi Urutan Angka!</h2>
+
+                    <div class="flex justify-center items-center gap-4 mb-8 text-6xl">
+                        <div class="bg-blue-100 px-6 py-4 rounded-xl" x-text="questions[currentQuestionIndex].sequence[0]"></div>
+                        <div class="text-blue-600">→</div>
+                        <div class="bg-blue-100 px-6 py-4 rounded-xl" x-text="questions[currentQuestionIndex].sequence[1]"></div>
+                        <div class="text-blue-600">→</div>
+                        <div class="bg-yellow-100 px-6 py-4 rounded-xl border-4 border-yellow-400 border-dashed animate-pulse">?</div>
+                    </div>
+
+                    <p class="text-xl text-center text-gray-700 mb-6">Angka berikutnya adalah...</p>
+
+                    <div class="grid grid-cols-3 gap-4 max-w-md mx-auto">
+                        <template x-for="option in questions[currentQuestionIndex].options" :key="option">
+                            <button @click="checkAnswer(option)"
+                                    class="option-btn bg-gradient-to-br from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white font-bold py-4 rounded-xl text-3xl shadow-lg">
+                                <span x-text="option"></span>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Question Type 4: What's Missing -->
+                <div x-show="questions[currentQuestionIndex].type === 'missing'">
+                    <h2 class="text-2xl font-bold text-purple-700 mb-6 text-center">❓ Angka Berapa yang Hilang?</h2>
+
+                    <div class="flex justify-center items-center gap-3 mb-8 flex-wrap">
+                        <template x-for="(num, index) in questions[currentQuestionIndex].sequence" :key="index">
+                            <div x-show="num !== null"
+                                 class="bg-purple-500 text-white px-4 py-3 rounded-xl text-3xl font-bold w-16 text-center"
+                                 x-text="num">
+                            </div>
+                            <div x-show="num === null"
+                                 class="bg-yellow-300 text-yellow-800 px-4 py-3 rounded-xl text-3xl font-bold w-16 text-center border-4 border-yellow-500 animate-pulse">
+                                ?
+                            </div>
+                            <span x-show="index < questions[currentQuestionIndex].sequence.length - 1" class="text-purple-600 text-2xl">→</span>
+                        </template>
+                    </div>
+
+                    <p class="text-xl text-center text-gray-700 mb-6">Angka mana yang hilang?</p>
+
+                    <div class="grid grid-cols-3 gap-4 max-w-md mx-auto">
+                        <template x-for="option in questions[currentQuestionIndex].options" :key="option">
+                            <button @click="checkAnswer(option)"
+                                    class="option-btn bg-gradient-to-br from-orange-400 to-red-500 hover:from-orange-500 hover:to-red-600 text-white font-bold py-4 rounded-xl text-3xl shadow-lg">
+                                <span x-text="option"></span>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Feedback Message -->
+                <div x-show="feedback" x-transition
+                     class="mt-6 p-6 rounded-2xl text-center text-xl font-bold"
+                     :class="feedbackCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
+                    <p x-text="feedback"></p>
+                    <button x-show="feedbackCorrect" @click="nextQuestion()"
+                            class="mt-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-3 px-6 rounded-full">
+                        Pertanyaan Selanjutnya →
+                    </button>
+                </div>
+            </div>
+
+            <!-- Finish Screen -->
+            <div x-show="finished" x-transition class="bg-white rounded-3xl shadow-2xl p-8 max-w-2xl mx-auto text-center">
+                <div class="text-8xl mb-4">🎉</div>
+                <h2 class="text-4xl font-bold text-purple-700 mb-4">Hebat, Adik-adik!</h2>
+                <p class="text-2xl text-gray-700 mb-6">Latihan selesai!</p>
+
+                <div class="bg-gradient-to-r from-yellow-200 to-orange-200 rounded-2xl p-6 mb-6">
+                    <p class="text-3xl font-bold text-orange-700 mb-2">Skor Kamu</p>
+                    <p class="text-6xl font-bold text-orange-600"><span x-text="score"></span>/100</p>
+                </div>
+
+                <div class="mb-6">
+                    <p class="text-xl text-gray-600">
+                        <span x-show="score === 100">🌟 Sempurna! Kamu pintar sekali!</span>
+                        <span x-show="score >= 80 && score < 100">⭐ Bagus sekali! Terus berlatih ya!</span>
+                        <span x-show="score >= 60 && score < 80">👍 Lumayan! Ayo coba lagi!</span>
+                        <span x-show="score < 60">💪 Jangan menyerah! Belajar lagi ya!</span>
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <button @click="restart()"
+                            class="block w-full bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg">
+                        🔄 Main Lagi
+                    </button>
+                    <a href="evaluasi.html" class="block w-full bg-gradient-to-r from-purple-400 to-purple-600 hover:from-purple-500 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg">
+                        📝 Lanjut ke Evaluasi
+                    </a>
+                    <a href="teori.html" class="block w-full bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg">
+                        📖 Kembali ke Teori
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-purple-600 text-white py-6 mt-8">
+            <div class="container mx-auto px-4 text-center">
+                <p class="text-lg">© 2025 Bahan Ajar Interaktif - TK-B Matematika</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function latihanAngka() {
+            return {
+                score: 0,
+                currentQuestion: 1,
+                currentQuestionIndex: 0,
+                feedback: '',
+                feedbackCorrect: false,
+                finished: false,
+                answered: false,
+                questions: [
+                    {
+                        type: 'count',
+                        emoji: '🍎',
+                        count: 3,
+                        options: [2, 3, 4, 5],
+                        correct: 3
+                    },
+                    {
+                        type: 'match',
+                        number: 5,
+                        options: [
+                            { emoji: '⭐⭐⭐', count: 3 },
+                            { emoji: '🌸🌸🌸🌸', count: 4 },
+                            { emoji: '🎈🎈🎈🎈🎈', count: 5 },
+                            { emoji: '🍀🍀🍀🍀🍀🍀', count: 6 }
+                        ],
+                        correct: 5
+                    },
+                    {
+                        type: 'sequence',
+                        sequence: [1, 2],
+                        options: [3, 4, 5],
+                        correct: 3
+                    },
+                    {
+                        type: 'missing',
+                        sequence: [2, 3, null, 5, 6],
+                        options: [1, 4, 7],
+                        correct: 4
+                    },
+                    {
+                        type: 'count',
+                        emoji: '🌟',
+                        count: 7,
+                        options: [6, 7, 8, 9],
+                        correct: 7
+                    },
+                    {
+                        type: 'match',
+                        number: 9,
+                        options: [
+                            { emoji: '🎁🎁🎁🎁🎁🎁🎁🎁', count: 8 },
+                            { emoji: '🎀🎀🎀🎀🎀🎀🎀🎀🎀', count: 9 },
+                            { emoji: '🧸🧸🧸🧸🧸🧸🧸🧸🧸🧸', count: 10 }
+                        ],
+                        correct: 9
+                    },
+                    {
+                        type: 'sequence',
+                        sequence: [5, 6],
+                        options: [7, 8, 9],
+                        correct: 7
+                    },
+                    {
+                        type: 'missing',
+                        sequence: [7, 8, 9, null],
+                        options: [8, 10, 11],
+                        correct: 10
+                    },
+                    {
+                        type: 'count',
+                        emoji: '🦋',
+                        count: 10,
+                        options: [8, 9, 10, 11],
+                        correct: 10
+                    },
+                    {
+                        type: 'match',
+                        number: 1,
+                        options: [
+                            { emoji: '🍀', count: 1 },
+                            { emoji: '🍀🍀', count: 2 },
+                            { emoji: '🍀🍀🍀', count: 3 }
+                        ],
+                        correct: 1
+                    }
+                ],
+                checkAnswer(answer) {
+                    if (this.answered) return;
+
+                    this.answered = true;
+                    const currentQ = this.questions[this.currentQuestionIndex];
+
+                    if (answer === currentQ.correct) {
+                        this.feedbackCorrect = true;
+                        this.score += 10;
+                        this.feedback = '🎉 Benar! Hebat!';
+
+                        // Create confetti
+                        for (let i = 0; i < 30; i++) {
+                            const confetti = document.createElement('div');
+                            confetti.className = 'confetti';
+                            confetti.style.left = Math.random() * 100 + 'vw';
+                            confetti.style.backgroundColor = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8'][Math.floor(Math.random() * 5)];
+                            document.body.appendChild(confetti);
+                            setTimeout(() => confetti.remove(), 3000);
+                        }
+                    } else {
+                        this.feedbackCorrect = false;
+                        this.feedback = '😅 Kurang tepat. Jawaban yang benar adalah ' + currentQ.correct;
+                        setTimeout(() => this.nextQuestion(), 2000);
+                    }
+                },
+                nextQuestion() {
+                    this.currentQuestionIndex++;
+                    this.currentQuestion++;
+                    this.feedback = '';
+                    this.answered = false;
+
+                    if (this.currentQuestionIndex >= this.questions.length) {
+                        this.finished = true;
+                    }
+                },
+                restart() {
+                    this.score = 0;
+                    this.currentQuestion = 1;
+                    this.currentQuestionIndex = 0;
+                    this.feedback = '';
+                    this.feedbackCorrect = false;
+                    this.finished = false;
+                    this.answered = false;
+                    // Shuffle questions
+                    this.questions.sort(() => Math.random() - 0.5);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

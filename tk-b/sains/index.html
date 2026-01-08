@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sains TK-B - Bahan Ajar Interaktif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .font-comic { font-family: 'Comic Neue', cursive; }
+        .bounce-slow { animation: bounce 3s infinite; }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(-5%); }
+            50% { transform: translateY(5%); }
+        }
+        .topic-card:hover { transform: scale(1.05) rotate(1deg); }
+        .topic-card { transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-green-100 via-blue-100 to-purple-100 min-h-screen"
+      x-data="{
+          currentTopic: 0,
+          topics: [
+              { id: 1, title: 'Panca Indra', icon: '👀', folder: '001-panca-indra', color: 'from-pink-400 to-rose-500' },
+              { id: 2, title: 'Bagian Tubuh', icon: '🙆', folder: '002-bagian-tubuh', color: 'from-yellow-400 to-orange-500' },
+              { id: 3, title: 'Tanaman', icon: '🌱', folder: '003-tanaman', color: 'from-green-400 to-emerald-500' },
+              { id: 4, title: 'Hewan', icon: '🐾', folder: '004-hewan', color: 'from-blue-400 to-cyan-500' },
+              { id: 5, title: 'Cuaca', icon: '⛅', folder: '005-cuaca', color: 'from-sky-400 to-indigo-500' },
+              { id: 6, title: 'Hidup & Tak Hidup', icon: '🌍', folder: '006-hidup-tak-hidup', color: 'from-violet-400 to-purple-500' },
+              { id: 7, title: 'Air', icon: '💧', folder: '007-air', color: 'from-cyan-400 to-blue-500' },
+              { id: 8, title: 'Warna', icon: '🎨', folder: '008-warna', color: 'from-rose-400 to-pink-500' },
+              { id: 9, title: 'Bentuk', icon: '🔷', folder: '009-bentuk', color: 'from-amber-400 to-yellow-500' }
+          ]
+      }">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 text-white py-6 shadow-2xl">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-center gap-4">
+                <div class="text-5xl bounce-slow">🔬</div>
+                <div class="text-center">
+                    <h1 class="text-3xl md:text-4xl font-extrabold tracking-wide">Sains TK-B</h1>
+                    <p class="text-lg md:text-xl font-comic">Mari Belajar Sains dengan Ceria!</p>
+                </div>
+                <div class="text-5xl bounce-slow">⭐</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Welcome Message -->
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-white rounded-3xl shadow-xl p-6 border-4 border-yellow-300">
+            <div class="flex items-center gap-3 mb-3">
+                <span class="text-4xl">👋</span>
+                <h2 class="text-2xl font-bold text-gray-800">Halo, Adik-adik!</h2>
+            </div>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Selamat datang di dunia sains yang seru! Di sini adik-adik bisa belajar banyak hal menarik
+                tentang tubuh kita, hewan, tanaman, cuaca, dan masih banyak lagi!
+                Pilih topik di bawah ini untuk memulai petualangan belajar, ya! 🌟
+            </p>
+        </div>
+    </section>
+
+    <!-- Topics Grid -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <template x-for="topic in topics" :key="topic.id">
+                <div :class="`topic-card bg-gradient-to-br ${topic.color} rounded-3xl shadow-2xl p-6 cursor-pointer`"
+                     @click="window.location.href=topic.folder + '/teori.html'">
+                    <div class="text-center">
+                        <div class="text-6xl mb-3" x-text="topic.icon"></div>
+                        <h3 class="text-xl font-bold text-white mb-2" x-text="topic.title"></h3>
+                        <div class="flex justify-center gap-2 text-white">
+                            <span class="bg-white/30 px-3 py-1 rounded-full text-sm font-semibold">📖 Teori</span>
+                            <span class="bg-white/30 px-3 py-1 rounded-full text-sm font-semibold">✏️ Latihan</span>
+                            <span class="bg-white/30 px-3 py-1 rounded-full text-sm font-semibold">📝 Evaluasi</span>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </main>
+
+    <!-- Tips Section -->
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-yellow-200 to-orange-200 rounded-3xl shadow-xl p-6 border-4 border-yellow-400">
+            <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2">
+                <span>💡</span> Tips Belajar
+            </h3>
+            <ul class="space-y-2 text-gray-700">
+                <li class="flex items-start gap-2">
+                    <span class="text-green-500 font-bold">✓</span>
+                    <span>Mulai dari <strong>Teori</strong> untuk memahami materi</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="text-green-500 font-bold">✓</span>
+                    <span>Kerjakan <strong>Latihan</strong> agar lebih paham</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="text-green-500 font-bold">✓</span>
+                    <span>Kerjakan <strong>Evaluasi</strong> untuk mengukur pemahaman adik-adik</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="text-green-500 font-bold">✓</span>
+                    <span>Baca <strong>Rangkuman</strong> untuk mengingat kembali</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-green-600 to-blue-600 text-white py-4 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="font-semibold">
+                © 2025 Bahan Ajar Interaktif - TK-B Sains
+            </p>
+            <p class="text-sm mt-1">Dibuat dengan ❤️ untuk adik-adik TK-B</p>
+        </div>
+    </footer>
+
+</body>
+</html>

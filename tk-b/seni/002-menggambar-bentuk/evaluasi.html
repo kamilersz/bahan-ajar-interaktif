@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluasi Bentuk - TK-B Seni</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive;
+        }
+        .title-font {
+            font-family: 'Fredoka One', cursive;
+        }
+        .wiggle {
+            animation: wiggle 1s ease-in-out infinite;
+        }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+        .confetti {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            background-color: #f00;
+            animation: confetti-fall 3s ease-out forwards;
+        }
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        .option-btn {
+            transition: all 0.3s ease;
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: scale(1.05);
+        }
+        .option-btn.selected {
+            ring: 4px solid;
+            ring-color: #3b82f6;
+            transform: scale(1.05);
+        }
+        .option-btn.correct {
+            background: linear-gradient(to bottom right, #4ade80, #22c55e) !important;
+        }
+        .option-btn.incorrect {
+            background: linear-gradient(to bottom right, #f87171, #ef4444) !important;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-green-100 via-blue-100 to-purple-100 min-h-screen"
+      x-data="evaluationQuiz()">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="title-font text-4xl md:text-5xl mb-2 wiggle inline-block">📝 Evaluasi Bentuk 📝</h1>
+            <p class="text-xl" x-show="!quizCompleted">Ayo Tunjukan Kemampuanmu!</p>
+            <p class="text-xl" x-show="quizCompleted">Selesai! Bagus sekali!</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Quiz Questions -->
+        <div x-show="!quizCompleted">
+            <!-- Progress Bar -->
+            <div class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-green-300">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="title-font text-xl text-green-600">Progress</span>
+                    <span class="title-font text-xl text-green-600" x-text="`${currentQuestion + 1} dari ${questions.length}`"></span>
+                </div>
+                <div class="w-full bg-green-200 rounded-full h-4">
+                    <div class="bg-gradient-to-r from-green-400 to-blue-400 h-4 rounded-full transition-all duration-500"
+                         :style="`width: ${((currentQuestion + 1) / questions.length) * 100}%`"></div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="bg-white rounded-3xl shadow-xl p-8 mb-8 border-4 border-blue-300">
+                <!-- Shape Display -->
+                <div x-show="questions[currentQuestion].type === 'identify'" class="text-center mb-8">
+                    <template x-if="questions[currentQuestion].shapeType === 'lingkaran'">
+                        <div class="w-48 h-48 mx-auto bg-gradient-to-br from-red-400 to-red-600 rounded-full shadow-2xl"></div>
+                    </template>
+                    <template x-if="questions[currentQuestion].shapeType === 'persegi'">
+                        <div class="w-48 h-48 mx-auto bg-gradient-to-br from-blue-400 to-blue-600 rounded-none shadow-2xl"></div>
+                    </template>
+                    <template x-if="questions[currentQuestion].shapeType === 'segitiga'">
+                        <svg class="mx-auto" width="192" height="192" viewBox="0 0 192 192">
+                            <polygon points="96,16 176,176 16,176" fill="url(#triGradient2)" stroke="#ca8a04" stroke-width="4"/>
+                            <defs>
+                                <linearGradient id="triGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#fde047;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#facc15;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </template>
+                    <template x-if="questions[currentQuestion].shapeType === 'persegipanjang'">
+                        <div class="w-64 h-40 mx-auto bg-gradient-to-br from-green-400 to-green-600 rounded-none shadow-2xl"></div>
+                    </template>
+                    <template x-if="questions[currentQuestion].shapeType === 'oval'">
+                        <div class="w-56 h-36 mx-auto bg-gradient-to-br from-purple-400 to-purple-600 rounded-full shadow-2xl"></div>
+                    </template>
+                    <template x-if="questions[currentQuestion].shapeType === 'bintang'">
+                        <div class="text-[12rem] text-center">⭐</div>
+                    </template>
+                </div>
+
+                <div class="text-center mb-8">
+                    <h2 class="title-font text-3xl text-gray-800 mb-2">Pertanyaan <span x-text="currentQuestion + 1"></span></h2>
+                    <p class="text-2xl text-gray-700" x-text="questions[currentQuestion].question"></p>
+                </div>
+
+                <!-- Options -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <template x-for="(option, index) in questions[currentQuestion].options" :key="index">
+                        <button @click="selectAnswer(index)"
+                                :disabled="quizCompleted"
+                                class="option-btn p-6 rounded-2xl text-white title-font text-2xl shadow-lg"
+                                :class="[
+                                    option.bgClass,
+                                    { 'selected': answers[currentQuestion] === index }
+                                ]">
+                            <span x-text="option.label"></span>
+                        </button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="flex justify-between gap-4">
+                <button x-show="currentQuestion > 0"
+                        @click="prevQuestion()"
+                        class="flex-1 bg-gradient-to-r from-gray-400 to-gray-500 hover:from-gray-500 hover:to-gray-600 text-white title-font text-xl px-6 py-4 rounded-full shadow-lg transition-all">
+                    ⬅️ Sebelumnya
+                </button>
+
+                <button x-show="currentQuestion < questions.length - 1"
+                        @click="nextQuestion()"
+                        :disabled="answers[currentQuestion] === undefined"
+                        class="flex-1 bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white title-font text-xl px-6 py-4 rounded-full shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                    Lanjut ➡️
+                </button>
+
+                <button x-show="currentQuestion === questions.length - 1 && !allAnswered"
+                        :disabled="answers[currentQuestion] === undefined"
+                        class="flex-1 bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white title-font text-xl px-6 py-4 rounded-full shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                    👇 Cek Jawaban
+                </button>
+            </div>
+
+            <!-- Unanswered Warning -->
+            <div x-show="showWarning" x-transition
+                 class="mt-6 bg-red-100 border-4 border-red-400 rounded-2xl p-6 text-center">
+                <p class="text-xl text-red-700">⚠️ Jawab semua pertanyaan dulu ya!</p>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div x-show="quizCompleted" x-transition>
+            <!-- Score Card -->
+            <div class="bg-gradient-to-br from-yellow-100 to-orange-100 rounded-3xl shadow-xl p-8 mb-8 border-4 border-yellow-400">
+                <div class="text-center">
+                    <div class="text-9xl mb-4" x-text="scoreEmoji"></div>
+                    <h2 class="title-font text-4xl text-yellow-700 mb-4">Hasil Evaluasi</h2>
+                    <div class="bg-white rounded-2xl p-6 mb-6">
+                        <p class="title-font text-5xl text-purple-600 mb-2">
+                            <span x-text="score"></span> / <span x-text="totalQuestions"></span>
+                        </p>
+                        <p class="text-2xl text-gray-700">Jawaban Benar</p>
+                        <div class="mt-4 flex justify-center gap-2">
+                            <template x-for="i in totalQuestions">
+                                <span class="text-3xl" :class="i <= score ? '⭐' : '☆'"></span>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Grade and Message -->
+                    <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-6 mb-6">
+                        <p class="title-font text-3xl text-purple-700 mb-2" x-text="grade"></p>
+                        <p class="text-xl text-gray-700" x-text="message"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Answer Review -->
+            <div class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-blue-300">
+                <h3 class="title-font text-3xl text-center text-blue-600 mb-6">📋 Review Jawaban 📋</h3>
+
+                <div class="space-y-4">
+                    <template x-for="(question, index) in questions" :key="index">
+                        <div class="rounded-2xl p-6 border-4"
+                             :class="answers[index] === question.correct ? 'border-green-400 bg-green-50' : 'border-red-400 bg-red-50'">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-1">
+                                    <p class="title-font text-xl text-gray-800 mb-3">
+                                        <span x-text="index + 1"></span>. <span x-text="question.question"></span>
+                                    </p>
+
+                                    <div class="space-y-2">
+                                        <p class="text-lg">
+                                            <span class="font-bold">Jawabanmu:</span>
+                                            <span class="px-3 py-1 rounded-full text-white text-lg ml-2"
+                                                  :class="question.options[answers[index]].bgClass"
+                                                  x-text="question.options[answers[index]].label"></span>
+                                            <span class="text-2xl ml-2" x-text="answers[index] === question.correct ? '✅' : '❌'"></span>
+                                        </p>
+
+                                        <p x-show="answers[index] !== question.correct" class="text-lg">
+                                            <span class="font-bold">Jawaban Benar:</span>
+                                            <span class="px-3 py-1 rounded-full text-white text-lg ml-2"
+                                                  :class="question.options[question.correct].bgClass"
+                                                  x-text="question.options[question.correct].label"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="text-center space-y-4">
+                <a href="rangkuman.html" class="inline-block bg-gradient-to-r from-green-400 to-green-600 text-white title-font text-2xl px-8 py-4 rounded-full shadow-lg hover:scale-105 transition-all">
+                    ➡️ Lihat Rangkuman
+                </a>
+                <br>
+                <button @click="restartQuiz()" class="inline-block bg-gradient-to-r from-purple-400 to-pink-400 text-white title-font text-xl px-6 py-3 rounded-full shadow-lg hover:scale-105 transition-all">
+                    🔄 Ulangi Evaluasi
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 text-white py-4 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg">© 2024 Bahan Ajar Interaktif - TK-B Seni</p>
+            <p class="text-sm mt-1">Belajar dengan Ceria dan Bahagia! 🌟</p>
+        </div>
+    </footer>
+
+    <script>
+        function evaluationQuiz() {
+            return {
+                currentQuestion: 0,
+                answers: {},
+                quizCompleted: false,
+                showWarning: false,
+                score: 0,
+                totalQuestions: 0,
+                allAnswered: false,
+
+                questions: [
+                    {
+                        type: 'identify',
+                        shapeType: 'lingkaran',
+                        question: 'Bentuk apa ini?',
+                        correct: 0,
+                        options: [
+                            { label: 'LINGKARAN', bgClass: 'bg-gradient-to-br from-red-400 to-red-600' },
+                            { label: 'PERSEGI', bgClass: 'bg-gradient-to-br from-blue-400 to-blue-600' },
+                            { label: 'SEGITIGA', bgClass: 'bg-gradient-to-br from-yellow-400 to-yellow-600' },
+                            { label: 'OVAL', bgClass: 'bg-gradient-to-br from-purple-400 to-purple-600' }
+                        ]
+                    },
+                    {
+                        type: 'identify',
+                        shapeType: 'persegi',
+                        question: 'Bentuk apa ini?',
+                        correct: 1,
+                        options: [
+                            { label: 'LINGKARAN', bgClass: 'bg-gradient-to-br from-red-400 to-red-600' },
+                            { label: 'PERSEGI', bgClass: 'bg-gradient-to-br from-blue-400 to-blue-600' },
+                            { label: 'PERSEGI PANJANG', bgClass: 'bg-gradient-to-br from-green-400 to-green-600' },
+                            { label: 'BINTANG', bgClass: 'bg-gradient-to-br from-amber-400 to-amber-600' }
+                        ]
+                    },
+                    {
+                        type: 'identify',
+                        shapeType: 'segitiga',
+                        question: 'Bentuk apa ini?',
+                        correct: 2,
+                        options: [
+                            { label: 'OVAL', bgClass: 'bg-gradient-to-br from-purple-400 to-purple-600' },
+                            { label: 'PERSEGI PANJANG', bgClass: 'bg-gradient-to-br from-green-400 to-green-600' },
+                            { label: 'SEGITIGA', bgClass: 'bg-gradient-to-br from-yellow-400 to-yellow-600' },
+                            { label: 'LINGKARAN', bgClass: 'bg-gradient-to-br from-red-400 to-red-600' }
+                        ]
+                    },
+                    {
+                        type: 'question',
+                        question: 'Bentuk apa yang punya 3 sisi dan 3 sudut?',
+                        correct: 1,
+                        options: [
+                            { label: 'LINGKARAN', bgClass: 'bg-gradient-to-br from-red-400 to-red-600' },
+                            { label: 'SEGITIGA', bgClass: 'bg-gradient-to-br from-yellow-400 to-yellow-600' },
+                            { label: 'PERSEGI', bgClass: 'bg-gradient-to-br from-blue-400 to-blue-600' },
+                            { label: 'BINTANG', bgClass: 'bg-gradient-to-br from-amber-400 to-amber-600' }
+                        ]
+                    },
+                    {
+                        type: 'question',
+                        question: 'Bentuk mana yang TIDAK punya sudut?',
+                        correct: 0,
+                        options: [
+                            { label: 'LINGKARAN', bgClass: 'bg-gradient-to-br from-red-400 to-red-600' },
+                            { label: 'PERSEGI', bgClass: 'bg-gradient-to-br from-blue-400 to-blue-600' },
+                            { label: 'SEGITIGA', bgClass: 'bg-gradient-to-br from-yellow-400 to-yellow-600' },
+                            { label: 'BINTANG', bgClass: 'bg-gradient-to-br from-amber-400 to-amber-600' }
+                        ]
+                    },
+                    {
+                        type: 'question',
+                        question: 'Bentuk apa yang punya 4 sisi sama panjang?',
+                        correct: 2,
+                        options: [
+                            { label: 'OVAL', bgClass: 'bg-gradient-to-br from-purple-400 to-purple-600' },
+                            { label: 'PERSEGI PANJANG', bgClass: 'bg-gradient-to-br from-green-400 to-green-600' },
+                            { label: 'PERSEGI', bgClass: 'bg-gradient-to-br from-blue-400 to-blue-600' },
+                            { label: 'SEGITIGA', bgClass: 'bg-gradient-to-br from-yellow-400 to-yellow-600' }
+                        ]
+                    },
+                    {
+                        type: 'identify',
+                        shapeType: 'persegipanjang',
+                        question: 'Bentuk apa ini?',
+                        correct: 0,
+                        options: [
+                            { label: 'PERSEGI PANJANG', bgClass: 'bg-gradient-to-br from-green-400 to-green-600' },
+                            { label: 'PERSEGI', bgClass: 'bg-gradient-to-br from-blue-400 to-blue-600' },
+                            { label: 'OVAL', bgClass: 'bg-gradient-to-br from-purple-400 to-purple-600' },
+                            { label: 'BINTANG', bgClass: 'bg-gradient-to-br from-amber-400 to-amber-600' }
+                        ]
+                    },
+                    {
+                        type: 'question',
+                        question: 'Jika ingin menggambar rumah, bentuk apa yang dibutuhkan untuk atap?',
+                        correct: 2,
+                        options: [
+                            { label: 'LINGKARAN', bgClass: 'bg-gradient-to-br from-red-400 to-red-600' },
+                            { label: 'PERSEGI', bgClass: 'bg-gradient-to-br from-blue-400 to-blue-600' },
+                            { label: 'SEGITIGA', bgClass: 'bg-gradient-to-br from-yellow-400 to-yellow-600' },
+                            { label: 'OVAL', bgClass: 'bg-gradient-to-br from-purple-400 to-purple-600' }
+                        ]
+                    }
+                ],
+
+                init() {
+                    this.totalQuestions = this.questions.length;
+                },
+
+                selectAnswer(optionIndex) {
+                    this.answers[this.currentQuestion] = optionIndex;
+                    this.checkAllAnswered();
+                },
+
+                checkAllAnswered() {
+                    this.allAnswered = Object.keys(this.answers).length === this.questions.length;
+                },
+
+                prevQuestion() {
+                    if (this.currentQuestion > 0) {
+                        this.currentQuestion--;
+                    }
+                },
+
+                nextQuestion() {
+                    if (this.answers[this.currentQuestion] === undefined) {
+                        this.showWarning = true;
+                        setTimeout(() => {
+                            this.showWarning = false;
+                        }, 2000);
+                        return;
+                    }
+
+                    if (this.currentQuestion < this.questions.length - 1) {
+                        this.currentQuestion++;
+                    } else if (this.allAnswered) {
+                        this.submitQuiz();
+                    }
+                },
+
+                submitQuiz() {
+                    this.checkAllAnswered();
+
+                    if (!this.allAnswered) {
+                        this.showWarning = true;
+                        setTimeout(() => {
+                            this.showWarning = false;
+                        }, 2000);
+                        return;
+                    }
+
+                    this.score = 0;
+                    this.questions.forEach((question, index) => {
+                        if (this.answers[index] === question.correct) {
+                            this.score++;
+                        }
+                    });
+
+                    this.quizCompleted = true;
+
+                    if (this.score >= this.totalQuestions * 0.8) {
+                        this.createConfetti();
+                    }
+                },
+
+                restartQuiz() {
+                    this.currentQuestion = 0;
+                    this.answers = {};
+                    this.quizCompleted = false;
+                    this.score = 0;
+                    this.allAnswered = false;
+                    this.showWarning = false;
+                },
+
+                get scoreEmoji() {
+                    const percentage = this.score / this.totalQuestions;
+                    if (percentage >= 0.9) return '🏆';
+                    if (percentage >= 0.7) return '🌟';
+                    if (percentage >= 0.5) return '👍';
+                    return '💪';
+                },
+
+                get grade() {
+                    const percentage = this.score / this.totalQuestions;
+                    if (percentage >= 0.9) return 'SANGAT BAGUS!';
+                    if (percentage >= 0.7) return 'BAGUS SEKALI!';
+                    if (percentage >= 0.5) return 'CUKUP BAGUS!';
+                    return 'TERUS BERLATIH!';
+                },
+
+                get message() {
+                    const percentage = this.score / this.totalQuestions;
+                    if (percentage >= 0.9) {
+                        return 'Luar biasa! Adik-adik jago sekali tentang bentuk! 🎉';
+                    } else if (percentage >= 0.7) {
+                        return 'Hebat! Adik-adik sudah paham banyak tentang bentuk! ⭐';
+                    } else if (percentage >= 0.5) {
+                        return 'Bagus! Terus belajar ya, pasti bisa lebih baik! 💪';
+                    } else {
+                        return 'Jangan menyerah! Coba pelajari lagi materinya, pasti bisa! 🎨';
+                    }
+                },
+
+                createConfetti() {
+                    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+                    for (let i = 0; i < 50; i++) {
+                        const confetti = document.createElement('div');
+                        confetti.className = 'confetti';
+                        confetti.style.left = Math.random() * 100 + 'vw';
+                        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.animationDelay = Math.random() * 2 + 's';
+                        document.body.appendChild(confetti);
+
+                        setTimeout(() => confetti.remove(), 3000);
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaca - Teori | Sains TK-B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .font-comic { font-family: 'Comic Neue', cursive; }
+        .weather-card:hover { transform: scale(1.03); }
+        .weather-card { transition: all 0.3s ease; }
+        .float { animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-sky-100 via-blue-100 to-indigo-100 min-h-screen">
+
+    <header class="bg-gradient-to-r from-sky-500 via-blue-500 to-indigo-500 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <a href="../index.html" class="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/30 transition"><span>⬅️</span><span class="font-bold">Kembali</span></a>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-center">Cuaca</h1>
+                <div class="w-24"></div>
+            </div>
+        </div>
+    </header>
+
+    <section class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-sky-300">
+            <div class="flex items-center gap-3 mb-4"><span class="text-4xl float">⛅</span><h2 class="text-2xl font-bold font-comic">Kenali Cuaca!</h2></div>
+            <p class="text-lg text-gray-700"><strong class="text-sky-600">Adik-adik</strong>, cuaca adalah keadaan udara di suatu tempat dan waktu tertentu. Cuaca bisa berubah-ubah, kadang cerah, kadang hujan, kadang mendung. Yuk, kenali berbagai jenis cuaca!</p>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-6">
+        <h3 class="text-2xl font-bold text-center mb-6 font-comic">Jenis-jenis Cuaca</h3>
+
+        <div class="weather-card bg-gradient-to-br from-yellow-400 to-orange-500 rounded-3xl shadow-2xl p-6 mb-6 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-8xl">☀️</div>
+                <div class="flex-1">
+                    <h4 class="text-3xl font-bold mb-2">Cerah</h4>
+                    <p class="text-lg mb-3">Cuaca cerah terjadi ketika matahari bersinar terik dan tidak ada awan. Langit terlihat biru dan indah!</p>
+                    <div class="bg-white/20 rounded-2xl p-4">
+                        <p class="font-semibold mb-2">🌞 Kita bisa:</p>
+                        <div class="flex flex-wrap gap-2"><span class="bg-white px-3 py-1 rounded-full text-orange-600 font-bold">Bermain di luar</span><span class="bg-white px-3 py-1 rounded-full text-orange-600 font-bold">Berjemur</span><span class="bg-white px-3 py-1 rounded-full text-orange-600 font-bold">Menjemur pakaian</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="weather-card bg-gradient-to-br from-gray-500 to-gray-700 rounded-3xl shadow-2xl p-6 mb-6 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-8xl">☁️</div>
+                <div class="flex-1">
+                    <h4 class="text-3xl font-bold mb-2">Mendung</h4>
+                    <p class="text-lg mb-3">Cuaca mendung terjadi ketika banyak awan menutupi matahari. Langit terlihat gelap.</p>
+                    <div class="bg-white/20 rounded-2xl p-4">
+                        <p class="font-semibold mb-2">🌫️ Biasanya:</p>
+                        <div class="flex flex-wrap gap-2"><span class="bg-white px-3 py-1 rounded-full text-gray-600 font-bold">Lebih sejuk</span><span class="bg-white px-3 py-1 rounded-full text-gray-600 font-bold">Tanda akan hujan</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="weather-card bg-gradient-to-br from-blue-500 to-indigo-600 rounded-3xl shadow-2xl p-6 mb-6 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-8xl">🌧️</div>
+                <div class="flex-1">
+                    <h4 class="text-3xl font-bold mb-2">Hujan</h4>
+                    <p class="text-lg mb-3">Hujan terjadi ketika air jatuh dari awan ke bumi. Air hujan sangat penting untuk tanaman dan kehidupan kita!</p>
+                    <div class="bg-white/20 rounded-2xl p-4">
+                        <p class="font-semibold mb-2">💧 Saat hujan:</p>
+                        <div class="flex flex-wrap gap-2"><span class="bg-white px-3 py-1 rounded-full text-blue-600 font-bold">Gunakan payung</span><span class="bg-white px-3 py-1 rounded-full text-blue-600 font-bold">Kenakan jas hujan</span><span class="bg-white px-3 py-1 rounded-full text-blue-600 font-bold">Jangan bermain di luar</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="weather-card bg-gradient-to-br from-cyan-400 to-blue-500 rounded-3xl shadow-2xl p-6 mb-6 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-8xl">⛈️</div>
+                <div class="flex-1">
+                    <h4 class="text-3xl font-bold mb-2">Badai Petir</h4>
+                    <p class="text-lg mb-3">Badai petir terjadi ketika ada kilatan cahaya petir dan suara guntur. Cuaca ini sangat kuat dan berbahaya!</p>
+                    <div class="bg-white/20 rounded-2xl p-4">
+                        <p class="font-semibold mb-2">⚠️ Harus:</p>
+                        <div class="flex flex-wrap gap-2"><span class="bg-white px-3 py-1 rounded-full text-cyan-600 font-bold">Tetap di dalam rumah</span><span class="bg-white px-3 py-1 rounded-full text-cyan-600 font-bold">Jangan di bawah pohon</span><span class="bg-white px-3 py-1 rounded-full text-cyan-600 font-bold">Tutup jendela</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-blue-200 to-indigo-200 rounded-3xl shadow-2xl p-6 border-4 border-blue-400">
+            <div class="flex items-center gap-3 mb-4"><span class="text-4xl">🌡️</span><h3 class="text-2xl font-bold font-comic">Kenali Pakaian yang Tepat!</h3></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3"><span class="text-3xl">☀️</span><p class="text-gray-700">Cuaca cerah: Pakai <strong>pakaian tipis</strong> dan topi</p></div>
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3"><span class="text-3xl">🌧️</span><p class="text-gray-700">Cuaca hujan: Pakai <strong>jas hujan</strong> dan sepatu boots</p></div>
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3"><span class="text-3xl">❄️</span><p class="text-gray-700">Cuaca dingin: Pakai <strong>pakaian tebal</strong> jaket</p></div>
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3"><span class="text-3xl">☁️</span><p class="text-gray-700">Cuaca mendung: Bawa <strong>payung</strong> atau jas hujan</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row justify-center gap-4">
+            <a href="../index.html" class="flex-1 max-w-xs bg-gray-500 text-white text-center py-4 px-6 rounded-2xl font-bold shadow-xl hover:shadow-2xl transition">⬅️ Kembali ke Menu</a>
+            <a href="latihan.html" class="flex-1 max-w-xs bg-green-500 text-white text-center py-4 px-6 rounded-2xl font-bold shadow-xl hover:shadow-2xl transition">Lanjut ke Latihan ➡️</a>
+        </div>
+    </section>
+
+    <footer class="bg-gradient-to-r from-sky-600 to-blue-600 text-white py-4"><div class="container mx-auto px-4 text-center"><p class="font-semibold">© 2025 Bahan Ajar Interaktif - TK-B Sains</p></div></footer>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(done)",
+      "Bash(for:*)",
+      "Bash(do:*)",
+      "Bash(if [ -f \"$file\" ])",
+      "Bash(then)",
+      "Bash(basename:*)",
+      "Bash(fi:*)"
+    ]
+  }
+}

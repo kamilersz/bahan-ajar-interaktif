@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaca - Latihan | Sains TK-B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .option-card:hover { transform: scale(1.02); transition: all 0.3s ease; }
+        .bounce-in { animation: bounceIn 0.5s ease; }
+        @keyframes bounceIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-sky-100 via-blue-100 to-indigo-100 min-h-screen" x-data="cuacaQuiz()">
+    <header class="bg-gradient-to-r from-sky-500 via-blue-500 to-indigo-500 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <a href="teori.html" class="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/30"><span>⬅️</span><span class="font-bold">Kembali</span></a>
+                <h1 class="text-xl font-bold">Latihan Cuaca</h1>
+                <div class="bg-white/20 px-4 py-2 rounded-full font-bold">Skor: <span x-text="score"></span></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-4">
+        <div class="bg-white rounded-full h-4 shadow-lg overflow-hidden"><div class="h-full bg-gradient-to-r from-sky-400 to-blue-500 transition-all" :style="'width: ' + ((currentQuestion / questions.length) * 100) + '%'"></div></div>
+        <p class="text-center mt-2 text-gray-600">Soal <span x-text="currentQuestion"></span> dari <span x-text="questions.length"></span></p>
+    </div>
+
+    <main class="container mx-auto px-4 py-6" x-show="!showResult">
+        <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-sky-300 mb-6 bounce-in"><h2 class="text-xl font-bold" x-text="questions[currentQuestion - 1].question"></h2></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <template x-for="(option, index) in questions[currentQuestion - 1].options" :key="index">
+                <div @click="checkAnswer(index)" :class="{'cursor-pointer': !answered, 'bg-green-500 text-white': answered && index === questions[currentQuestion - 1].correctIndex, 'opacity-60': answered && index !== questions[currentQuestion - 1].correctIndex}" class="bg-sky-50 rounded-2xl shadow-lg p-6 border-4 border-sky-200 option-card">
+                    <div class="flex items-center gap-4"><span class="text-4xl" x-text="option.emoji"></span><span class="text-lg font-bold" x-text="option.text"></span><span x-show="answered && index === questions[currentQuestion - 1].correctIndex" class="text-3xl ml-auto">✅</span></div>
+                </div>
+            </template>
+        </div>
+
+        <div x-show="answered" class="bg-white rounded-3xl shadow-2xl p-6 border-4 mb-6 bounce-in border-green-400"><p class="text-lg text-center" x-text="questions[currentQuestion - 1].explanation"></p></div>
+
+        <div x-show="answered" class="flex justify-center">
+            <button @click="nextQuestion()" class="bg-gradient-to-r from-sky-500 to-blue-500 text-white px-8 py-4 rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl transition">
+                <span x-show="currentQuestion < questions.length">Soal Berikutnya ➡️</span><span x-show="currentQuestion === questions.length">Lihat Hasil 🏆</span>
+            </button>
+        </div>
+    </main>
+
+    <div x-show="showResult" class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 border-4 border-yellow-400 max-w-2xl mx-auto text-center">
+            <div class="text-6xl mb-4">🏆</div><h2 class="text-3xl font-bold mb-4 font-comic">Selamat!</h2>
+            <div class="bg-sky-100 rounded-2xl p-6 mb-6"><p class="text-5xl font-bold text-sky-600" x-text="score + ' / ' + (questions.length * 10)"></p></div>
+            <div class="flex flex-col gap-3"><a href="teori.html" class="block bg-sky-500 text-white py-3 px-6 rounded-xl font-bold">📖 Pelajari Lagi</a><a href="evaluasi.html" class="block bg-green-500 text-white py-3 px-6 rounded-xl font-bold">📝 Kerjakan Evaluasi</a></div>
+        </div>
+    </div>
+
+    <footer class="bg-gradient-to-r from-sky-600 to-blue-600 text-white py-4 mt-8"><div class="container mx-auto px-4 text-center"><p class="font-semibold">© 2025 Bahan Ajar Interaktif - TK-B Sains</p></div></footer>
+
+    <script>
+        function cuacaQuiz() {
+            return {
+                score: 0, currentQuestion: 1, answered: false, selectedOption: null, showResult: false,
+                questions: [
+                    { question: "Cuaca ketika matahari bersinar terik adalah...", options: [{text:"Hujan",emoji:"🌧️"},{text:"Cerah",emoji:"☀️"},{text:"Mendung",emoji:"☁️"},{text:"Badai",emoji:"⛈️"}], correctIndex: 1, explanation: "Benar! Cuaca cerah terjadi ketika matahari bersinar terik." },
+                    { question: "Kita gunakan payung saat cuaca...", options: [{text:"Cerah",emoji:"☀️"},{text:"Panas",emoji:"🔥"},{text:"Hujan",emoji:"🌧️"},{text:"Berangin",emoji:"💨"}], correctIndex: 2, explanation: "Tepat! Payung digunakan saat hujan." },
+                    { question: "Awan menutupi matahari menyebabkan cuaca...", options: [{text:"Cerah",emoji:"☀️"},{text:"Mendung",emoji:"☁️"},{text:"Kering",emoji:"🏜️"},{text:"Panas",emoji:"🔥"}], correctIndex: 1, explanation: "Hebat! Banyak awan menyebabkan cuaca mendung." },
+                    { question: "Tanda cuaca akan hujan adalah...", options: [{text:"Matahari bersinar",emoji:"☀️"},{text:"Langit biru",emoji:"🔵"},{text:"Langit mendung",emoji:"☁️"},{text:"Bintang kelihatan",emoji:"⭐"}], correctIndex: 2, explanation: "Pintar! Langit mendung adalah tanda akan hujan." },
+                    { question: "Badai petir ditandai dengan...", options: [{text:"Matahari",emoji:"☀️"},{text:"Kilat dan guntur",emoji:"⚡"},{text:"Salju",emoji:"❄️"},{text:"Pelangi",emoji:"🌈"}], correctIndex: 1, explanation: "Tepat! Kilat dan guntur adalah tanda badai petir." },
+                    { question: "Saat cuaca panas, kita pakai...", options: [{text:"Jaket tebal",emoji:"🧥"},{text:"Pakaian tipis",emoji:"👕"},{text:"Jas hujan",emoji:"🧥"},{text:"Selimut",emoji:"🛏️"}], correctIndex: 1, explanation: "Benar! Pakaian tipis nyaman dipakai saat panas." },
+                    { question: "Air jatuh dari awan disebut...", options: [{text:"Salju",emoji:"❄️"},{text:"Hujan",emoji:"🌧️"},{text:"Kabut",emoji:"🌫️"},{text:"Dedu",emoji:"❄️"}], correctIndex: 1, explanation: "Hebat! Air yang jatuh dari awan adalah hujan." },
+                    { question: "Jas hujan dipakai saat...", options: [{text:"Cerah",emoji:"☀️"},{text:"Hujan",emoji:"🌧️"},{text:"Malam",emoji:"🌙"},{text:"Pagi",emoji:"🌅"}], correctIndex: 1, explanation: "Tepat! Jas hujan melindungi kita dari hujan." },
+                    { question: "Pelangi muncul setelah...", options: [{text:"Hujan",emoji:"🌧️"},{text:"Matahari terbit",emoji:"🌅"},{text:"Malam",emoji:"🌙"},{text:"Badai",emoji:"⛈️"}], correctIndex: 0, explanation: "Luar biasa! Pelangi muncul setelah hujan." },
+                    { question: "Cuaca bisa berubah-ubah, contoh...", options: [{text:"Selalu sama",emoji:"😊"},{text:"Kadang cerah kadang hujan",emoji:"🌦️"},{text:"Hanya panas",emoji:"🔥"},{text:"Hanya dingin",emoji:"❄️"}], correctIndex: 1, explanation: "Pintar! Cuaca berubah-ubah, kadang cerah kadang hujan." }
+                ],
+                checkAnswer(index) { if (this.answered) return; this.answered = true; this.selectedOption = index; if (index === this.questions[this.currentQuestion - 1].correctIndex) this.score += 10; },
+                nextQuestion() { if (this.currentQuestion < this.questions.length) { this.currentQuestion++; this.answered = false; this.selectedOption = null; } else this.showResult = true; }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Mewarnai - TK-B Seni</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Comic Neue', cursive; }
+        .title-font { font-family: 'Fredoka One', cursive; }
+        .wiggle { animation: wiggle 1s ease-in-out infinite; }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        .coloring-area { fill: white; stroke: #333; stroke-width: 2; cursor: pointer; transition: fill 0.3s; }
+        .color-btn { transition: all 0.2s; }
+        .color-btn:hover { transform: scale(1.1); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pink-100 via-purple-100 to-indigo-100 min-h-screen" x-data="coloringGame()">
+    <header class="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="title-font text-4xl md:text-5xl mb-2 wiggle inline-block">🎮 Latihan Mewarnai 🎮</h1>
+            <p class="text-xl">Ayo Mewarnai Gambar!</p>
+            <div class="mt-4 bg-white/20 rounded-full px-6 py-2 inline-block">
+                <span class="text-2xl">⭐ Skor: <span x-text="score"></span> ⭐</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Coloring Game -->
+        <div x-show="gameStage === 1" class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-purple-300">
+            <h2 class="title-font text-3xl text-center text-purple-600 mb-6">🎨 Mewarnai <span x-text="currentDrawing.name"></span></h2>
+
+            <!-- Color Palette -->
+            <div class="bg-gray-100 rounded-2xl p-4 mb-6">
+                <p class="text-center text-lg font-bold text-gray-700 mb-3">Pilih Warna:</p>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <template x-for="color in colors" :key="color.name">
+                        <button @click="selectColor(color.hex)"
+                                class="color-btn w-12 h-12 md:w-14 md:h-14 rounded-full shadow-lg border-4"
+                                :class="selectedColor === color.hex ? 'border-gray-800 scale-110' : 'border-white'"
+                                :style="`background-color: ${color.hex}`"
+                                :title="color.name">
+                        </button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Drawing Area -->
+            <div class="bg-white rounded-2xl p-6 shadow-inner border-4 border-dashed border-gray-300">
+                <svg viewBox="0 0 400 400" class="w-full max-w-md mx-auto">
+                    <!-- Simple House -->
+                    <template x-if="currentDrawing.id === 'house'">
+                        <g>
+                            <!-- Roof -->
+                            <polygon class="coloring-area" points="50,150 200,50 350,150" :fill="houseColors.roof" @click="fillPart('roof')"/>
+                            <!-- Body -->
+                            <rect class="coloring-area" x="80" y="150" width="240" height="200" :fill="houseColors.body" @click="fillPart('body')"/>
+                            <!-- Door -->
+                            <rect class="coloring-area" x="175" y="250" width="50" height="100" :fill="houseColors.door" @click="fillPart('door')"/>
+                            <!-- Window Left -->
+                            <rect class="coloring-area" x="110" y="200" width="40" height="40" :fill="houseColors.window1" @click="fillPart('window1')"/>
+                            <!-- Window Right -->
+                            <rect class="coloring-area" x="250" y="200" width="40" height="40" :fill="houseColors.window2" @click="fillPart('window2')"/>
+                        </g>
+                    </template>
+
+                    <!-- Tree -->
+                    <template x-if="currentDrawing.id === 'tree'">
+                        <g>
+                            <!-- Trunk -->
+                            <rect class="coloring-area" x="170" y="250" width="60" height="120" :fill="treeColors.trunk" @click="fillPart('trunk')"/>
+                            <!-- Leaves Top -->
+                            <circle class="coloring-area" cx="200" cy="150" r="70" :fill="treeColors.leaves1" @click="fillPart('leaves1')"/>
+                            <!-- Leaves Middle Left -->
+                            <circle class="coloring-area" cx="140" cy="200" r="50" :fill="treeColors.leaves2" @click="fillPart('leaves2')"/>
+                            <!-- Leaves Middle Right -->
+                            <circle class="coloring-area" cx="260" cy="200" r="50" :fill="treeColors.leaves3" @click="fillPart('leaves3')"/>
+                        </g>
+                    </template>
+
+                    <!-- Flower -->
+                    <template x-if="currentDrawing.id === 'flower'">
+                        <g>
+                            <!-- Stem -->
+                            <rect class="coloring-area" x="190" y="200" width="20" height="150" :fill="flowerColors.stem" @click="fillPart('stem')"/>
+                            <!-- Petals -->
+                            <circle class="coloring-area" cx="200" cy="120" r="40" :fill="flowerColors.center" @click="fillPart('center')"/>
+                            <circle class="coloring-area" cx="160" cy="90" r="30" :fill="flowerColors.petal1" @click="fillPart('petal1')"/>
+                            <circle class="coloring-area" cx="240" cy="90" r="30" :fill="flowerColors.petal2" @click="fillPart('petal2')"/>
+                            <circle class="coloring-area" cx="150" cy="140" r="30" :fill="flowerColors.petal3" @click="fillPart('petal3')"/>
+                            <circle class="coloring-area" cx="250" cy="140" r="30" :fill="flowerColors.petal4" @click="fillPart('petal4')"/>
+                            <!-- Leaves -->
+                            <ellipse class="coloring-area" cx="150" cy="260" rx="30" ry="15" :fill="flowerColors.leaf1" @click="fillPart('leaf1')"/>
+                            <ellipse class="coloring-area" cx="250" cy="260" rx="30" ry="15" :fill="flowerColors.leaf2" @click="fillPart('leaf2')"/>
+                        </g>
+                    </template>
+                </svg>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex flex-wrap justify-center gap-4 mt-6">
+                <button @click="resetDrawing()" class="bg-gray-500 hover:bg-gray-600 text-white title-font text-lg px-6 py-3 rounded-full shadow-lg transition-all">
+                    🔄 Reset
+                </button>
+                <button @click="finishDrawing()" class="bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white title-font text-lg px-6 py-3 rounded-full shadow-lg transition-all">
+                    ✅ Selesai
+                </button>
+            </div>
+
+            <!-- Feedback -->
+            <div x-show="showFeedback" x-transition class="text-center mt-6 p-6 rounded-2xl text-2xl bg-green-100 text-green-700">
+                <div class="text-5xl mb-2">🎉</div>
+                <p class="title-font" x-text="feedbackText"></p>
+                <button x-show="isComplete" @click="nextDrawing()" class="mt-4 bg-gradient-to-r from-purple-400 to-pink-400 text-white px-6 py-3 rounded-full title-font text-xl">
+                    ➡️ Gambar Berikutnya
+                </button>
+            </div>
+        </div>
+
+        <!-- Quiz Game -->
+        <div x-show="gameStage === 2" class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-blue-300">
+            <h2 class="title-font text-3xl text-center text-blue-600 mb-6">🤔 Quiz: Warna Apa yang Cocok? 🤔</h2>
+
+            <div class="text-center mb-8">
+                <div class="text-9xl mb-4" x-text="currentQuiz.emoji"></div>
+                <p class="text-2xl font-bold text-gray-800">Warna apa yang cocok untuk <span x-text="currentQuiz.object"></span>?</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <template x-for="option in currentQuiz.options" :key="option.color">
+                    <button @click="checkQuizAnswer(option.color)"
+                            class="p-6 rounded-2xl shadow-lg transition-all hover:scale-105"
+                            :style="`background-color: ${option.color}`">
+                        <span class="text-white title-font text-xl" x-text="option.label"></span>
+                    </button>
+                </template>
+            </div>
+
+            <div x-show="showQuizFeedback" x-transition class="text-center p-6 rounded-2xl text-2xl"
+                 :class="isQuizCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
+                <div class="text-5xl mb-2" x-text="isQuizCorrect ? '⭐' : '💭'"></div>
+                <p class="title-font" x-text="quizFeedbackText"></p>
+                <button x-show="isQuizCorrect" @click="nextQuiz()" class="mt-4 bg-gradient-to-r from-blue-400 to-blue-600 text-white px-6 py-3 rounded-full title-font text-xl">
+                    ➡️ Pertanyaan Berikutnya
+                </button>
+            </div>
+        </div>
+
+        <!-- Completion -->
+        <div x-show="gameStage === 3" class="bg-white rounded-3xl shadow-xl p-8 border-4 border-yellow-400">
+            <div class="text-center">
+                <div class="text-8xl mb-4">🏆</div>
+                <h2 class="title-font text-4xl text-yellow-600 mb-4">LUAR BIASA!</h2>
+                <p class="text-2xl text-gray-700 mb-6">Adik-adik sudah menyelesaikan semua latihan!</p>
+                <div class="bg-gradient-to-r from-yellow-200 to-orange-200 rounded-2xl p-6 mb-6">
+                    <p class="title-font text-3xl text-orange-700">Skor Akhir: <span x-text="score"></span> ⭐</p>
+                </div>
+                <div class="space-y-4">
+                    <a href="evaluasi.html" class="inline-block bg-gradient-to-r from-green-400 to-green-600 text-white title-font text-2xl px-8 py-4 rounded-full shadow-lg">
+                        ➡️ Lanjut ke Evaluasi
+                    </a>
+                    <br>
+                    <button @click="restartGame()" class="inline-block bg-gradient-to-r from-purple-400 to-pink-400 text-white title-font text-xl px-6 py-3 rounded-full shadow-lg">
+                        🔄 Main Lagi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white py-4 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg">© 2024 Bahan Ajar Interaktif - TK-B Seni</p>
+        </div>
+    </footer>
+
+    <script>
+        function coloringGame() {
+            return {
+                score: 0,
+                gameStage: 1,
+                selectedColor: '#ff0000',
+                currentDrawingIndex: 0,
+                showFeedback: false,
+                feedbackText: '',
+                isComplete: false,
+                currentPart: null,
+                houseColors: { roof: '#ffffff', body: '#ffffff', door: '#ffffff', window1: '#ffffff', window2: '#ffffff' },
+                treeColors: { trunk: '#ffffff', leaves1: '#ffffff', leaves2: '#ffffff', leaves3: '#ffffff' },
+                flowerColors: { stem: '#ffffff', center: '#ffffff', petal1: '#ffffff', petal2: '#ffffff', petal3: '#ffffff', petal4: '#ffffff', leaf1: '#ffffff', leaf2: '#ffffff' },
+                drawings: [
+                    { id: 'house', name: 'Rumah' },
+                    { id: 'tree', name: 'Pohon' },
+                    { id: 'flower', name: 'Bunga' }
+                ],
+                colors: [
+                    { name: 'Merah', hex: '#ef4444' },
+                    { name: 'Kuning', hex: '#eab308' },
+                    { name: 'Biru', hex: '#3b82f6' },
+                    { name: 'Hijau', hex: '#22c55e' },
+                    { name: 'Orange', hex: '#f97316' },
+                    { name: 'Ungu', hex: '#a855f7' },
+                    { name: 'Coklat', hex: '#92400e' },
+                    { name: 'Pink', hex: '#ec4899' }
+                ],
+                currentQuizIndex: 0,
+                showQuizFeedback: false,
+                isQuizCorrect: false,
+                quizFeedbackText: '',
+                quizzes: [
+                    { emoji: '🍎', object: 'Apel', correct: '#ef4444', options: [{ color: '#ef4444', label: 'MERAH' }, { color: '#eab308', label: 'KUNING' }, { color: '#3b82f6', label: 'BIRU' }, { color: '#22c55e', label: 'HIJAU' }] },
+                    { emoji: '🌳', object: 'Daun Pohon', correct: '#22c55e', options: [{ color: '#ef4444', label: 'MERAH' }, { color: '#22c55e', label: 'HIJAU' }, { color: '#3b82f6', label: 'BIRU' }, { color: '#a855f7', label: 'UNGU' }] },
+                    { emoji: '🌊', object: 'Laut', correct: '#3b82f6', options: [{ color: '#22c55e', label: 'HIJAU' }, { color: '#eab308', label: 'KUNING' }, { color: '#3b82f6', label: 'BIRU' }, { color: '#ef4444', label: 'MERAH' }] },
+                    { emoji: '🌻', object: 'Bunga Matahari', correct: '#eab308', options: [{ color: '#3b82f6', label: 'BIRU' }, { color: '#eab308', label: 'KUNING' }, { color: '#a855f7', label: 'UNGU' }, { color: '#92400e', label: 'COKLAT' }] }
+                ],
+
+                get currentDrawing() {
+                    return this.drawings[this.currentDrawingIndex];
+                },
+
+                get currentQuiz() {
+                    return this.quizzes[this.currentQuizIndex];
+                },
+
+                selectColor(color) {
+                    this.selectedColor = color;
+                },
+
+                fillPart(part) {
+                    if (this.currentDrawing.id === 'house') {
+                        this.houseColors[part] = this.selectedColor;
+                    } else if (this.currentDrawing.id === 'tree') {
+                        this.treeColors[part] = this.selectedColor;
+                    } else if (this.currentDrawing.id === 'flower') {
+                        this.flowerColors[part] = this.selectedColor;
+                    }
+                    this.score += 2;
+                },
+
+                resetDrawing() {
+                    if (this.currentDrawing.id === 'house') {
+                        Object.keys(this.houseColors).forEach(key => this.houseColors[key] = '#ffffff');
+                    } else if (this.currentDrawing.id === 'tree') {
+                        Object.keys(this.treeColors).forEach(key => this.treeColors[key] = '#ffffff');
+                    } else if (this.currentDrawing.id === 'flower') {
+                        Object.keys(this.flowerColors).forEach(key => this.flowerColors[key] = '#ffffff');
+                    }
+                    this.showFeedback = false;
+                    this.isComplete = false;
+                },
+
+                finishDrawing() {
+                    this.showFeedback = true;
+                    this.isComplete = true;
+                    this.feedbackText = `Bagus sekali! ${this.currentDrawing.name} sudah berwarna!`;
+                    this.score += 20;
+                },
+
+                nextDrawing() {
+                    this.currentDrawingIndex++;
+                    this.resetDrawing();
+                    if (this.currentDrawingIndex >= this.drawings.length) {
+                        this.gameStage = 2;
+                    }
+                },
+
+                checkQuizAnswer(answer) {
+                    this.showQuizFeedback = true;
+                    this.isQuizCorrect = answer === this.currentQuiz.correct;
+
+                    if (this.isQuizCorrect) {
+                        this.score += 15;
+                        this.quizFeedbackText = `✅ Benar! ${this.currentQuiz.object} berwarna ${this.currentQuiz.options.find(o => o.color === answer).label}!`;
+                    } else {
+                        this.quizFeedbackText = `🤔 Hmm, coba perhatikan lagi warna ${this.currentQuiz.object} di sekitar kita!`;
+                        setTimeout(() => { this.showQuizFeedback = false; }, 2000);
+                    }
+                },
+
+                nextQuiz() {
+                    this.currentQuizIndex++;
+                    this.showQuizFeedback = false;
+                    if (this.currentQuizIndex >= this.quizzes.length) {
+                        this.gameStage = 3;
+                    }
+                },
+
+                restartGame() {
+                    this.score = 0;
+                    this.gameStage = 1;
+                    this.currentDrawingIndex = 0;
+                    this.currentQuizIndex = 0;
+                    this.resetDrawing();
+                }
+            }
+        }
+    </script>
+</body>
+</html>

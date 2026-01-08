@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mengenal Nada dan Irama - TK-B Seni Musik</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>body{font-family:'Comic Neue',cursive}.title-font{font-family:'Fredoka One',cursive}.wiggle{animation:wiggle 1s ease-in-out infinite}@keyframes wiggle{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}.float{animation:float 3s ease-in-out infinite}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}</style>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-cyan-100 to-teal-100 min-h-screen" x-data="{selectedNote: null, showInfo: false}">
+    <header class="bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="title-font text-4xl md:text-5xl mb-2 wiggle inline-block">🎵 Mengenal Nada dan Irama 🎵</h1>
+            <p class="text-xl">Belajar Nada dengan Ceria!</p>
+        </div>
+    </header>
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-blue-300">
+            <div class="text-center mb-6">
+                <div class="text-6xl mb-4">👋</div>
+                <h2 class="title-font text-3xl text-blue-600 mb-4">Halo, Adik-adik!</h2>
+                <p class="text-xl text-gray-700">Hari ini kita akan belajar tentang <strong class="text-cyan-500">nada</strong> dan <strong class="text-teal-500">irama</strong>! Nada adalah suara yang tinggi atau rendah. Irama adalah ketukan musik! 🎶</p>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h2 class="title-font text-3xl text-center text-blue-600 mb-6">🎼 Nada Do Re Mi Fa Sol La Si Do 🎼</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <template x-for="note in notes" :key="note.name">
+                    <div class="bg-white rounded-2xl p-5 text-center shadow-lg cursor-pointer hover:scale-105 transition-all"
+                         :class="note.color"
+                         @click="selectedNote = note; showInfo = true">
+                        <div class="text-4xl mb-2" x-text="note.emoji"></div>
+                        <h3 class="title-font text-2xl text-white" x-text="note.name"></h3>
+                    </div>
+                </template>
+            </div>
+        </section>
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-cyan-300">
+            <h2 class="title-font text-3xl text-center text-cyan-600 mb-6">🥁 Irama / Ketukan 🥁</h2>
+            <p class="text-xl text-gray-700 text-center mb-6">Irama adalah ketukan musik! Coba tepuk tangan mengikuti irama!</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-gradient-to-br from-red-100 to-pink-100 rounded-2xl p-6 text-center">
+                    <h3 class="title-font text-2xl text-red-600 mb-2">LAMBAT</h3>
+                    <p class="text-gray-700">Tepuk... tepuk... tepuk...</p>
+                    <div class="text-3xl mt-3">🐢</div>
+                </div>
+                <div class="bg-gradient-to-br from-yellow-100 to-orange-100 rounded-2xl p-6 text-center">
+                    <h3 class="title-font text-2xl text-yellow-600 mb-2">SEDANG</h3>
+                    <p class="text-gray-700">Tepuk-tepuk-tepuk</p>
+                    <div class="text-3xl mt-3">🚶</div>
+                </div>
+                <div class="bg-gradient-to-br from-green-100 to-teal-100 rounded-2xl p-6 text-center">
+                    <h3 class="title-font text-2xl text-green-600 mb-2">CEPAT</h3>
+                    <p class="text-gray-700">Tepuktepuktepuuuuuk!</p>
+                    <div class="text-3xl mt-3">🐇</div>
+                </div>
+            </div>
+        </section>
+        <section class="bg-gradient-to-br from-cyan-100 to-blue-100 rounded-3xl shadow-xl p-6 mb-8 border-4 border-cyan-400">
+            <h2 class="title-font text-3xl text-center text-cyan-700 mb-6">✨ Cara Belajar Nada ✨</h2>
+            <div class="space-y-4">
+                <div class="bg-white rounded-2xl p-4 flex items-start gap-3"><span class="text-3xl">1️⃣</span><p class="text-gray-700">Dengarkan nada yang dinyanyikan atau dimainkan</p></div>
+                <div class="bg-white rounded-2xl p-4 flex items-start gap-3"><span class="text-3xl">2️⃣</span><p class="text-gray-700">Coba nyanyikan nada dengan suara kita</p></div>
+                <div class="bg-white rounded-2xl p-4 flex items-start gap-3"><span class="text-3xl">3️⃣</span><p class="text-gray-700">Latihan terus agar suara bagus!</p></div>
+            </div>
+        </section>
+        <div class="text-center"><a href="latihan.html" class="inline-block bg-gradient-to-r from-cyan-400 to-blue-600 text-white title-font text-2xl px-8 py-4 rounded-full shadow-lg">➡️ Lanjut ke Latihan</a></div>
+    </main>
+    <footer class="bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 text-white py-4 mt-8"><div class="container mx-auto px-4 text-center"><p class="text-lg">© 2024 Bahan Ajar Interaktif - TK-B Seni Musik</p></div></footer>
+    <script>
+        function notesData() {
+            return {
+                notes: [
+                    { name: 'Do', emoji: '🎵', color: 'bg-gradient-to-br from-red-400 to-red-600' },
+                    { name: 'Re', emoji: '🎶', color: 'bg-gradient-to-br from-orange-400 to-orange-600' },
+                    { name: 'Mi', emoji: '🎼', color: 'bg-gradient-to-br from-yellow-400 to-yellow-600' },
+                    { name: 'Fa', emoji: '🎹', color: 'bg-gradient-to-br from-green-400 to-green-600' },
+                    { name: 'Sol', emoji: '🎸', color: 'bg-gradient-to-br from-cyan-400 to-cyan-600' },
+                    { name: 'La', emoji: '🎺', color: 'bg-gradient-to-br from-blue-400 to-blue-600' },
+                    { name: 'Si', emoji: '🎻', color: 'bg-gradient-to-br from-purple-400 to-purple-600' },
+                    { name: 'Do', emoji: '🎤', color: 'bg-gradient-to-br from-red-500 to-pink-600' }
+                ]
+            }
+        }
+    </script>
+</body>
+</html>

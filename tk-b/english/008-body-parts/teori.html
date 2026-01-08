@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Body Parts - TK-B English</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap");
+      body {
+        font-family: "Nunito", sans-serif;
+      }
+      .body-card {
+        transition: all 0.3s ease;
+      }
+      .body-card:hover {
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-blue-100 via-indigo-50 to-purple-100 min-h-screen"
+  >
+    <div x-data="{ selectedPart: null }">
+      <header
+        class="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 text-white py-6 shadow-lg"
+      >
+        <div class="container mx-auto px-4 text-center">
+          <h1 class="text-3xl md:text-4xl font-bold mb-2">
+            👤 Learn Body Parts
+          </h1>
+          <p class="text-lg">Let's learn body part names!</p>
+        </div>
+      </header>
+      <main class="container mx-auto px-4 py-8">
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8">
+          <div class="text-center mb-6">
+            <div class="text-6xl mb-4">👤</div>
+            <h2 class="text-2xl font-bold text-indigo-700 mb-3">
+              What are Body Parts?
+            </h2>
+            <p class="text-lg text-gray-700">
+              <strong>Body parts</strong> are parts of our body! We have head,
+              eyes, nose, mouth, hands, and more!
+            </p>
+          </div>
+        </section>
+        <section
+          class="bg-gradient-to-r from-blue-100 to-indigo-100 rounded-3xl shadow-xl p-6 mb-8"
+        >
+          <h2 class="text-2xl font-bold text-center text-indigo-700 mb-6">
+            👤 Meet the Body Parts!
+          </h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div
+              @click="selectedPart = {name:'Head',emoji:'🗣️',function:'Think'}"
+              class="body-card bg-gradient-to-br from-blue-400 to-blue-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">🗣️</div>
+              <p class="text-xl font-bold">Head</p>
+            </div>
+            <div
+              @click="selectedPart = {name:'Eyes',emoji:'👀',function:'See'}"
+              class="body-card bg-gradient-to-br from-indigo-400 to-indigo-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">👀</div>
+              <p class="text-xl font-bold">Eyes</p>
+            </div>
+            <div
+              @click="selectedPart = {name:'Nose',emoji:'👃',function:'Smell'}"
+              class="body-card bg-gradient-to-br from-purple-400 to-purple-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">👃</div>
+              <p class="text-xl font-bold">Nose</p>
+            </div>
+            <div
+              @click="selectedPart = {name:'Ears',emoji:'👂',function:'Hear'}"
+              class="body-card bg-gradient-to-br from-pink-400 to-pink-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">👂</div>
+              <p class="text-xl font-bold">Ears</p>
+            </div>
+            <div
+              @click="selectedPart = {name:'Mouth',emoji:'👄',function:'Eat & Talk'}"
+              class="body-card bg-gradient-to-br from-red-400 to-red-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">👄</div>
+              <p class="text-xl font-bold">Mouth</p>
+            </div>
+            <div
+              @click="selectedPart = {name:'Hands',emoji:'🤚',function:'Hold'}"
+              class="body-card bg-gradient-to-br from-orange-400 to-orange-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">🤚</div>
+              <p class="text-xl font-bold">Hands</p>
+            </div>
+            <div
+              @click="selectedPart = {name:'Feet',emoji:'🦶',function:'Walk'}"
+              class="body-card bg-gradient-to-br from-green-400 to-green-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">🦶</div>
+              <p class="text-xl font-bold">Feet</p>
+            </div>
+            <div
+              @click="selectedPart = {name:'Fingers',emoji:'☝️',function:'Point'}"
+              class="body-card bg-gradient-to-br from-teal-400 to-teal-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">☝️</div>
+              <p class="text-xl font-bold">Fingers</p>
+            </div>
+          </div>
+        </section>
+        <div
+          x-show="selectedPart"
+          x-transition
+          class="bg-white rounded-3xl shadow-xl p-6 mb-8"
+        >
+          <h3 class="text-2xl font-bold text-indigo-700 mb-4 text-center">
+            <span x-text="selectedPart.emoji"></span>
+            <span x-text="selectedPart.name"></span>
+          </h3>
+          <div class="max-w-md mx-auto">
+            <div class="bg-indigo-50 rounded-xl p-4">
+              <p class="text-lg">
+                <strong>Function:</strong>
+                <span x-text="selectedPart.function"></span>
+              </p>
+            </div>
+          </div>
+          <button
+            @click="selectedPart = null"
+            class="mt-4 mx-auto block bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-6 rounded-full"
+          >
+            Close
+          </button>
+        </div>
+        <section
+          class="bg-gradient-to-r from-blue-200 to-indigo-200 rounded-3xl shadow-xl p-6 mb-8"
+        >
+          <h2 class="text-2xl font-bold text-indigo-700 mb-4 text-center">
+            💡 Health Tips!
+          </h2>
+          <ul class="text-lg text-gray-700 space-y-3">
+            <li class="flex items-start">
+              <span class="text-2xl mr-3">🛁</span
+              ><span>Bathe every day to stay clean!</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-2xl mr-3">🦷</span
+              ><span>Brush your teeth to stay healthy!</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-2xl mr-3">🏃</span
+              ><span>Exercise to stay strong!</span>
+            </li>
+          </ul>
+        </section>
+        <div class="text-center">
+          <a
+            href="latihan.html"
+            class="inline-block bg-gradient-to-r from-green-400 to-green-600 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition"
+            >🎮 Continue to Practice!</a
+          >
+        </div>
+      </main>
+      <footer class="bg-indigo-600 text-white py-6 mt-8">
+        <div class="container mx-auto px-4 text-center">
+          <p class="text-lg">
+            © 2025 Interactive Learning Materials - TK-B English
+          </p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

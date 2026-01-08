@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bentuk - Evaluasi | Sains TK-B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .font-comic { font-family: 'Comic Neue', cursive; }
+        .option-card:hover { transform: scale(1.02); transition: all 0.3s ease; }
+        .bounce-in { animation: bounceIn 0.5s ease; }
+        @keyframes bounceIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .selected-option { border-color: #f59e0b !important; background: linear-gradient(to bottom right, #fef3c7, #fde68a); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-amber-100 via-yellow-100 to-orange-100 min-h-screen" x-data="evaluasiBentuk()">
+
+    <header class="bg-gradient-to-r from-amber-500 via-yellow-500 to-orange-500 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <a href="teori.html" class="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/30"><span>⬅️</span><span class="font-bold">Kembali</span></a>
+                <h1 class="text-xl font-bold">Evaluasi Bentuk</h1>
+                <div class="bg-white/20 px-4 py-2 rounded-full font-bold"><span x-text="currentQuestion"></span>/<span x-text="questions.length"></span></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-6" x-show="!quizStarted && !quizFinished">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 border-4 border-amber-300 max-w-2xl mx-auto text-center">
+            <div class="text-6xl mb-4">📝</div><h2 class="text-3xl font-bold mb-4 font-comic">Waktu Evaluasi!</h2>
+            <p class="text-lg mb-6">Adik-adik, sekarang saatnya mengukur pemahaman tentang Bentuk!</p>
+            <div class="bg-amber-50 rounded-2xl p-4 mb-6 text-left"><h3 class="font-bold mb-2">📌 Ketentuan:</h3><ul class="space-y-1"><li>• Ada <strong>10 soal</strong></li><li>• Hasil muncul setelah submit</li></ul></div>
+            <button @click="startQuiz()" class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl transition">Mulai Evaluasi 🚀</button>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-6" x-show="quizStarted && !quizFinished">
+        <div class="bg-white rounded-full h-4 shadow-lg overflow-hidden mb-4"><div class="h-full bg-gradient-to-r from-amber-400 to-yellow-500 transition-all" :style="'width: ' + ((currentQuestion / questions.length) * 100) + '%'"></div></div>
+        <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-amber-300 mb-6 bounce-in"><h2 class="text-xl font-bold">Soal <span x-text="currentQuestion"></span></h2><p class="text-lg mt-2" x-text="questions[currentQuestion - 1].question"></p></div>
+        <div class="grid grid-cols-1 gap-3 mb-6">
+            <template x-for="(option, index) in questions[currentQuestion - 1].options" :key="index">
+                <div @click="selectAnswer(index)" :class="{'selected-option': answers[currentQuestion - 1] === index}" class="cursor-pointer border-4 border-amber-200 hover:border-amber-400 bg-amber-50 rounded-2xl shadow-lg p-4 option-card">
+                    <div class="flex items-center gap-3"><span class="flex items-center justify-center w-8 h-8 rounded-full bg-amber-500 text-white font-bold" x-text="String.fromCharCode(65 + index)"></span><span class="text-lg" x-text="option"></span></div>
+                </div>
+            </template>
+        </div>
+        <div class="flex justify-between">
+            <button @click="prevQuestion()" :disabled="currentQuestion === 1" :class="currentQuestion === 1 ? 'opacity-50' : ''" class="bg-gray-500 text-white px-6 py-3 rounded-xl font-bold">⬅️ Sebelumnya</button>
+            <button @click="nextQuestion()" x-show="currentQuestion < questions.length" class="bg-orange-500 text-white px-6 py-3 rounded-xl font-bold">Selanjutnya ➡️</button>
+            <button @click="submitQuiz()" x-show="currentQuestion === questions.length" class="bg-yellow-500 text-white px-8 py-3 rounded-xl font-bold text-lg">Kirim Jawaban ✅</button>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-6" x-show="quizFinished">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 border-4 border-amber-300 max-w-4xl mx-auto">
+            <div class="text-center mb-8">
+                <div class="text-7xl mb-4" x-text="score >= 70 ? '🏆' : '⭐'"></div>
+                <h2 class="text-3xl font-bold mb-2 font-comic" x-text="score >= 70 ? 'Luar Biasa!' : 'Bagus Sekali!'"></h2>
+                <div class="bg-amber-100 rounded-2xl p-6 max-w-md mx-auto"><p class="text-5xl font-bold text-amber-600" x-text="score + ' / 100'"></p></div>
+            </div>
+            <div class="mb-8"><h3 class="text-2xl font-bold mb-4 text-center">📋 Kunci Jawaban</h3><div class="space-y-3">
+                <template x-for="(q, index) in questions" :key="index">
+                    <div class="rounded-xl p-4 border-2" :class="answers[index] === q.correctIndex ? 'bg-green-50 border-green-300' : 'bg-red-50 border-red-300'">
+                        <div class="flex items-start gap-3"><span class="flex items-center justify-center w-8 h-8 rounded-full flex-shrink-0" :class="answers[index] === q.correctIndex ? 'bg-green-500 text-white' : 'bg-red-500 text-white'" x-text="index + 1"></span><div class="flex-1"><p class="font-bold mb-2" x-text="q.question"></p><div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <template x-for="(opt, optIndex) in q.options" :key="optIndex"><div class="text-sm p-2 rounded-lg" :class="{'bg-green-200 font-bold': optIndex === q.correctIndex, 'bg-red-200 line-through': optIndex === answers[index] && optIndex !== q.correctIndex, 'opacity-50': optIndex !== q.correctIndex && optIndex !== answers[index]}"><span x-text="String.fromCharCode(65 + optIndex)"></span>. <span x-text="opt"></span></div></template>
+                        </div></div></div></div>
+                    </div>
+                </template></div></div>
+            <div class="flex flex-col md:flex-row justify-center gap-3">
+                <a href="teori.html" class="bg-amber-500 text-white py-3 px-6 rounded-xl font-bold text-lg text-center">📖 Pelajari Lagi</a>
+                <a href="rangkuman.html" class="bg-purple-500 text-white py-3 px-6 rounded-xl font-bold text-lg text-center">📚 Baca Rangkuman</a>
+                <button @click="resetQuiz()" class="bg-orange-500 text-white py-3 px-6 rounded-xl font-bold text-lg">🔄 Ulangi</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gradient-to-r from-amber-600 to-yellow-600 text-white py-4 mt-8"><div class="container mx-auto px-4 text-center"><p class="font-semibold">© 2025 Bahan Ajar Interaktif - TK-B Sains</p></div></footer>
+
+    <script>
+        function evaluasiBentuk() {
+            return {
+                quizStarted: false, quizFinished: false, currentQuestion: 1, score: 0, correctAnswers: 0,
+                answers: [null,null,null,null,null,null,null,null,null,null],
+                questions: [
+                    { question: "Bola berbentuk...", options: ["Lingkaran","Persegi","Segitiga","Persegi Panjang"], correctIndex: 0 },
+                    { question: "Kotak tisu berbentuk...", options: ["Lingkaran","Persegi","Segitiga","Oval"], correctIndex: 1 },
+                    { question: "Buku berbentuk...", options: ["Lingkaran","Segitiga","Persegi Panjang","Oval"], correctIndex: 2 },
+                    { question: "Potongan pizza berbentuk...", options: ["Lingkaran","Persegi","Segitiga","Persegi Panjang"], correctIndex: 2 },
+                    { question: "Telur berbentuk...", options: ["Persegi","Oval","Segitiga","Bintang"], correctIndex: 1 },
+                    { question: "Piring berbentuk...", options: ["Lingkaran","Persegi","Segitiga","Persegi Panjang"], correctIndex: 0 },
+                    { question: "Pintu berbentuk...", options: ["Lingkaran","Persegi Panjang","Segitiga","Oval"], correctIndex: 1 },
+                    { question: "Jam dinding berbentuk...", options: ["Persegi","Segitiga","Lingkaran","Persegi Panjang"], correctIndex: 2 },
+                    { question: "Topi ulang tahun berbentuk...", options: ["Lingkaran","Persegi","Segitiga","Oval"], correctIndex: 2 },
+                    { question: "Jendela berbentuk...", options: ["Hanya persegi","Hanya lingkaran","Hanya segitiga","Bisa persegi atau persegi panjang"], correctIndex: 3 }
+                ],
+                startQuiz() { this.quizStarted = true; },
+                selectAnswer(index) { this.answers[this.currentQuestion - 1] = index; },
+                prevQuestion() { if (this.currentQuestion > 1) this.currentQuestion--; },
+                nextQuestion() { if (this.currentQuestion < this.questions.length) this.currentQuestion++; },
+                submitQuiz() { this.score = 0; for (let i = 0; i < this.questions.length; i++) { if (this.answers[i] === this.questions[i].correctIndex) this.score += 10; } this.quizFinished = true; },
+                resetQuiz() { this.quizStarted = false; this.quizFinished = false; this.currentQuestion = 1; this.score = 0; this.answers = [null,null,null,null,null,null,null,null,null,null]; }
+            }
+        }
+    </script>
+</body>
+</html>

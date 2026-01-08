@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Kerajinan Tangan - TK-B Seni</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Comic Neue', cursive; }
+        .title-font { font-family: 'Fredoka One', cursive; }
+        .wiggle { animation: wiggle 1s ease-in-out infinite; }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-orange-100 via-amber-100 to-yellow-100 min-h-screen" x-data="craftGame()">
+    <header class="bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-500 text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="title-font text-4xl md:text-5xl mb-2 wiggle inline-block">🎮 Latihan Kerajinan Tangan 🎮</h1>
+            <p class="text-xl">Ayo Belajar Langkah-langkahnya!</p>
+            <div class="mt-4 bg-white/20 rounded-full px-6 py-2 inline-block">
+                <span class="text-2xl">⭐ Skor: <span x-text="score"></span> ⭐</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Steps Quiz -->
+        <div x-show="gameStage === 1" class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-orange-300">
+            <h2 class="title-font text-3xl text-center text-orange-600 mb-6">🔢 Susun Langkah-langkah! 🔢</h2>
+            <p class="text-center text-xl text-gray-700 mb-6">Susun langkah-langkah membuat <strong x-text="currentCraft.name"></strong> dengan urutan yang benar!</p>
+
+            <div class="text-center mb-8">
+                <div class="text-9xl mb-4" x-text="currentCraft.emoji"></div>
+            </div>
+
+            <div class="bg-amber-50 rounded-2xl p-6 mb-6">
+                <p class="text-center text-lg text-gray-600 mb-4">Klik langkah-langkah berikut sesuai urutan yang benar:</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <template x-for="(step, index) in shuffledSteps" :key="index">
+                        <button @click="selectStep(step)"
+                                :disabled="selectedSteps.includes(step.id)"
+                                class="p-4 rounded-xl shadow-md text-left transition-all hover:scale-102"
+                                :class="selectedSteps.includes(step.id) ? 'bg-green-100 text-green-700' : 'bg-white hover:bg-gray-50'">
+                            <span class="font-bold" x-text="selectedSteps.indexOf(step.id) >= 0 ? (selectedSteps.indexOf(step.id) + 1) : ''"></span>
+                            <span x-text="step.text"></span>
+                        </button>
+                    </template>
+                </div>
+            </div>
+
+            <div class="flex justify-center gap-4 mb-6">
+                <button @click="resetSteps()" class="bg-gray-500 hover:bg-gray-600 text-white title-font text-lg px-6 py-3 rounded-full shadow-lg">
+                    🔄 Reset
+                </button>
+                <button @click="checkSteps()"
+                        :disabled="selectedSteps.length !== currentCraft.steps.length"
+                        class="bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white title-font text-lg px-6 py-3 rounded-full shadow-lg disabled:opacity-50">
+                    ✅ Cek Jawaban
+                </button>
+            </div>
+
+            <div x-show="showStepsFeedback" class="text-center p-6 rounded-2xl text-2xl"
+                 :class="isStepsCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
+                <div class="text-5xl mb-2" x-text="isStepsCorrect ? '🎉' : '🤔'"></div>
+                <p class="title-font" x-text="stepsFeedbackText"></p>
+                <button x-show="isStepsCorrect" @click="nextCraft()" class="mt-4 bg-gradient-to-r from-orange-400 to-amber-400 text-white px-6 py-3 rounded-full title-font text-xl">
+                    ➡️ Kerajinan Berikutnya
+                </button>
+            </div>
+        </div>
+
+        <!-- Tools Quiz -->
+        <div x-show="gameStage === 2" class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-amber-300">
+            <h2 class="title-font text-3xl text-center text-amber-600 mb-6">🛠️ Alat Apa yang Dibutuhkan? 🛠️</h2>
+            <p class="text-center text-xl text-gray-700 mb-6">Pilih alat yang dibutuhkan untuk membuat <strong x-text="currentToolQuiz.craft"></strong>!</p>
+
+            <div class="text-center mb-8">
+                <div class="text-9xl mb-4" x-text="currentToolQuiz.emoji"></div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <template x-for="tool in allTools" :key="tool.id">
+                    <button @click="toggleTool(tool.id)"
+                            class="p-6 rounded-2xl shadow-lg text-center transition-all hover:scale-105"
+                            :class="selectedTools.includes(tool.id) ? 'bg-green-500 text-white' : 'bg-white hover:bg-gray-50'">
+                        <div class="text-5xl mb-2" x-text="tool.emoji"></div>
+                        <p class="title-font text-lg" x-text="tool.name"></p>
+                    </button>
+                </template>
+            </div>
+
+            <div class="flex justify-center">
+                <button @click="checkTools()"
+                        :disabled="selectedTools.length === 0"
+                        class="bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white title-font text-lg px-8 py-4 rounded-full shadow-lg disabled:opacity-50">
+                    ✅ Cek Jawaban
+                </button>
+            </div>
+
+            <div x-show="showToolsFeedback" class="text-center mt-6 p-6 rounded-2xl text-2xl"
+                 :class="isToolsCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
+                <div class="text-5xl mb-2" x-text="isToolsCorrect ? '⭐' : '💭'"></div>
+                <p class="title-font" x-text="toolsFeedbackText"></p>
+                <button x-show="isToolsCorrect" @click="nextToolQuiz()" class="mt-4 bg-gradient-to-r from-amber-400 to-yellow-400 text-white px-6 py-3 rounded-full title-font text-xl">
+                    ➡️ Pertanyaan Berikutnya
+                </button>
+            </div>
+        </div>
+
+        <!-- Completion -->
+        <div x-show="gameStage === 3" class="bg-white rounded-3xl shadow-xl p-8 border-4 border-yellow-400">
+            <div class="text-center">
+                <div class="text-8xl mb-4">🏆</div>
+                <h2 class="title-font text-4xl text-yellow-600 mb-4">LUAR BIASA!</h2>
+                <p class="text-2xl text-gray-700 mb-6">Adik-adik sudah menyelesaikan semua latihan kerajinan tangan!</p>
+                <div class="bg-gradient-to-r from-yellow-200 to-orange-200 rounded-2xl p-6 mb-6">
+                    <p class="title-font text-3xl text-orange-700">Skor Akhir: <span x-text="score"></span> ⭐</p>
+                </div>
+                <div class="space-y-4">
+                    <a href="evaluasi.html" class="inline-block bg-gradient-to-r from-green-400 to-green-600 text-white title-font text-2xl px-8 py-4 rounded-full shadow-lg">
+                        ➡️ Lanjut ke Evaluasi
+                    </a>
+                    <br>
+                    <button @click="restartGame()" class="inline-block bg-gradient-to-r from-orange-400 to-amber-400 text-white title-font text-xl px-6 py-3 rounded-full shadow-lg">
+                        🔄 Main Lagi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-500 text-white py-4 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg">© 2024 Bahan Ajar Interaktif - TK-B Seni</p>
+        </div>
+    </footer>
+
+    <script>
+        function craftGame() {
+            return {
+                score: 0,
+                gameStage: 1,
+                currentCraftIndex: 0,
+                selectedSteps: [],
+                shuffledSteps: [],
+                showStepsFeedback: false,
+                isStepsCorrect: false,
+                stepsFeedbackText: '',
+                currentToolQuizIndex: 0,
+                selectedTools: [],
+                showToolsFeedback: false,
+                isToolsCorrect: false,
+                toolsFeedbackText: '',
+                crafts: [
+                    {
+                        name: 'Kolase Bunga',
+                        emoji: '🦋',
+                        steps: [
+                            { id: 1, text: 'Siapkan kertas putih dan kertas warna' },
+                            { id: 2, text: 'Gunting kertas warna jadi bentuk lingkaran' },
+                            { id: 3, text: 'Tempel lingkaran membentuk bunga' },
+                            { id: 4, text: 'Tambah batang dan daun dengan kertas hijau' }
+                        ]
+                    },
+                    {
+                        name: 'Pesawat Kertas',
+                        emoji: '✈️',
+                        steps: [
+                            { id: 1, text: 'Ambil selembar kertas persegi panjang' },
+                            { id: 2, text: 'Lipat kertas menjadi dua' },
+                            { id: 3, text: 'Lipat sudut-sudutnya ke tengah' },
+                            { id: 4, text: 'Lipat bagian tengah ke belakang, bentuk sayap' }
+                        ]
+                    }
+                ],
+                toolQuizzes: [
+                    { craft: 'Kolase Bunga', emoji: '🦋', correct: ['gunting', 'kertas', 'lem'] },
+                    { craft: 'Origami', emoji: '🐦', correct: ['kertas'] },
+                    { craft: 'Kartu Ucapan', emoji: '🎁', correct: ['kertas', 'gunting', 'lem', 'pensil'] }
+                ],
+                allTools: [
+                    { id: 'gunting', name: 'Gunting', emoji: '✂️' },
+                    { id: 'kertas', name: 'Kertas', emoji: '📄' },
+                    { id: 'lem', name: 'Lem', emoji: '🖌️' },
+                    { id: 'pensil', name: 'Pensil Warna', emoji: '🖍️' }
+                ],
+
+                get currentCraft() { return this.crafts[this.currentCraftIndex]; },
+                get currentToolQuiz() { return this.toolQuizzes[this.currentToolQuizIndex]; },
+
+                init() {
+                    this.loadCraft();
+                },
+
+                loadCraft() {
+                    if (this.currentCraftIndex >= this.crafts.length) {
+                        this.gameStage = 2;
+                        return;
+                    }
+                    this.shuffledSteps = this.shuffle([...this.currentCraft.steps]);
+                    this.selectedSteps = [];
+                    this.showStepsFeedback = false;
+                },
+
+                shuffle(array) {
+                    const newArray = [...array];
+                    for (let i = newArray.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+                    }
+                    return newArray;
+                },
+
+                selectStep(step) {
+                    if (!this.selectedSteps.includes(step.id)) {
+                        this.selectedSteps.push(step.id);
+                    }
+                },
+
+                resetSteps() {
+                    this.selectedSteps = [];
+                    this.showStepsFeedback = false;
+                },
+
+                checkSteps() {
+                    const correct = this.currentCraft.steps.map(s => s.id);
+                    this.isStepsCorrect = JSON.stringify(this.selectedSteps) === JSON.stringify(correct);
+                    this.showStepsFeedback = true;
+
+                    if (this.isStepsCorrect) {
+                        this.score += 30;
+                        this.stepsFeedbackText = `🎉 Benar! Adik-adik sudah tahu langkah-langkah membuat ${this.currentCraft.name}!`;
+                    } else {
+                        this.stepsFeedbackText = `🤔 Belum tepat. Coba susun lagi ya!`;
+                    }
+                },
+
+                nextCraft() {
+                    this.currentCraftIndex++;
+                    this.loadCraft();
+                },
+
+                toggleTool(toolId) {
+                    const index = this.selectedTools.indexOf(toolId);
+                    if (index > -1) {
+                        this.selectedTools.splice(index, 1);
+                    } else {
+                        this.selectedTools.push(toolId);
+                    }
+                },
+
+                checkTools() {
+                    this.isToolsCorrect = JSON.stringify(this.selectedTools.sort()) === JSON.stringify(this.currentToolQuiz.correct.sort());
+                    this.showToolsFeedback = true;
+
+                    if (this.isToolsCorrect) {
+                        this.score += 25;
+                        this.toolsFeedbackText = `✅ Benar! Alat untuk membuat ${this.currentToolQuiz.craft} sudah tepat!`;
+                    } else {
+                        this.toolsFeedbackText = `💭 Hmm, ada alat yang kurang atau salah. Coba lagi!`;
+                        setTimeout(() => { this.showToolsFeedback = false; }, 2000);
+                    }
+                },
+
+                nextToolQuiz() {
+                    this.currentToolQuizIndex++;
+                    this.selectedTools = [];
+                    this.showToolsFeedback = false;
+
+                    if (this.currentToolQuizIndex >= this.toolQuizzes.length) {
+                        this.gameStage = 3;
+                    }
+                },
+
+                restartGame() {
+                    this.score = 0;
+                    this.gameStage = 1;
+                    this.currentCraftIndex = 0;
+                    this.currentToolQuizIndex = 0;
+                    this.selectedTools = [];
+                    this.loadCraft();
+                }
+            }
+        }
+    </script>
+</body>
+</html>

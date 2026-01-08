@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hewan - Rangkuman | Sains TK-B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .font-comic { font-family: 'Comic Neue', cursive; }
+        .float { animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-cyan-100 to-sky-100 min-h-screen">
+
+    <header class="bg-gradient-to-r from-blue-500 via-cyan-500 to-sky-500 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <a href="../index.html" class="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/30"><span>⬅️</span><span class="font-bold">Kembali</span></a>
+                <h1 class="text-xl font-bold">Rangkuman Hewan</h1>
+                <div class="w-24"></div>
+            </div>
+        </div>
+    </header>
+
+    <section class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-blue-300">
+            <div class="flex items-center gap-3 mb-4"><span class="text-4xl float">📚</span><h2 class="text-2xl font-bold font-comic">Apa yang Kita Pelajari?</h2></div>
+            <p class="text-lg text-gray-700"><strong>Adik-adik</strong>, kita sudah belajar tentang <strong>Hewan</strong>. Hewan adalah makhluk hidup yang terbagi menjadi hewan darat, air, dan udara. Setiap hewan memiliki tempat tinggal dan makanan yang berbeda!</p>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-6">
+        <h3 class="text-2xl font-bold text-center mb-6 font-comic">Jenis Hewan</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div class="bg-gradient-to-br from-amber-500 to-orange-600 rounded-3xl shadow-2xl p-5 text-white text-center">
+                <div class="text-6xl mb-2">🦁</div><h4 class="text-2xl font-bold">Hewan Darat</h4><p class="mt-2 bg-white/20 rounded-xl p-3">Kucing, Anjing, Gajah, Singa</p>
+            </div>
+            <div class="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-3xl shadow-2xl p-5 text-white text-center">
+                <div class="text-6xl mb-2">🐟</div><h4 class="text-2xl font-bold">Hewan Air</h4><p class="mt-2 bg-white/20 rounded-xl p-3">Ikan, Paus, Lumba-lumba, Penyu</p>
+            </div>
+            <div class="bg-gradient-to-br from-sky-500 to-indigo-600 rounded-3xl shadow-2xl p-5 text-white text-center">
+                <div class="text-6xl mb-2">🦅</div><h4 class="text-2xl font-bold">Hewan Udara</h4><p class="mt-2 bg-white/20 rounded-xl p-3">Burung, Kupu-kupu, Lebah, Elang</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-green-200 to-emerald-200 rounded-3xl shadow-2xl p-6 border-4 border-green-400">
+            <div class="flex items-center gap-3 mb-4"><span class="text-4xl">⏪</span><h3 class="text-2xl font-bold font-comic">Flashback</h3></div>
+            <p class="text-lg text-gray-700">Sebelum belajar hewan, kita sudah belajar tentang <strong>Tanaman</strong>. Tanaman dan hewan sama-sama makhluk hidup. Tanaman bisa membuat makanan sendiri, tapi hewan harus mencari makanan!</p>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-purple-200 to-pink-200 rounded-3xl shadow-2xl p-6 border-4 border-purple-400">
+            <div class="flex items-center gap-3 mb-4"><span class="text-4xl">⏩</span><h3 class="text-2xl font-bold font-comic">Flashforward</h3></div>
+            <p class="text-lg text-gray-700">Setelah belajar hewan, kita akan mempelajari tentang <strong>Cuaca</strong> dan <strong>Makhluk Hidup vs Tak Hidup</strong>. Kita akan belajar bagaimana cuaca berubah dan bagaimana membedakan makhluk hidup dengan benda tak hidup!</p>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row justify-center gap-4">
+            <a href="../index.html" class="flex-1 max-w-xs bg-gray-500 text-white text-center py-4 px-6 rounded-2xl font-bold shadow-xl hover:shadow-2xl transition">⬅️ Kembali ke Menu</a>
+            <a href="../005-cuaca/teori.html" class="flex-1 max-w-xs bg-green-500 text-white text-center py-4 px-6 rounded-2xl font-bold shadow-xl hover:shadow-2xl transition">Topik Berikutnya ➡️</a>
+        </div>
+    </section>
+
+    <footer class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-4"><div class="container mx-auto px-4 text-center"><p class="font-semibold">© 2025 Bahan Ajar Interaktif - TK-B Sains</p></div></footer>
+</body>
+</html>

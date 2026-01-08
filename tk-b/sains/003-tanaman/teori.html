@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanaman - Teori | Sains TK-B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .font-comic { font-family: 'Comic Neue', cursive; }
+        .part-card:hover { transform: scale(1.03); }
+        .part-card { transition: all 0.3s ease; }
+        .grow { animation: grow 2s infinite; }
+        @keyframes grow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-green-100 via-emerald-100 to-teal-100 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <a href="../index.html" class="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/30 transition">
+                    <span>⬅️</span>
+                    <span class="font-bold">Kembali</span>
+                </a>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-center">Tanaman</h1>
+                <div class="w-24"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Introduction -->
+    <section class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-green-300">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl grow">🌱</span>
+                <h2 class="text-2xl font-bold text-gray-800 font-comic">Kenali Dunia Tanaman!</h2>
+            </div>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                <strong class="text-green-600">Adik-adik</strong>, tanaman adalah makhluk hidup yang ada di sekitar kita.
+                Tanaman sangat penting karena menghasilkan <strong>oksigen</strong> yang kita hirup untuk bernapas.
+                Yuk, kenalan dengan bagian-bagian tanaman! 🌿
+            </p>
+        </div>
+    </section>
+
+    <!-- Plant Parts -->
+    <section class="container mx-auto px-4 py-6">
+        <h3 class="text-2xl font-bold text-center text-gray-800 mb-6 font-comic">Bagian-bagian Tanaman</h3>
+
+        <!-- Akar -->
+        <div class="part-card bg-gradient-to-br from-amber-600 to-amber-800 rounded-3xl shadow-2xl p-6 mb-6 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-8xl">🥕</div>
+                <div class="flex-1">
+                    <h4 class="text-3xl font-bold mb-2">Akar</h4>
+                    <p class="text-lg mb-3">Akar adalah bagian tanaman yang ada di dalam tanah. Akar berfungsi untuk menyerap air dan nutrisi dari tanah.</p>
+                    <div class="bg-white/20 rounded-2xl p-4">
+                        <p class="font-semibold mb-2">🔍 Fungsi akar:</p>
+                        <div class="grid grid-cols-2 gap-2 text-sm">
+                            <div>💧 Menyerap air</div>
+                            <div>🌱 Menyerap nutrisi</div>
+                            <div>⚓ Menguatkan tanaman</div>
+                            <div>🧍 Menopang batang</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Batang -->
+        <div class="part-card bg-gradient-to-br from-green-600 to-green-800 rounded-3xl shadow-2xl p-6 mb-6 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-8xl">🌿</div>
+                <div class="flex-1">
+                    <h4 class="text-3xl font-bold mb-2">Batang</h4>
+                    <p class="text-lg mb-3">Batang adalah bagian tanaman yang menghubungkan akar dengan daun dan bunga. Batang juga mengirim air dan nutrisi ke seluruh tanaman.</p>
+                    <div class="bg-white/20 rounded-2xl p-4">
+                        <p class="font-semibold mb-2">🔍 Fungsi batang:</p>
+                        <div class="grid grid-cols-2 gap-2 text-sm">
+                            <div>🔄 Mengirim air & nutrisi</div>
+                            <div>🧍 Menopang tanaman</div>
+                            <div>🌿 Tempat tumbuh daun</div>
+                            <div>💪 Menguatkan tanaman</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daun -->
+        <div class="part-card bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-3xl shadow-2xl p-6 mb-6 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-8xl">🍃</div>
+                <div class="flex-1">
+                    <h4 class="text-3xl font-bold mb-2">Daun</h4>
+                    <p class="text-lg mb-3">Daun adalah bagian tanaman yang biasanya berwarna hijau. Daun berfungsi membuat makanan untuk tanaman!</p>
+                    <div class="bg-white/20 rounded-2xl p-4">
+                        <p class="font-semibold mb-2">🔍 Fungsi daun:</p>
+                        <div class="grid grid-cols-2 gap-2 text-sm">
+                            <div>☀️ Menyerap cahaya matahari</div>
+                            <div>🍽️ Membuat makanan</div>
+                            <div>💨 Mengeluarkan oksigen</div>
+                            <div>💧 Mengeluarkan uap air</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bunga -->
+        <div class="part-card bg-gradient-to-br from-pink-500 to-rose-600 rounded-3xl shadow-2xl p-6 mb-6 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-8xl">🌸</div>
+                <div class="flex-1">
+                    <h4 class="text-3xl font-bold mb-2">Bunga</h4>
+                    <p class="text-lg mb-3">Bunga adalah bagian tanaman yang cantik dan berwarna-warni. Bunga berfungsi untuk perkembangbiakan tanaman.</p>
+                    <div class="bg-white/20 rounded-2xl p-4">
+                        <p class="font-semibold mb-2">🔍 Fungsi bunga:</p>
+                        <div class="grid grid-cols-2 gap-2 text-sm">
+                            <div>🐝 Menarik serangga</div>
+                            <div>🌱 Alat perkembangbiakan</div>
+                            <div>🎨 Memberikan keindahan</div>
+                            <div>🍎 Menjadi buah</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buah -->
+        <div class="part-card bg-gradient-to-br from-red-500 to-orange-600 rounded-3xl shadow-2xl p-6 mb-6 text-white">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="text-8xl">🍎</div>
+                <div class="flex-1">
+                    <h4 class="text-3xl font-bold mb-2">Buah</h4>
+                    <p class="text-lg mb-3">Buah adalah bagian tanaman yang tumbuh dari bunga. Buah berisi biji yang bisa tumbuh menjadi tanaman baru.</p>
+                    <div class="bg-white/20 rounded-2xl p-4">
+                        <p class="font-semibold mb-2">🔍 Fungsi buah:</p>
+                        <div class="grid grid-cols-2 gap-2 text-sm">
+                            <div>🌱 Melindungi biji</div>
+                            <div>🍽️ Menyimpan makanan</div>
+                            <div>🐦 Menarik hewan</div>
+                            <div>🌱 Menyebar biji</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photosynthesis -->
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-yellow-200 to-orange-200 rounded-3xl shadow-2xl p-6 border-4 border-yellow-400">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">☀️</span>
+                <h3 class="text-2xl font-bold text-gray-800 font-comic">Tanaman Butuh Cahaya Matahari!</h3>
+            </div>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Tanaman membutuhkan <strong class="text-yellow-600">cahaya matahari</strong> untuk membuat makanan.
+                Proses ini disebut <strong class="text-green-600">fotosintesis</strong>.
+                Tanaman menggunakan <strong>cahaya matahari</strong>, <strong>air</strong>, dan <strong>udara</strong>
+                untuk membuat makanan dan menghasilkan <strong class="text-blue-600">oksigen</strong> yang berguna untuk kita!
+                Jadi, tanaman sangat penting untuk kehidupan kita! 🌍
+            </p>
+        </div>
+    </section>
+
+    <!-- Important Note -->
+    <section class="container mx-auto px-4 py-6">
+        <div class="bg-gradient-to-r from-green-200 to-emerald-200 rounded-3xl shadow-2xl p-6 border-4 border-green-400">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-4xl">💡</span>
+                <h3 class="text-2xl font-bold text-gray-800 font-comic">Merawat Tanaman</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3">
+                    <span class="text-3xl">💧</span>
+                    <p class="text-gray-700">Siram tanaman setiap hari</p>
+                </div>
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3">
+                    <span class="text-3xl">☀️</span>
+                    <p class="text-gray-700">Berikan cukup cahaya matahari</p>
+                </div>
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3">
+                    <span class="text-3xl">🌱</span>
+                    <p class="text-gray-700">Berikan pupuk agar tumbuh subur</p>
+                </div>
+                <div class="flex items-center gap-3 bg-white rounded-xl p-3">
+                    <span class="text-3xl">🪴</span>
+                    <p class="text-gray-700">Ganti pot jika tanaman sudah besar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Buttons -->
+    <section class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row justify-center gap-4">
+            <a href="../index.html" class="flex-1 max-w-xs bg-gradient-to-r from-gray-500 to-gray-600 text-white text-center py-4 px-6 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition">
+                ⬅️ Kembali ke Menu
+            </a>
+            <a href="latihan.html" class="flex-1 max-w-xs bg-gradient-to-r from-green-500 to-emerald-600 text-white text-center py-4 px-6 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition">
+                Lanjut ke Latihan ➡️
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4">
+        <div class="container mx-auto px-4 text-center">
+            <p class="font-semibold">© 2025 Bahan Ajar Interaktif - TK-B Sains</p>
+        </div>
+    </footer>
+
+</body>
+</html>

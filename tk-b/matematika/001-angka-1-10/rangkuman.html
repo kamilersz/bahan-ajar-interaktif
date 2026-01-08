@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rangkuman Angka 1-10 - TK-B Matematika</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .summary-card {
+            transition: all 0.3s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .flashback {
+            border-left: 4px solid #3B82F6;
+        }
+
+        .flashforward {
+            border-left: 4px solid #10B981;
+        }
+
+        .number-table {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">📖 Rangkuman Angka 1-10</h1>
+            <p class="text-lg">Mari kita ingat kembali, Adik-adik!</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Introduction -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8">
+            <div class="text-center mb-6">
+                <div class="text-6xl mb-4">🌟</div>
+                <h2 class="text-2xl font-bold text-purple-700 mb-3">Apa yang Kita Pelajari Hari Ini?</h2>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Hari ini Adik-adik sudah belajar tentang <strong>angka 1 sampai 10</strong>!
+                    Mari kita ingat-ingat lagi materi yang sudah dipelajari.
+                </p>
+            </div>
+        </section>
+
+        <!-- Summary Table -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8">
+            <h2 class="text-2xl font-bold text-center text-purple-700 mb-6">🔢 Tabel Angka 1-10</h2>
+
+            <div class="overflow-x-auto">
+                <table class="w-full number-table">
+                    <thead>
+                        <tr class="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+                            <th class="py-3 px-4 text-left rounded-tl-xl">Angka</th>
+                            <th class="py-3 px-4 text-left">Cara Baca</th>
+                            <th class="py-3 px-4 text-left rounded-tr-xl">Contoh Benda</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-red-50 hover:bg-red-100 transition">
+                            <td class="py-3 px-4 font-bold text-2xl text-red-600">1</td>
+                            <td class="py-3 px-4 font-semibold">Satu</td>
+                            <td class="py-3 px-4">Satu apel 🍎</td>
+                        </tr>
+                        <tr class="bg-orange-50 hover:bg-orange-100 transition">
+                            <td class="py-3 px-4 font-bold text-2xl text-orange-600">2</td>
+                            <td class="py-3 px-4 font-semibold">Dua</td>
+                            <td class="py-3 px-4">Dua jeruk 🍊🍊</td>
+                        </tr>
+                        <tr class="bg-yellow-50 hover:bg-yellow-100 transition">
+                            <td class="py-3 px-4 font-bold text-2xl text-yellow-600">3</td>
+                            <td class="py-3 px-4 font-semibold">Tiga</td>
+                            <td class="py-3 px-4">Tiga pisang 🍌🍌🍌</td>
+                        </tr>
+                        <tr class="bg-green-50 hover:bg-green-100 transition">
+                            <td class="py-3 px-4 font-bold text-2xl text-green-600">4</td>
+                            <td class="py-3 px-4 font-semibold">Empat</td>
+                            <td class="py-3 px-4">Empat anggur 🍇🍇🍇🍇</td>
+                        </tr>
+                        <tr class="bg-blue-50 hover:bg-blue-100 transition">
+                            <td class="py-3 px-4 font-bold text-2xl text-blue-600">5</td>
+                            <td class="py-3 px-4 font-semibold">Lima</td>
+                            <td class="py-3 px-4">Lima berry 🫐🫐🫐🫐🫐</td>
+                        </tr>
+                        <tr class="bg-indigo-50 hover:bg-indigo-100 transition">
+                            <td class="py-3 px-4 font-bold text-2xl text-indigo-600">6</td>
+                            <td class="py-3 px-4 font-semibold">Enam</td>
+                            <td class="py-3 px-4">Enam telur 🥚🥚🥚🥚🥚🥚</td>
+                        </tr>
+                        <tr class="bg-purple-50 hover:bg-purple-100 transition">
+                            <td class="py-3 px-4 font-bold text-2xl text-purple-600">7</td>
+                            <td class="py-3 px-4 font-semibold">Tujuh</td>
+                            <td class="py-3 px-4">Tujuh pelangi 🌈🌈🌈🌈🌈🌈🌈</td>
+                        </tr>
+                        <tr class="bg-pink-50 hover:bg-pink-100 transition">
+                            <td class="py-3 px-4 font-bold text-2xl text-pink-600">8</td>
+                            <td class="py-3 px-4 font-semibold">Delapan</td>
+                            <td class="py-3 px-4">Delapan bintang ⭐⭐⭐⭐⭐⭐⭐⭐</td>
+                        </tr>
+                        <tr class="bg-rose-50 hover:bg-rose-100 transition">
+                            <td class="py-3 px-4 font-bold text-2xl text-rose-600">9</td>
+                            <td class="py-3 px-4 font-semibold">Sembilan</td>
+                            <td class="py-3 px-4">Sembilan balon 🎈🎈🎈🎈🎈🎈🎈🎈🎈</td>
+                        </tr>
+                        <tr class="bg-teal-50 hover:bg-teal-100 transition">
+                            <td class="py-3 px-4 font-bold text-2xl text-teal-600">10</td>
+                            <td class="py-3 px-4 font-semibold">Sepuluh</td>
+                            <td class="py-3 px-4">Sepuluh hadiah 🎁🎁🎁🎁🎁🎁🎁🎁🎁🎁</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Key Points -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold text-center text-purple-700 mb-6">🎯 Poin-Poin Penting</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="summary-card bg-gradient-to-br from-yellow-100 to-orange-100 rounded-2xl p-6 shadow-lg">
+                    <div class="text-4xl mb-3">🔢</div>
+                    <h3 class="text-xl font-bold text-orange-700 mb-2">Mengenal Angka</h3>
+                    <p class="text-gray-700">Kita sudah belajar mengenal bentuk angka 1 sampai 10 dan cara membacanya dengan benar.</p>
+                </div>
+
+                <div class="summary-card bg-gradient-to-br from-green-100 to-teal-100 rounded-2xl p-6 shadow-lg">
+                    <div class="text-4xl mb-3">👆</div>
+                    <h3 class="text-xl font-bold text-teal-700 mb-2">Menghitung Benda</h3>
+                    <p class="text-gray-700">Kita bisa menghitung jumlah benda-benda di sekitar kita menggunakan angka 1-10.</p>
+                </div>
+
+                <div class="summary-card bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl p-6 shadow-lg">
+                    <div class="text-4xl mb-3">➡️</div>
+                    <h3 class="text-xl font-bold text-indigo-700 mb-2">Urutan Angka</h3>
+                    <p class="text-gray-700">Urutan angka adalah: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10. Setiap angka lebih besar 1 dari angka sebelumnya.</p>
+                </div>
+
+                <div class="summary-card bg-gradient-to-br from-pink-100 to-purple-100 rounded-2xl p-6 shadow-lg">
+                    <div class="text-4xl mb-3">✏️</div>
+                    <h3 class="text-xl font-bold text-purple-700 mb-2">Menulis Angka</h3>
+                    <p class="text-gray-700">Terus berlatih menulis angka 1-10 di kertas agar semakin lancar!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flashback -->
+        <section class="bg-blue-50 rounded-3xl shadow-xl p-6 mb-8 flashback">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">🔙 Flashback: Apa yang Sudah Kamu Pelajari?</h2>
+            <p class="text-lg text-gray-700 mb-4">
+                Sebelum belajar angka 1-10, Adik-adik di PAUD atau TK-A sudah belajar mengenal <strong>angka 1-5</strong>.
+                Sekarang Adik-adik sudah bisa mengenal angka sampai 10! 🎉
+            </p>
+            <div class="bg-white rounded-2xl p-4">
+                <p class="text-gray-600">
+                    <strong>Kemampuan yang sudah dikuasai:</strong> Menghitung benda sederhana, memahami konsep "banyak" dan "sedikit".
+                </p>
+            </div>
+        </section>
+
+        <!-- Flashforward -->
+        <section class="bg-green-50 rounded-3xl shadow-xl p-6 mb-8 flashforward">
+            <h2 class="text-2xl font-bold text-green-700 mb-4">🔜 Flashforward: Apa yang Akan Dipelajari Selanjutnya?</h2>
+            <p class="text-lg text-gray-700 mb-4">
+                Setelah menguasai angka 1-10, Adik-adik akan mempelajari hal-hal berikut:
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white rounded-2xl p-4">
+                    <h4 class="font-bold text-green-700 mb-2">📊 Angka 11-20</h4>
+                    <p class="text-gray-600">Belajar angka yang lebih besar sampai 20!</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4">
+                    <h4 class="font-bold text-green-700 mb-2">➕ Penjumlahan</h4>
+                    <p class="text-gray-600">Menggabungkan dua kelompok benda untuk menemukan total!</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4">
+                    <h4 class="font-bold text-green-700 mb-2">➖ Pengurangan</h4>
+                    <p class="text-gray-600">Mengambil benda dari kelompok untuk mencari sisa!</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4">
+                    <h4 class="font-bold text-green-700 mb-2">🔢 Urutan & Posisi</h4>
+                    <p class="text-gray-600">Memahami urutan pertama, kedua, ketiga, dan seterusnya!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Activities -->
+        <section class="bg-gradient-to-r from-yellow-200 to-orange-200 rounded-3xl shadow-xl p-6 mb-8">
+            <h2 class="text-2xl font-bold text-orange-700 mb-4 text-center">🎨 Kegiatan yang Bisa Dilakukan di Rumah</h2>
+            <ul class="text-lg text-gray-700 space-y-3">
+                <li class="flex items-start">
+                    <span class="text-2xl mr-3">👆</span>
+                    <span><strong>Hitung Jari!</strong> Gunakan jari tangan untuk berhitung 1-10.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-2xl mr-3">🖼️</span>
+                    <span><strong>Gambar & Warnai!</strong> Gambar benda sesuai angka dan beri warna.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-2xl mr-3">🎵</span>
+                    <span><strong>Lagu Angka!</strong> Bernyanyi lagu "Balonku Ada Lima" dan lagu angka lainnya.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-2xl mr-3">🧩</span>
+                    <span><strong>Permainan Kartu!</strong> Gunakan kartu angka untuk bermain mencocokkan angka dengan benda.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-2xl mr-3">🍎</span>
+                    <span><strong>Hitung Mainan!</strong> Hitung jumlah mainan, buku, atau benda lain di kamar.</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Congratulations -->
+        <section class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-3xl shadow-xl p-8 mb-8 text-center">
+            <div class="text-8xl mb-4">🏆</div>
+            <h2 class="text-3xl font-bold text-purple-700 mb-4">Selamat, Adik-adik!</h2>
+            <p class="text-xl text-gray-700 leading-relaxed mb-6">
+                Adik-adik sudah menyelesaikan materi tentang <strong>Angka 1-10</strong>!
+                Teruslah berlatih di rumah agar semakin pintar mengenal angka.
+            </p>
+            <p class="text-lg text-gray-600">
+                Jangan lupa selalu semangat belajar! Kunci keberhasilan adalah terus berlatih dan tidak mudah menyerah! 💪
+            </p>
+        </section>
+
+        <!-- Navigation -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <a href="teori.html" class="block bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white font-bold py-4 px-6 rounded-full text-center text-lg shadow-lg transform hover:scale-105 transition">
+                📚 Pelajari Lagi
+            </a>
+            <a href="latihan.html" class="block bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white font-bold py-4 px-6 rounded-full text-center text-lg shadow-lg transform hover:scale-105 transition">
+                🎮 Latihan Lagi
+            </a>
+            <a href="../index.html" class="block bg-gradient-to-r from-purple-400 to-purple-600 hover:from-purple-500 hover:to-purple-700 text-white font-bold py-4 px-6 rounded-full text-center text-lg shadow-lg transform hover:scale-105 transition">
+                🏠 Kembali ke Menu
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-purple-600 text-white py-6 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg">© 2025 Bahan Ajar Interaktif - TK-B Matematika</p>
+            <p class="text-sm opacity-75 mt-2">Belajar dengan Gembira! 🌟</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mewarnai Gambar - TK-B Seni</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive;
+        }
+        .title-font {
+            font-family: 'Fredoka One', cursive;
+        }
+        .bounce-hover:hover {
+            animation: bounce 0.5s ease infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .wiggle {
+            animation: wiggle 1s ease-in-out infinite;
+        }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+        .color-card {
+            transition: all 0.3s ease;
+        }
+        .color-card:hover {
+            transform: scale(1.05);
+        }
+        .rainbow-text {
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pink-100 via-purple-100 to-indigo-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="title-font text-4xl md:text-5xl mb-2 wiggle inline-block">🖍️ Mewarnai Gambar 🖍️</h1>
+            <p class="text-xl">Ayo Berkarya dengan Warnia!</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Introduction -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-pink-300">
+            <div class="text-center mb-6">
+                <div class="text-6xl mb-4">👋</div>
+                <h2 class="title-font text-3xl text-pink-600 mb-4">Halo, Adik-adik!</h2>
+                <p class="text-xl text-gray-700 leading-relaxed">
+                    Hari ini kita akan belajar <strong class="text-purple-500">mewarnai gambar</strong>!
+                    Mewarnai adalah kegiatan yang sangat seru dan membuat gambar menjadi cantik!
+                    Are you excited? 🎨
+                </p>
+            </div>
+        </section>
+
+        <!-- Why Coloring is Fun -->
+        <section class="bg-gradient-to-br from-yellow-100 to-orange-100 rounded-3xl shadow-xl p-6 mb-8 border-4 border-yellow-400">
+            <h2 class="title-font text-3xl text-center text-orange-600 mb-6">🌟 Kenapa Mewarnai Seru? 🌟</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white rounded-2xl p-5 flex items-start gap-4 shadow-lg">
+                    <div class="text-5xl">🎨</div>
+                    <div>
+                        <h3 class="font-bold text-xl text-pink-700 mb-2">Melatih Kreativitas</h3>
+                        <p class="text-gray-700">Adik-adik bisa memilih warna sesuai imajinasi!</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-5 flex items-start gap-4 shadow-lg">
+                    <div class="text-5xl">✋</div>
+                    <div>
+                        <h3 class="font-bold text-xl text-blue-700 mb-2">Melatih Motorik Halus</h3>
+                        <p class="text-gray-700">Jari tangan menjadi lebih kuat dan terampil!</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-5 flex items-start gap-4 shadow-lg">
+                    <div class="text-5xl">😊</div>
+                    <div>
+                        <h3 class="font-bold text-xl text-green-700 mb-2">Membuat Bahagia</h3>
+                        <p class="text-gray-700">Mewarnai membuat hati senang dan rileks!</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-5 flex items-start gap-4 shadow-lg">
+                    <div class="text-5xl">🖼️</div>
+                    <div>
+                        <h3 class="font-bold text-xl text-purple-700 mb-2">Menghasilkan Karya</h3>
+                        <p class="text-gray-700">Adik-adik bisa membuat karya seni cantik!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coloring Tools -->
+        <section class="mb-8">
+            <h2 class="title-font text-3xl text-center text-purple-600 mb-6">✏️ Alat-alat Mewarnai ✏️</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Crayons -->
+                <div class="color-card bg-gradient-to-br from-red-100 to-pink-100 rounded-3xl shadow-xl p-6 border-4 border-red-300">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="title-font text-4xl mb-2 text-red-600">SPIDOL / CRAYON</h3>
+                    </div>
+                    <div class="flex gap-2">
+                        <div class="w-8 h-8 bg-red-500 rounded-full shadow-md"></div>
+                        <div class="w-8 h-8 bg-blue-500 rounded-full shadow-md"></div>
+                        <div class="w-8 h-8 bg-yellow-500 rounded-full shadow-md"></div>
+                        <div class="w-8 h-8 bg-green-500 rounded-full shadow-md"></div>
+                    </div>
+                </div>
+
+                <!-- Colored Pencils -->
+                <div class="color-card bg-gradient-to-br from-blue-100 to-cyan-100 rounded-3xl shadow-xl p-6 border-4 border-blue-300">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="title-font text-4xl mb-2 text-blue-600">PENSIL WARNA</h3>
+                        </div>
+                        <div class="flex gap-1">
+                            <div class="w-2 h-16 bg-red-500 rounded-full shadow-md"></div>
+                            <div class="w-2 h-16 bg-blue-500 rounded-full shadow-md"></div>
+                            <div class="w-2 h-16 bg-yellow-500 rounded-full shadow-md"></div>
+                            <div class="w-2 h-16 bg-green-500 rounded-full shadow-md"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Water Colors -->
+                <div class="color-card bg-gradient-to-br from-green-100 to-emerald-100 rounded-3xl shadow-xl p-6 border-4 border-green-300">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="title-font text-4xl mb-2 text-green-600">CAT AIR</h3>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="w-8 h-8 bg-red-400 rounded shadow-md"></div>
+                            <div class="w-8 h-8 bg-yellow-400 rounded shadow-md"></div>
+                            <div class="w-8 h-8 bg-blue-400 rounded shadow-md"></div>
+                            <div class="w-8 h-8 bg-green-400 rounded shadow-md"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paper -->
+                <div class="color-card bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl shadow-xl p-6 border-4 border-purple-300">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="title-font text-4xl mb-2 text-purple-600">KERTAS GAMBAR</h3>
+                        </div>
+                        <div class="w-24 h-32 bg-white rounded-lg shadow-lg border-2 border-gray-300"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Basic Techniques -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-indigo-300">
+            <h2 class="title-font text-3xl text-center text-indigo-600 mb-6">📝 Teknik Dasar Mewarnai 📝</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gradient-to-br from-pink-50 to-red-50 rounded-2xl p-5 shadow-lg">
+                    <h3 class="title-font text-2xl text-pink-600 mb-3">1. Mengarsir Rata</h3>
+                    <p class="text-gray-700 mb-3">Warnai dengan gerakan satu arah agar rata!</p>
+                    <div class="bg-white rounded-xl p-4 flex items-center justify-center">
+                        <div class="w-20 h-20 bg-gradient-to-r from-pink-300 via-pink-400 to-pink-500 rounded-lg shadow-inner"></div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-5 shadow-lg">
+                    <h3 class="title-font text-2xl text-blue-600 mb-3">2. Tidak Keluar Garis</h3>
+                    <p class="text-gray-700 mb-3">Hati-hati agar warna tidak keluar dari batas!</p>
+                    <div class="bg-white rounded-xl p-4 flex items-center justify-center">
+                        <div class="w-20 h-20 border-4 border-blue-600 rounded-lg flex items-center justify-center">
+                            <div class="w-14 h-14 bg-blue-400 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl p-5 shadow-lg">
+                    <h3 class="title-font text-2xl text-yellow-600 mb-3">3. Campuran Warna</h3>
+                    <p class="text-gray-700 mb-3">Campur warna untuk hasil yang menarik!</p>
+                    <div class="bg-white rounded-xl p-4 flex items-center justify-center">
+                        <div class="w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg shadow-inner"></div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-5 shadow-lg">
+                    <h3 class="title-font text-2xl text-green-600 mb-3">4. Warna Terang ke Gelap</h3>
+                    <p class="text-gray-700 mb-3">Mulai dari warna terang, tambah yang gelap!</p>
+                    <div class="bg-white rounded-xl p-4 flex items-center justify-center">
+                        <div class="w-20 h-20 bg-gradient-to-t from-green-600 via-green-400 to-green-200 rounded-lg shadow-inner"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Coloring Subjects -->
+        <section class="bg-gradient-to-br from-purple-200 to-pink-200 rounded-3xl shadow-xl p-6 mb-8 border-4 border-purple-400">
+            <h2 class="title-font text-3xl text-center text-purple-700 mb-6">🎯 Gambar Apa yang Suka Diberi Warna? 🎯</h2>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white rounded-2xl p-4 text-center shadow-lg hover:scale-105 transition-transform">
+                    <div class="text-6xl mb-2">🌸</div>
+                    <p class="title-font text-lg text-pink-600">Bunga</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 text-center shadow-lg hover:scale-105 transition-transform">
+                    <div class="text-6xl mb-2">🦋</div>
+                    <p class="title-font text-lg text-blue-600">Kupu-kupu</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 text-center shadow-lg hover:scale-105 transition-transform">
+                    <div class="text-6xl mb-2">🏠</div>
+                    <p class="title-font text-lg text-purple-600">Rumah</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 text-center shadow-lg hover:scale-105 transition-transform">
+                    <div class="text-6xl mb-2">🚗</div>
+                    <p class="title-font text-lg text-red-600">Mobil</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 text-center shadow-lg hover:scale-105 transition-transform">
+                    <div class="text-6xl mb-2">🐱</div>
+                    <p class="title-font text-lg text-orange-600">Kucing</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 text-center shadow-lg hover:scale-105 transition-transform">
+                    <div class="text-6xl mb-2">🌳</div>
+                    <p class="title-font text-lg text-green-600">Pohon</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 text-center shadow-lg hover:scale-105 transition-transform">
+                    <div class="text-6xl mb-2">⭐</div>
+                    <p class="title-font text-lg text-yellow-600">Bintang</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 text-center shadow-lg hover:scale-105 transition-transform">
+                    <div class="text-6xl mb-2">🌈</div>
+                    <p class="title-font text-lg rainbow-text">Pelangi</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tips -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-green-300">
+            <h2 class="title-font text-3xl text-center text-green-600 mb-6">💡 Tips Mewarnai yang Baik 💡</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-gradient-to-r from-pink-100 to-purple-100 rounded-2xl p-4 flex items-start gap-3">
+                    <span class="text-3xl">1️⃣</span>
+                    <p class="text-gray-700"><strong>Pilih gambar yang disukai</strong> agar lebih semangat!</p>
+                </div>
+                <div class="bg-gradient-to-r from-blue-100 to-cyan-100 rounded-2xl p-4 flex items-start gap-3">
+                    <span class="text-3xl">2️⃣</span>
+                    <p class="text-gray-700"><strong>Gunakan warna yang sesuai</strong> dengan objeknya!</p>
+                </div>
+                <div class="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl p-4 flex items-start gap-3">
+                    <span class="text-3xl">3️⃣</span>
+                    <p class="text-gray-700"><strong>Tunggu kering</strong> kalau pakai cat air!</p>
+                </div>
+                <div class="bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl p-4 flex items-start gap-3">
+                    <span class="text-3xl">4️⃣</span>
+                    <p class="text-gray-700"><strong>Sabar dan teliti</strong> jangan terburu-buru!</p>
+                </div>
+                <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-4 flex items-start gap-3">
+                    <span class="text-3xl">5️⃣</span>
+                    <p class="text-gray-700"><strong>Bebas berkreasi</strong> tidak harus sama dengan orang lain!</p>
+                </div>
+                <div class="bg-gradient-to-r from-red-100 to-pink-100 rounded-2xl p-4 flex items-start gap-3">
+                    <span class="text-3xl">6️⃣</span>
+                    <p class="text-gray-700"><strong>Bangga dengan hasil karya</strong> sendiri!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Color Combination Examples -->
+        <section class="bg-gradient-to-br from-cyan-100 to-blue-100 rounded-3xl shadow-xl p-6 mb-8 border-4 border-cyan-400">
+            <h2 class="title-font text-3xl text-center text-cyan-700 mb-6">🎨 Contoh Kombinasi Warna 🎨</h2>
+            <p class="text-center text-lg text-gray-700 mb-6">Warna yang cocok untuk objek tertentu:</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white rounded-2xl p-4 shadow-lg">
+                    <div class="text-center mb-3">
+                        <span class="text-5xl">🌳</span>
+                    </div>
+                    <h3 class="title-font text-xl text-green-600 mb-2 text-center">Pohon</h3>
+                    <div class="flex justify-center gap-2 mb-3">
+                        <div class="w-10 h-10 bg-amber-700 rounded-full shadow-md" title="Batang coklat"></div>
+                        <div class="w-10 h-10 bg-green-500 rounded-full shadow-md" title="Daun hijau"></div>
+                        <div class="w-10 h-10 bg-green-700 rounded-full shadow-md" title="Daun tua"></div>
+                    </div>
+                    <p class="text-sm text-gray-600 text-center">Batang coklat, daun hijau</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 shadow-lg">
+                    <div class="text-center mb-3">
+                        <span class="text-5xl">🌸</span>
+                    </div>
+                    <h3 class="title-font text-xl text-pink-600 mb-2 text-center">Bunga</h3>
+                    <div class="flex justify-center gap-2 mb-3">
+                        <div class="w-10 h-10 bg-pink-400 rounded-full shadow-md"></div>
+                        <div class="w-10 h-10 bg-pink-500 rounded-full shadow-md"></div>
+                        <div class="w-10 h-10 bg-green-500 rounded-full shadow-md"></div>
+                    </div>
+                    <p class="text-sm text-gray-600 text-center">Kelopak pink, daun hijau</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-4 shadow-lg">
+                    <div class="text-center mb-3">
+                        <span class="text-5xl">🏠</span>
+                    </div>
+                    <h3 class="title-font text-xl text-purple-600 mb-2 text-center">Rumah</h3>
+                    <div class="flex justify-center gap-2 mb-3">
+                        <div class="w-10 h-10 bg-red-500 rounded-full shadow-md"></div>
+                        <div class="w-10 h-10 bg-blue-500 rounded-full shadow-md"></div>
+                        <div class="w-10 h-10 bg-yellow-500 rounded-full shadow-md"></div>
+                    </div>
+                    <p class="text-sm text-gray-600 text-center">Atap merah, dinding biru/kuning</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <div class="text-center mt-8 space-y-4">
+            <a href="latihan.html" class="inline-block bg-gradient-to-r from-purple-400 to-pink-600 hover:from-purple-500 hover:to-pink-700 text-white title-font text-2xl px-8 py-4 rounded-full shadow-lg bounce-hover transition-all">
+                ➡️ Lanjut ke Latihan
+            </a>
+            <br>
+            <a href="../002-menggambar-bentuk/teori.html" class="inline-block bg-gradient-to-r from-gray-400 to-gray-500 hover:from-gray-500 hover:to-gray-600 text-white title-font text-lg px-6 py-3 rounded-full shadow-lg transition-all">
+                ⬅️ Sebelumnya: Menggambar Bentuk
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white py-4 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg">© 2024 Bahan Ajar Interaktif - TK-B Seni</p>
+            <p class="text-sm mt-1">Belajar dengan Ceria dan Bahagia! 🌟</p>
+        </div>
+    </footer>
+</body>
+</html>

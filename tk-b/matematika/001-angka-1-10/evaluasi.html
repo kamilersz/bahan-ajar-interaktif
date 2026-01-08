@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluasi Angka 1-10 - TK-B Matematika</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .option-btn {
+            transition: all 0.3s ease;
+        }
+
+        .option-btn.selected {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.5);
+        }
+
+        .option-btn.correct {
+            background: linear-gradient(to bottom right, #22c55e, #16a34a) !important;
+        }
+
+        .option-btn.wrong {
+            background: linear-gradient(to bottom right, #ef4444, #dc2626) !important;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 min-h-screen">
+    <div x-data="evaluasiAngka()">
+        <!-- Header -->
+        <header class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-6 shadow-lg">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-3xl md:text-4xl font-bold mb-2">📝 Evaluasi Angka 1-10</h1>
+                <p class="text-lg">Uji pemahamanmu, Adik-adik!</p>
+            </div>
+        </header>
+
+        <main class="container mx-auto px-4 py-8">
+            <!-- Start Screen -->
+            <div x-show="!started && !finished" class="bg-white rounded-3xl shadow-2xl p-8 max-w-2xl mx-auto text-center">
+                <div class="text-8xl mb-4">📋</div>
+                <h2 class="text-3xl font-bold text-purple-700 mb-4">Evaluasi Angka 1-10</h2>
+
+                <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 mb-6">
+                    <h3 class="text-xl font-bold text-gray-700 mb-4">Ketentuan Evaluasi:</h3>
+                    <ul class="text-left text-gray-600 space-y-3 text-lg">
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">✅</span>
+                            <span>Ada <strong>10 pertanyaan</strong> tentang angka 1-10</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">✅</span>
+                            <span>Pilih satu jawaban yang paling tepat</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">✅</span>
+                            <span>Setiap jawaban benar mendapat <strong>10 poin</strong></span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">✅</span>
+                            <span>Hasil dan kunci jawaban muncul setelah selesai</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <button @click="start()"
+                        class="bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition">
+                    🚀 Mulai Evaluasi
+                </button>
+            </div>
+
+            <!-- Quiz Section -->
+            <div x-show="started && !finished" class="bg-white rounded-3xl shadow-2xl p-8 max-w-3xl mx-auto">
+                <!-- Progress -->
+                <div class="mb-6">
+                    <div class="flex justify-between text-sm text-gray-600 mb-2">
+                        <span>Soal <span x-text="currentQuestion + 1"></span> dari 10</span>
+                        <span>Terjawab: <span x-text="answeredCount"></span>/10</span>
+                    </div>
+                    <div class="bg-gray-200 rounded-full h-4 overflow-hidden">
+                        <div class="bg-gradient-to-r from-purple-400 to-pink-500 h-full transition-all duration-300 rounded-full"
+                             :style="'width: ' + ((answeredCount / questions.length) * 100) + '%'"></div>
+                    </div>
+                </div>
+
+                <!-- Question Type 1: Counting -->
+                <div x-show="questions[currentQuestion].type === 'count'">
+                    <h2 class="text-2xl font-bold text-purple-700 mb-6 text-center">🔢 Berapa jumlah benda ini?</h2>
+
+                    <div class="flex justify-center mb-8">
+                        <div class="text-8xl" x-text="questions[currentQuestion].emoji.repeat(questions[currentQuestion].count)"></div>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <template x-for="(option, index) in questions[currentQuestion].options" :key="index">
+                            <button @click="selectAnswer(index)"
+                                    :class="{'selected': userAnswers[currentQuestion] === index}"
+                                    class="option-btn bg-gradient-to-br from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white font-bold py-6 rounded-2xl text-4xl shadow-lg">
+                                <span x-text="option"></span>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Question Type 2: Number Recognition -->
+                <div x-show="questions[currentQuestion].type === 'recognize'">
+                    <h2 class="text-2xl font-bold text-purple-700 mb-6 text-center">🔣 Angka berapa ini?</h2>
+
+                    <div class="flex justify-center mb-8">
+                        <div class="text-9xl font-bold text-purple-600" x-text="questions[currentQuestion].number"></div>
+                    </div>
+
+                    <p class="text-xl text-center text-gray-700 mb-6">Pilih nama angka yang tepat!</p>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <template x-for="(option, index) in questions[currentQuestion].options" :key="index">
+                            <button @click="selectAnswer(index)"
+                                    :class="{'selected': userAnswers[currentQuestion] === index}"
+                                    class="option-btn bg-gradient-to-br from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white font-bold py-6 rounded-2xl text-2xl shadow-lg">
+                                <span x-text="option"></span>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Question Type 3: Sequence -->
+                <div x-show="questions[currentQuestion].type === 'sequence'">
+                    <h2 class="text-2xl font-bold text-purple-700 mb-6 text-center">🔣 Lengkapi urutan ini!</h2>
+
+                    <div class="flex justify-center items-center gap-4 mb-8 text-5xl">
+                        <template x-for="(item, index) in questions[currentQuestion].sequence" :key="index">
+                            <div x-show="item !== null"
+                                 class="bg-purple-500 text-white px-6 py-4 rounded-xl font-bold"
+                                 x-text="item">
+                            </div>
+                            <div x-show="item === null"
+                                 class="bg-yellow-300 text-yellow-800 px-6 py-4 rounded-xl font-bold border-4 border-yellow-500 animate-pulse">
+                                ?
+                            </div>
+                            <span x-show="index < questions[currentQuestion].sequence.length - 1" class="text-purple-600 text-3xl">→</span>
+                        </template>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 max-w-md mx-auto">
+                        <template x-for="(option, index) in questions[currentQuestion].options" :key="index">
+                            <button @click="selectAnswer(index)"
+                                    :class="{'selected': userAnswers[currentQuestion] === index}"
+                                    class="option-btn bg-gradient-to-br from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white font-bold py-4 rounded-xl text-3xl shadow-lg">
+                                <span x-text="option"></span>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Question Type 4: Comparison -->
+                <div x-show="questions[currentQuestion].type === 'compare'">
+                    <h2 class="text-2xl font-bold text-purple-700 mb-6 text-center">⚖️ Manakah yang lebih BESAR?</h2>
+
+                    <div class="flex justify-center items-center gap-8 mb-8">
+                        <div class="text-center">
+                            <div class="text-8xl mb-2" x-text="questions[currentQuestion].option1.emoji"></div>
+                            <div class="text-4xl font-bold text-blue-600" x-text="questions[currentQuestion].option1.count"></div>
+                        </div>
+                        <div class="text-5xl text-gray-400">VS</div>
+                        <div class="text-center">
+                            <div class="text-8xl mb-2" x-text="questions[currentQuestion].option2.emoji"></div>
+                            <div class="text-4xl font-bold text-red-600" x-text="questions[currentQuestion].option2.count"></div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 max-w-md mx-auto">
+                        <template x-for="(option, index) in questions[currentQuestion].options" :key="index">
+                            <button @click="selectAnswer(index)"
+                                    :class="{'selected': userAnswers[currentQuestion] === index}"
+                                    class="option-btn bg-gradient-to-br from-orange-400 to-red-500 hover:from-orange-500 hover:to-red-600 text-white font-bold py-4 rounded-xl text-xl shadow-lg">
+                                <span x-text="option"></span>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="mt-8 flex justify-between">
+                    <button x-show="currentQuestion > 0" @click="previousQuestion()"
+                            class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-3 px-6 rounded-full transition">
+                        ← Sebelumnya
+                    </button>
+                    <button x-show="currentQuestion < 9" @click="nextQuestion()"
+                            class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-3 px-6 rounded-full transition ml-auto">
+                        Selanjutnya →
+                    </button>
+                    <button x-show="currentQuestion === 9 && answeredCount === 10" @click="submit()"
+                            class="bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 text-white font-bold py-3 px-6 rounded-full transition ml-auto">
+                        ✅ Selesai & Lihat Hasil
+                    </button>
+                </div>
+
+                <!-- Question Navigator -->
+                <div class="mt-6 flex justify-center gap-2 flex-wrap">
+                    <template x-for="(q, index) in questions" :key="index">
+                        <button @click="goToQuestion(index)"
+                                :class="{
+                                    'bg-purple-500 text-white': currentQuestion === index,
+                                    'bg-green-500 text-white': userAnswers[index] !== undefined && currentQuestion !== index,
+                                    'bg-gray-200 text-gray-600': userAnswers[index] === undefined && currentQuestion !== index
+                                }"
+                                class="w-10 h-10 rounded-full font-bold text-sm transition hover:scale-110">
+                            <span x-text="index + 1"></span>
+                        </button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Results Screen -->
+            <div x-show="finished" x-transition class="bg-white rounded-3xl shadow-2xl p-8 max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <div class="text-8xl mb-4" x-text="score >= 80 ? '🎉' : score >= 60 ? '👍' : '💪'"></div>
+                    <h2 class="text-4xl font-bold text-purple-700 mb-4">Hasil Evaluasi</h2>
+
+                    <div class="bg-gradient-to-r from-yellow-200 to-orange-200 rounded-2xl p-6 mb-4">
+                        <p class="text-2xl text-orange-700 mb-2">Skor Kamu</p>
+                        <p class="text-7xl font-bold text-orange-600"><span x-text="score"></span>/100</p>
+                    </div>
+
+                    <p class="text-xl text-gray-600">
+                        <span x-show="score === 100">🌟 Sempurna! Kamu menguasai angka 1-10 dengan sangat baik!</span>
+                        <span x-show="score >= 80 && score < 100">⭐ Hebat! Kamu sudah paham angka 1-10!</span>
+                        <span x-show="score >= 60 && score < 80">👍 Bagus! Terus berlatih agar lebih mahir!</span>
+                        <span x-show="score < 60">💪 Jangan menyerah! Pelajari lagi teori dan latihan ya!</span>
+                    </p>
+                </div>
+
+                <!-- Answer Review -->
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold text-gray-700 mb-4 text-center">📋 Review Jawaban</h3>
+
+                    <div class="space-y-4">
+                        <template x-for="(q, index) in questions" :key="index">
+                            <div class="rounded-2xl p-4"
+                                 :class="userAnswers[index] === q.correct ? 'bg-green-50 border-2 border-green-300' : 'bg-red-50 border-2 border-red-300'">
+                                <div class="flex items-start gap-4">
+                                    <div class="flex-shrink-0">
+                                        <span class="text-2xl" x-text="userAnswers[index] === q.correct ? '✅' : '❌'"></span>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <p class="font-bold text-gray-700 mb-2">Soal <span x-text="index + 1"></span>:</p>
+
+                                        <!-- Question content based on type -->
+                                        <div x-show="q.type === 'count'" class="mb-2">
+                                            <p class="text-lg">Jumlah <span x-text="q.emoji.repeat(q.count)"></span> adalah...</p>
+                                        </div>
+                                        <div x-show="q.type === 'recognize'" class="mb-2">
+                                            <p class="text-lg">Angka <strong x-text="q.number"></strong> dibaca...</p>
+                                        </div>
+                                        <div x-show="q.type === 'sequence'" class="mb-2">
+                                            <p class="text-lg">Lengkapi urutan: <span x-text="q.sequence.filter(s => s !== null).join(' → ')"></span> → ?</p>
+                                        </div>
+                                        <div x-show="q.type === 'compare'" class="mb-2">
+                                            <p class="text-lg">Manakah yang lebih besar: <strong x-text="q.option1.count"></strong> atau <strong x-text="q.option2.count"></strong>?</p>
+                                        </div>
+
+                                        <div class="text-sm">
+                                            <p x-show="userAnswers[index] !== undefined" class="mb-1">
+                                                <span class="font-semibold">Jawabanmu: </span>
+                                                <span :class="userAnswers[index] === q.correct ? 'text-green-600' : 'text-red-600'" x-text="q.options[userAnswers[index]]"></span>
+                                            </p>
+                                            <p x-show="userAnswers[index] !== q.correct" class="text-green-600">
+                                                <span class="font-semibold">Jawaban benar: </span>
+                                                <span x-text="q.options[q.correct]"></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="space-y-4">
+                    <button @click="restart()"
+                            class="block w-full bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg">
+                        🔄 Ulangi Evaluasi
+                    </button>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <a href="latihan.html" class="block bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg text-center">
+                            🎮 Latihan Lagi
+                        </a>
+                        <a href="rangkuman.html" class="block bg-gradient-to-r from-purple-400 to-purple-600 hover:from-purple-500 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg text-center">
+                            📖 Lihat Rangkuman
+                        </a>
+                    </div>
+                    <a href="teori.html" class="block bg-gradient-to-r from-gray-400 to-gray-600 hover:from-gray-500 hover:to-gray-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg text-center">
+                        📚 Kembali ke Teori
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-purple-600 text-white py-6 mt-8">
+            <div class="container mx-auto px-4 text-center">
+                <p class="text-lg">© 2025 Bahan Ajar Interaktif - TK-B Matematika</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function evaluasiAngka() {
+            return {
+                started: false,
+                finished: false,
+                currentQuestion: 0,
+                score: 0,
+                userAnswers: {},
+                answeredCount: 0,
+                questions: [
+                    {
+                        type: 'count',
+                        emoji: '🍎',
+                        count: 3,
+                        options: [2, 3, 4, 5],
+                        correct: 1
+                    },
+                    {
+                        type: 'recognize',
+                        number: 5,
+                        options: ['Lima', 'Enam', 'Empat', 'Tujuh'],
+                        correct: 0
+                    },
+                    {
+                        type: 'sequence',
+                        sequence: [1, 2, 3, null],
+                        options: [4, 5, 6],
+                        correct: 0
+                    },
+                    {
+                        type: 'count',
+                        emoji: '⭐',
+                        count: 8,
+                        options: [7, 8, 9, 10],
+                        correct: 1
+                    },
+                    {
+                        type: 'compare',
+                        option1: { emoji: '🍎🍎🍎', count: 3 },
+                        option2: { emoji: '🍊🍊🍊🍊', count: 4 },
+                        options: ['3 Apel', '4 Jeruk'],
+                        correct: 1
+                    },
+                    {
+                        type: 'recognize',
+                        number: 9,
+                        options: ['Delapan', 'Sembilan', 'Tujuh', 'Sepuluh'],
+                        correct: 1
+                    },
+                    {
+                        type: 'sequence',
+                        sequence: [5, 6, 7, null],
+                        options: [8, 9, 10],
+                        correct: 0
+                    },
+                    {
+                        type: 'count',
+                        emoji: '🌈',
+                        count: 6,
+                        options: [5, 6, 7, 8],
+                        correct: 1
+                    },
+                    {
+                        type: 'compare',
+                        option1: { emoji: '🎈🎈🎈🎈🎈🎈🎈🎈🎈', count: 9 },
+                        option2: { emoji: '🎁🎁🎁🎁🎁🎁🎁', count: 7 },
+                        options: ['9 Balon', '7 Hadiah'],
+                        correct: 0
+                    },
+                    {
+                        type: 'recognize',
+                        number: 10,
+                        options: ['Sembilan', 'Sepuluh', 'Sebelas', 'Delapan'],
+                        correct: 1
+                    }
+                ],
+                start() {
+                    this.started = true;
+                    this.currentQuestion = 0;
+                    this.userAnswers = {};
+                    this.answeredCount = 0;
+                    // Shuffle questions
+                    this.questions.sort(() => Math.random() - 0.5);
+                },
+                selectAnswer(answerIndex) {
+                    const previousAnswer = this.userAnswers[this.currentQuestion];
+                    this.userAnswers[this.currentQuestion] = answerIndex;
+
+                    if (previousAnswer === undefined) {
+                        this.answeredCount++;
+                    }
+                },
+                nextQuestion() {
+                    if (this.currentQuestion < 9) {
+                        this.currentQuestion++;
+                    }
+                },
+                previousQuestion() {
+                    if (this.currentQuestion > 0) {
+                        this.currentQuestion--;
+                    }
+                },
+                goToQuestion(index) {
+                    this.currentQuestion = index;
+                },
+                submit() {
+                    this.score = 0;
+                    for (let i = 0; i < this.questions.length; i++) {
+                        if (this.userAnswers[i] === this.questions[i].correct) {
+                            this.score += 10;
+                        }
+                    }
+                    this.finished = true;
+                },
+                restart() {
+                    this.started = false;
+                    this.finished = false;
+                    this.currentQuestion = 0;
+                    this.score = 0;
+                    this.userAnswers = {};
+                    this.answeredCount = 0;
+                    this.start();
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rangkuman Warna - TK-B Seni</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive;
+        }
+        .title-font {
+            font-family: 'Fredoka One', cursive;
+        }
+        .wiggle {
+            animation: wiggle 1s ease-in-out infinite;
+        }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-yellow-100 via-pink-100 to-blue-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="title-font text-4xl md:text-5xl mb-2 wiggle inline-block">📚 Rangkuman Warna 📚</h1>
+            <p class="text-xl">Apa yang Sudah Kita Pelajari?</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Welcome Message -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-purple-300">
+            <div class="text-center">
+                <div class="text-6xl mb-4 float">👋</div>
+                <h2 class="title-font text-3xl text-purple-600 mb-4">Yeay! Selamat Ya, Adik-adik!</h2>
+                <p class="text-xl text-gray-700 leading-relaxed">
+                    Adik-adik sudah belajar tentang <strong class="text-pink-500">warna</strong> dengan sangat baik!
+                    Mari kita ingat-ingat lagi apa yang sudah kita pelajari hari ini! 🌟
+                </p>
+            </div>
+        </section>
+
+        <!-- What We Learned -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-pink-300">
+            <h2 class="title-font text-3xl text-center text-pink-600 mb-6">✨ Yang Kita Pelajari Hari Ini ✨</h2>
+
+            <div class="space-y-4">
+                <div class="bg-gradient-to-r from-red-100 to-red-200 rounded-2xl p-5 flex items-start gap-4 pulse">
+                    <div class="text-5xl">1️⃣</div>
+                    <div>
+                        <h3 class="font-bold text-xl text-red-700 mb-2">Mengenal Warna-warna Dasar</h3>
+                        <p class="text-gray-700 text-lg">
+                            Kita belajar 6 warna dasar: <strong>MERAH</strong>, <strong>KUNING</strong>,
+                            <strong>BIRU</strong>, <strong>HIJAU</strong>, <strong>ORANGE</strong>, dan <strong>UNGU</strong>.
+                            Setiap warna memiliki benda-benda yang berwarna sama!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-yellow-100 to-orange-200 rounded-2xl p-5 flex items-start gap-4 pulse">
+                    <div class="text-5xl">2️⃣</div>
+                    <div>
+                        <h3 class="font-bold text-xl text-orange-700 mb-2">Contoh Benda Berwarna</h3>
+                        <p class="text-gray-700 text-lg">
+                            Kita belajar mengenali benda-benda di sekitar kita dan warnanya:
+                            Apel (merah), Pisang (kuning), Laut (biru), Rumput (hijau),
+                            Wortel (orange), dan Anggur (ungu).
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-blue-100 to-purple-200 rounded-2xl p-5 flex items-start gap-4 pulse">
+                    <div class="text-5xl">3️⃣</div>
+                    <div>
+                        <h3 class="font-bold text-xl text-purple-700 mb-2">Campuran Warna</h3>
+                        <p class="text-gray-700 text-lg">
+                            Kita belajar bahwa warna bisa dicampur!
+                            Merah + Kuning = Orange, Biru + Kuning = Hijau, Merah + Biru = Ungu.
+                            Ajaib sekali! 🎨
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-green-100 to-teal-200 rounded-2xl p-5 flex items-start gap-4 pulse">
+                    <div class="text-5xl">4️⃣</div>
+                    <div>
+                        <h3 class="font-bold text-xl text-teal-700 mb-2">Fakta Seru Tentang Warna</h3>
+                        <p class="text-gray-700 text-lg">
+                            Pelangi punya 7 warna! (MEJIKUHIBIMU). Warna membuat dunia menjadi
+                            indah dan setiap benda punya warnanya sendiri-sendiri. Kupu-kupu
+                            memakai warna cantik untuk menyembunyi dari musuh!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Review -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-yellow-300">
+            <h2 class="title-font text-3xl text-center text-yellow-600 mb-6">🧠 Ingat Lagi Yuk! 🧠</h2>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="bg-gradient-to-br from-red-400 to-red-600 rounded-2xl p-4 text-white text-center shadow-lg">
+                    <div class="text-4xl mb-2">🍎</div>
+                    <p class="title-font text-xl">MERAH</p>
+                </div>
+                <div class="bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-2xl p-4 text-white text-center shadow-lg">
+                    <div class="text-4xl mb-2">🍌</div>
+                    <p class="title-font text-xl">KUNING</p>
+                </div>
+                <div class="bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl p-4 text-white text-center shadow-lg">
+                    <div class="text-4xl mb-2">🌊</div>
+                    <p class="title-font text-xl">BIRU</p>
+                </div>
+                <div class="bg-gradient-to-br from-green-400 to-green-600 rounded-2xl p-4 text-white text-center shadow-lg">
+                    <div class="text-4xl mb-2">🌳</div>
+                    <p class="title-font text-xl">HIJAU</p>
+                </div>
+                <div class="bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl p-4 text-white text-center shadow-lg">
+                    <div class="text-4xl mb-2">🥕</div>
+                    <p class="title-font text-xl">ORANGE</p>
+                </div>
+                <div class="bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl p-4 text-white text-center shadow-lg">
+                    <div class="text-4xl mb-2">🍇</div>
+                    <p class="title-font text-xl">UNGU</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flashback -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-blue-300">
+            <h2 class="title-font text-3xl text-center text-blue-600 mb-6">⏮️ Flashback ⏮️</h2>
+            <p class="text-lg text-gray-700 mb-4">Sebelum belajar warna, Adik-adik sudah bisa:</p>
+            <div class="bg-gradient-to-r from-blue-100 to-cyan-100 rounded-2xl p-5">
+                <ul class="space-y-3 text-lg text-gray-700">
+                    <li class="flex items-start gap-3">
+                        <span class="text-2xl">✅</span>
+                        <span>Mengenal berbagai bentuk dasar (lingkaran, kotak, segitiga)</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-2xl">✅</span>
+                        <span>Membedakan ukuran besar dan kecil</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-2xl">✅</span>
+                        <span>Mengenal berbagai benda di sekitar kita</span>
+                    </li>
+                </ul>
+            </div>
+            <p class="text-lg text-gray-700 mt-4">
+                Sekarang Adik-adik juga bisa <strong>mengenal warna</strong>! Pengetahuan ini akan
+                membantu Adik-adik saat <strong>mewarnai gambar</strong> dan <strong>menggambar bentuk</strong>!
+            </p>
+        </section>
+
+        <!-- Flashforward -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-green-300">
+            <h2 class="title-font text-3xl text-center text-green-600 mb-6">⏭️ Ayo Lanjut! ⏭️</h2>
+            <p class="text-lg text-gray-700 mb-4">Setelah belajar warna, Adik-adik akan belajar:</p>
+
+            <div class="space-y-4">
+                <div class="bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl p-5 flex items-start gap-4">
+                    <div class="text-5xl">🎨</div>
+                    <div>
+                        <h3 class="font-bold text-xl text-green-700 mb-2">Menggambar Bentuk</h3>
+                        <p class="text-gray-700">
+                            Menggambar berbagai bentuk dengan warna-warna cantik yang sudah Adik-adik pelajari!
+                            Ini akan melatih kreativitas dan koordinasi tangan-mata.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-5 flex items-start gap-4">
+                    <div class="text-5xl">🖍️</div>
+                    <div>
+                        <h3 class="font-bold text-xl text-purple-700 mb-2">Mewarnai Gambar</h3>
+                        <p class="text-gray-700">
+                            Mewarnai berbagai gambar menarik dengan warna-warna yang tepat!
+                            Ini akan melatih motorik halus dan kesabaran Adik-adik.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-orange-100 to-yellow-100 rounded-2xl p-5 flex items-start gap-4">
+                    <div class="text-5xl">✂️</div>
+                    <div>
+                        <h3 class="font-bold text-xl text-orange-700 mb-2">Kerajinan Tangan</h3>
+                        <p class="text-gray-700">
+                            Membuat berbagai kerajinan tangan dengan warna-warna ceria!
+                            Adik-adik bisa membuat origami, kolase, dan banyak lagi!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievement -->
+        <section class="bg-gradient-to-br from-yellow-100 to-orange-100 rounded-3xl shadow-xl p-6 mb-8 border-4 border-yellow-400">
+            <div class="text-center">
+                <div class="text-8xl mb-4 float">🏆</div>
+                <h2 class="title-font text-4xl text-yellow-700 mb-4">Selamat Berprestasi!</h2>
+                <p class="text-xl text-gray-700 mb-6">
+                    Adik-adik sudah menyelesaikan materi "Mengenal Warna"!
+                    Teruslah belajar dan berexplorasi dengan warna-warna cantik! 🌈
+                </p>
+                <div class="bg-white rounded-2xl p-6 inline-block">
+                    <p class="title-font text-2xl text-purple-600">✨ Bintang untuk Adik-adik! ✨</p>
+                    <div class="flex justify-center gap-2 mt-3 text-4xl">
+                        <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <div class="text-center space-y-4">
+            <a href="../002-menggambar-bentuk/teori.html" class="inline-block bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white title-font text-2xl px-8 py-4 rounded-full shadow-lg transition-all hover:scale-105">
+                ➡️ Materi Berikutnya: Menggambar Bentuk
+            </a>
+            <br>
+            <a href="../" class="inline-block bg-gradient-to-r from-gray-400 to-gray-500 hover:from-gray-500 hover:to-gray-600 text-white title-font text-xl px-6 py-3 rounded-full shadow-lg transition-all hover:scale-105">
+                🏠 Kembali ke Menu Materi
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg">© 2024 Bahan Ajar Interaktif - TK-B Seni</p>
+            <p class="text-sm mt-1">Belajar dengan Ceria dan Bahagia! 🌟</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidup & Tak Hidup - Latihan | Sains TK-B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .option-card:hover { transform: scale(1.02); transition: all 0.3s ease; }
+        .bounce-in { animation: bounceIn 0.5s ease; }
+        @keyframes bounceIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-green-100 via-emerald-100 to-teal-100 min-h-screen" x-data="hidupQuiz()">
+    <header class="bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <a href="teori.html" class="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/30"><span>⬅️</span><span class="font-bold">Kembali</span></a>
+                <h1 class="text-xl font-bold">Latihan Hidup & Tak Hidup</h1>
+                <div class="bg-white/20 px-4 py-2 rounded-full font-bold">Skor: <span x-text="score"></span></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-4">
+        <div class="bg-white rounded-full h-4 shadow-lg overflow-hidden"><div class="h-full bg-gradient-to-r from-green-400 to-emerald-500 transition-all" :style="'width: ' + ((currentQuestion / questions.length) * 100) + '%'"></div></div>
+        <p class="text-center mt-2 text-gray-600">Soal <span x-text="currentQuestion"></span> dari <span x-text="questions.length"></span></p>
+    </div>
+
+    <main class="container mx-auto px-4 py-6" x-show="!showResult">
+        <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-green-300 mb-6 bounce-in"><h2 class="text-xl font-bold" x-text="questions[currentQuestion - 1].question"></h2></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <template x-for="(option, index) in questions[currentQuestion - 1].options" :key="index">
+                <div @click="checkAnswer(index)" :class="{'cursor-pointer': !answered, 'bg-green-500 text-white': answered && index === questions[currentQuestion - 1].correctIndex, 'opacity-60': answered && index !== questions[currentQuestion - 1].correctIndex}" class="bg-green-50 rounded-2xl shadow-lg p-6 border-4 border-green-200 option-card">
+                    <div class="flex items-center gap-4"><span class="text-4xl" x-text="option.emoji"></span><span class="text-lg font-bold" x-text="option.text"></span><span x-show="answered && index === questions[currentQuestion - 1].correctIndex" class="text-3xl ml-auto">✅</span></div>
+                </div>
+            </template>
+        </div>
+
+        <div x-show="answered" class="bg-white rounded-3xl shadow-2xl p-6 border-4 mb-6 bounce-in border-green-400"><p class="text-lg text-center" x-text="questions[currentQuestion - 1].explanation"></p></div>
+
+        <div x-show="answered" class="flex justify-center">
+            <button @click="nextQuestion()" class="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-8 py-4 rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl transition">
+                <span x-show="currentQuestion < questions.length">Soal Berikutnya ➡️</span><span x-show="currentQuestion === questions.length">Lihat Hasil 🏆</span>
+            </button>
+        </div>
+    </main>
+
+    <div x-show="showResult" class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 border-4 border-yellow-400 max-w-2xl mx-auto text-center">
+            <div class="text-6xl mb-4">🏆</div><h2 class="text-3xl font-bold mb-4 font-comic">Selamat!</h2>
+            <div class="bg-green-100 rounded-2xl p-6 mb-6"><p class="text-5xl font-bold text-green-600" x-text="score + ' / ' + (questions.length * 10)"></p></div>
+            <div class="flex flex-col gap-3"><a href="teori.html" class="block bg-green-500 text-white py-3 px-6 rounded-xl font-bold">📖 Pelajari Lagi</a><a href="evaluasi.html" class="block bg-emerald-500 text-white py-3 px-6 rounded-xl font-bold">📝 Kerjakan Evaluasi</a></div>
+        </div>
+    </div>
+
+    <footer class="bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 mt-8"><div class="container mx-auto px-4 text-center"><p class="font-semibold">© 2025 Bahan Ajar Interaktif - TK-B Sains</p></div></footer>
+
+    <script>
+        function hidupQuiz() {
+            return {
+                score: 0, currentQuestion: 1, answered: false, selectedOption: null, showResult: false,
+                questions: [
+                    { question: "Manakah yang makhluk hidup?", options: [{text:"Kursi",emoji:"🪑"},{text:"Kucing",emoji:"🐱"},{text:"Buku",emoji:"📚"},{text:"Mobil",emoji:"🚗"}], correctIndex: 1, explanation: "Benar! Kucing adalah makhluk hidup." },
+                    { question: "Manakah yang BUKAN makhluk hidup?", options: [{text:"Pohon",emoji:"🌳"},{text:"Burung",emoji:"🐦"},{text:"Meja",emoji:"🪑"},{text:"Ikan",emoji:"🐟"}], correctIndex: 2, explanation: "Tepat! Meja adalah benda tak hidup." },
+                    { question: "Makhluk hidup butuh...", options: [{text:"Makanan",emoji:"🍽️"},{text:"Bensin",emoji:"⛽"},{text:"Listrik",emoji:"💡"},{text:"Baterai",emoji:"🔋"}], correctIndex: 0, explanation: "Hebat! Makhluk hidup membutuhkan makanan." },
+                    { question: "Tanaman adalah makhluk hidup karena...", options: [{text:"Bisa berjalan",emoji:"🚶"},{text:"Berfotosintesis",emoji:"🌱"},{text:"Berbicara",emoji:"🗣️"},{text:"Membaca",emoji:"📖"}], correctIndex: 1, explanation: "Pintar! Tanaman membuat makanan sendiri." },
+                    { question: "Benda tak hidup tidak bisa...", options: [{text:"Bergerak",emoji:"🚶"},{text:"Bernapas",emoji:"💨"},{text:"Berkembang biak",emoji:"👶"},{text:"Semua benar",emoji:"✅"}], correctIndex: 3, explanation: "Luar biasa! Benda tak hidup tidak melakukan semua itu." },
+                    { question: "Manusia termasuk makhluk hidup karena...", options: [{text:"Bernapas",emoji:"💨"},{text:"Makan",emoji:"🍽️"},{text:"Berkembang biak",emoji:"👶"},{text:"Semua benar",emoji:"✅"}], correctIndex: 3, explanation: "Tepat! Manusia memiliki semua ciri makhluk hidup." },
+                    { question: "Batu adalah benda tak hidup karena...", options: [{text:"Tidak makan",emoji:"❌"},{text:"Tidak bernapas",emoji:"❌"},{text:"Tidak bergerak sendiri",emoji:"❌"},{text:"Semua benar",emoji:"✅"}], correctIndex: 3, explanation: "Benar! Batu tidak memiliki ciri makhluk hidup." },
+                    { question: "Ayam bertelur adalah contoh...", options: [{text:"Makan",emoji:"🍽️"},{text:"Bernapas",emoji:"💨"},{text:"Berkembang biak",emoji:"🥚"},{text:"Bergerak",emoji:"🚶"}], correctIndex: 2, explanation: "Hebat! Bertelur adalah cara berkembang biak." },
+                    { question: "Makhluk hidup dapat...", options: [{text:"Tumbuh",emoji:"📏"},{text:"Bernapas",emoji:"💨"},{text:"Makan",emoji:"🍽️"},{text:"Semua benar",emoji:"✅"}], correctIndex: 3, explanation: "Pintar! Semua adalah ciri makhluk hidup." },
+                    { question: "Jam dinding adalah benda tak hidup karena...", options: [{text:"Tidak bernapas",emoji:"❌"},{text:"Tidak makan",emoji:"❌"},{text:"Tidak berkembang biak",emoji:"❌"},{text:"Semua benar",emoji:"✅"}], correctIndex: 3, explanation: "Tepat! Jam adalah benda buatan manusia." }
+                ],
+                checkAnswer(index) { if (this.answered) return; this.answered = true; this.selectedOption = index; if (index === this.questions[this.currentQuestion - 1].correctIndex) this.score += 10; },
+                nextQuestion() { if (this.currentQuestion < this.questions.length) { this.currentQuestion++; this.answered = false; this.selectedOption = null; } else this.showResult = true; }
+            }
+        }
+    </script>
+</body>
+</html>

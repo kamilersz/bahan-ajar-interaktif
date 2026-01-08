@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Clothes - TK-B English</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap");
+      body {
+        font-family: "Nunito", sans-serif;
+      }
+      .clothes-card {
+        transition: all 0.3s ease;
+      }
+      .clothes-card:hover {
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-violet-100 via-purple-50 to-fuchsia-100 min-h-screen"
+  >
+    <div x-data="{ selectedClothes: null }">
+      <header
+        class="bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400 text-white py-6 shadow-lg"
+      >
+        <div class="container mx-auto px-4 text-center">
+          <h1 class="text-3xl md:text-4xl font-bold mb-2">👕 Learn Clothes</h1>
+          <p class="text-lg">Let's learn clothing names!</p>
+        </div>
+      </header>
+      <main class="container mx-auto px-4 py-8">
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8">
+          <div class="text-center mb-6">
+            <div class="text-6xl mb-4">👕</div>
+            <h2 class="text-2xl font-bold text-purple-700 mb-3">
+              What are Clothes?
+            </h2>
+            <p class="text-lg text-gray-700">
+              <strong>Clothes</strong> are things we wear! Shirts, pants,
+              dresses, shoes, and more keep us comfortable!
+            </p>
+          </div>
+        </section>
+        <section
+          class="bg-gradient-to-r from-violet-100 to-purple-100 rounded-3xl shadow-xl p-6 mb-8"
+        >
+          <h2 class="text-2xl font-bold text-center text-purple-700 mb-6">
+            👕 Meet the Clothes!
+          </h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div
+              @click="selectedClothes = {name:'Shirt',emoji:'👕',type:'Top',body:'Upper body'}"
+              class="clothes-card bg-gradient-to-br from-blue-400 to-blue-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">👕</div>
+              <p class="text-xl font-bold">Shirt</p>
+            </div>
+            <div
+              @click="selectedClothes = {name:'Pants',emoji:'👖',type:'Bottom',body:'Legs'}"
+              class="clothes-card bg-gradient-to-br from-indigo-400 to-indigo-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">👖</div>
+              <p class="text-xl font-bold">Pants</p>
+            </div>
+            <div
+              @click="selectedClothes = {name:'Dress',emoji:'👗',type:'One-piece',body:'Full body'}"
+              class="clothes-card bg-gradient-to-br from-pink-400 to-pink-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">👗</div>
+              <p class="text-xl font-bold">Dress</p>
+            </div>
+            <div
+              @click="selectedClothes = {name:'Shoes',emoji:'👞',type:'Footwear',body:'Feet'}"
+              class="clothes-card bg-gradient-to-br from-amber-600 to-amber-700 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">👞</div>
+              <p class="text-xl font-bold">Shoes</p>
+            </div>
+            <div
+              @click="selectedClothes = {name:'Hat',emoji:'🎩',type:'Headwear',body:'Head'}"
+              class="clothes-card bg-gradient-to-br from-gray-600 to-gray-700 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">🎩</div>
+              <p class="text-xl font-bold">Hat</p>
+            </div>
+            <div
+              @click="selectedClothes = {name:'Jacket',emoji:'🧥',type:'Outerwear',body:'Upper body'}"
+              class="clothes-card bg-gradient-to-br from-slate-500 to-slate-600 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">🧥</div>
+              <p class="text-xl font-bold">Jacket</p>
+            </div>
+            <div
+              @click="selectedClothes = {name:'Socks',emoji:'🧦',type:'Footwear',body:'Feet'}"
+              class="clothes-card bg-gradient-to-br from-orange-400 to-orange-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">🧦</div>
+              <p class="text-xl font-bold">Socks</p>
+            </div>
+            <div
+              @click="selectedClothes = {name:'Bag',emoji:'👜',type:'Accessory',body:'Carried'}"
+              class="clothes-card bg-gradient-to-br from-brown-400 to-brown-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">👜</div>
+              <p class="text-xl font-bold">Bag</p>
+            </div>
+          </div>
+        </section>
+        <div
+          x-show="selectedClothes"
+          x-transition
+          class="bg-white rounded-3xl shadow-xl p-6 mb-8"
+        >
+          <h3 class="text-2xl font-bold text-purple-700 mb-4 text-center">
+            <span x-text="selectedClothes.emoji"></span>
+            <span x-text="selectedClothes.name"></span>
+          </h3>
+          <div class="max-w-md mx-auto space-y-3">
+            <div class="bg-purple-50 rounded-xl p-4">
+              <p class="text-lg">
+                <strong>Type:</strong>
+                <span x-text="selectedClothes.type"></span>
+              </p>
+            </div>
+            <div class="bg-violet-50 rounded-xl p-4">
+              <p class="text-lg">
+                <strong>Body:</strong>
+                <span x-text="selectedClothes.body"></span>
+              </p>
+            </div>
+          </div>
+          <button
+            @click="selectedClothes = null"
+            class="mt-4 mx-auto block bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-6 rounded-full"
+          >
+            Close
+          </button>
+        </div>
+        <section
+          class="bg-gradient-to-r from-violet-200 to-purple-200 rounded-3xl shadow-xl p-6 mb-8"
+        >
+          <h2 class="text-2xl font-bold text-purple-700 mb-4 text-center">
+            💡 Learning Tips!
+          </h2>
+          <ul class="text-lg text-gray-700 space-y-3">
+            <li class="flex items-start">
+              <span class="text-2xl mr-3">👔</span
+              ><span>Name your clothes when getting dressed!</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-2xl mr-3">🧺</span
+              ><span>Help fold the laundry!</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-2xl mr-3">🛍️</span
+              ><span>Go shopping for clothes!</span>
+            </li>
+          </ul>
+        </section>
+        <div class="text-center">
+          <a
+            href="latihan.html"
+            class="inline-block bg-gradient-to-r from-green-400 to-green-600 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition"
+            >🎮 Continue to Practice!</a
+          >
+        </div>
+      </main>
+      <footer class="bg-purple-600 text-white py-6 mt-8">
+        <div class="container mx-auto px-4 text-center">
+          <p class="text-lg">
+            © 2025 Interactive Learning Materials - TK-B English
+          </p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

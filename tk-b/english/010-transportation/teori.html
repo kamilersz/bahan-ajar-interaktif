@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Transportation - TK-B English</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap");
+      body {
+        font-family: "Nunito", sans-serif;
+      }
+      .transport-card {
+        transition: all 0.3s ease;
+      }
+      .transport-card:hover {
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-cyan-100 via-blue-50 to-indigo-100 min-h-screen"
+  >
+    <div x-data="{ selectedTransport: null }">
+      <header
+        class="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 text-white py-6 shadow-lg"
+      >
+        <div class="container mx-auto px-4 text-center">
+          <h1 class="text-3xl md:text-4xl font-bold mb-2">
+            🚗 Learn Transportation
+          </h1>
+          <p class="text-lg">Let's learn transportation names!</p>
+        </div>
+      </header>
+      <main class="container mx-auto px-4 py-8">
+        <section class="bg-white rounded-3xl shadow-xl p-6 mb-8">
+          <div class="text-center mb-6">
+            <div class="text-6xl mb-4">🚗</div>
+            <h2 class="text-2xl font-bold text-blue-700 mb-3">
+              What is Transportation?
+            </h2>
+            <p class="text-lg text-gray-700">
+              <strong>Transportation</strong> is how we travel! Cars, buses,
+              planes, ships, and more help us move from place to place!
+            </p>
+          </div>
+        </section>
+        <section
+          class="bg-gradient-to-r from-cyan-100 to-blue-100 rounded-3xl shadow-xl p-6 mb-8"
+        >
+          <h2 class="text-2xl font-bold text-center text-blue-700 mb-6">
+            🚗 Meet the Transportation!
+          </h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div
+              @click="selectedTransport = {name:'Car',emoji:'🚗',type:'Land',wheels:4}"
+              class="transport-card bg-gradient-to-br from-red-400 to-red-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">🚗</div>
+              <p class="text-xl font-bold">Car</p>
+            </div>
+            <div
+              @click="selectedTransport = {name:'Bus',emoji:'🚌',type:'Land',wheels:6}"
+              class="transport-card bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">🚌</div>
+              <p class="text-xl font-bold">Bus</p>
+            </div>
+            <div
+              @click="selectedTransport = {name:'Bicycle',emoji:'🚲',type:'Land',wheels:2}"
+              class="transport-card bg-gradient-to-br from-green-400 to-green-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">🚲</div>
+              <p class="text-xl font-bold">Bicycle</p>
+            </div>
+            <div
+              @click="selectedTransport = {name:'Motorcycle',emoji:'🏍️',type:'Land',wheels:2}"
+              class="transport-card bg-gradient-to-br from-orange-400 to-orange-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">🏍️</div>
+              <p class="text-xl font-bold">Motorcycle</p>
+            </div>
+            <div
+              @click="selectedTransport = {name:'Train',emoji:'🚂',type:'Land',wheels:12}"
+              class="transport-card bg-gradient-to-br from-slate-400 to-slate-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">🚂</div>
+              <p class="text-xl font-bold">Train</p>
+            </div>
+            <div
+              @click="selectedTransport = {name:'Airplane',emoji:'✈️',type:'Air',wheels:3}"
+              class="transport-card bg-gradient-to-br from-sky-400 to-sky-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">✈️</div>
+              <p class="text-xl font-bold">Airplane</p>
+            </div>
+            <div
+              @click="selectedTransport = {name:'Ship',emoji:'🚢',type:'Water',wheels:0}"
+              class="transport-card bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">🚢</div>
+              <p class="text-xl font-bold">Ship</p>
+            </div>
+            <div
+              @click="selectedTransport = {name:'Helicopter',emoji:'🚁',type:'Air',wheels:0}"
+              class="transport-card bg-gradient-to-br from-indigo-400 to-indigo-500 rounded-2xl p-6 text-center text-white shadow-lg cursor-pointer"
+            >
+              <div class="text-6xl mb-2">🚁</div>
+              <p class="text-xl font-bold">Helicopter</p>
+            </div>
+          </div>
+        </section>
+        <div
+          x-show="selectedTransport"
+          x-transition
+          class="bg-white rounded-3xl shadow-xl p-6 mb-8"
+        >
+          <h3 class="text-2xl font-bold text-blue-700 mb-4 text-center">
+            <span x-text="selectedTransport.emoji"></span>
+            <span x-text="selectedTransport.name"></span>
+          </h3>
+          <div class="max-w-md mx-auto space-y-3">
+            <div class="bg-blue-50 rounded-xl p-4">
+              <p class="text-lg">
+                <strong>Type:</strong>
+                <span x-text="selectedTransport.type"></span>
+              </p>
+            </div>
+            <div class="bg-cyan-50 rounded-xl p-4">
+              <p class="text-lg">
+                <strong>Wheels:</strong>
+                <span x-text="selectedTransport.wheels"></span>
+              </p>
+            </div>
+          </div>
+          <button
+            @click="selectedTransport = null"
+            class="mt-4 mx-auto block bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-6 rounded-full"
+          >
+            Close
+          </button>
+        </div>
+        <section
+          class="bg-gradient-to-r from-cyan-200 to-blue-200 rounded-3xl shadow-xl p-6 mb-8"
+        >
+          <h2 class="text-2xl font-bold text-blue-700 mb-4 text-center">
+            💡 Safety Tips!
+          </h2>
+          <ul class="text-lg text-gray-700 space-y-3">
+            <li class="flex items-start">
+              <span class="text-2xl mr-3">🚦</span
+              ><span>Follow traffic rules!</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-2xl mr-3">🎒</span
+              ><span>Wear your seatbelt!</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-2xl mr-3">👮</span
+              ><span>Listen to police officers!</span>
+            </li>
+          </ul>
+        </section>
+        <div class="text-center">
+          <a
+            href="latihan.html"
+            class="inline-block bg-gradient-to-r from-green-400 to-green-600 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition"
+            >🎮 Continue to Practice!</a
+          >
+        </div>
+      </main>
+      <footer class="bg-blue-600 text-white py-6 mt-8">
+        <div class="container mx-auto px-4 text-center">
+          <p class="text-lg">
+            © 2025 Interactive Learning Materials - TK-B English
+          </p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

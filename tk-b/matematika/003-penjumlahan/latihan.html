@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Penjumlahan - TK-B Matematika</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .option-btn { transition: all 0.3s ease; }
+        .option-btn:hover { transform: scale(1.05); }
+        @keyframes celebrate { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+        .confetti { position: fixed; width: 10px; height: 10px; animation: fall 3s linear forwards; }
+        @keyframes fall { 0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-orange-100 via-yellow-50 to-green-100 min-h-screen">
+    <div x-data="latihanPenjumlahan()">
+        <header class="bg-gradient-to-r from-orange-400 via-yellow-400 to-green-400 text-white py-6 shadow-lg">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-3xl md:text-4xl font-bold mb-2">🎮 Latihan Penjumlahan</h1>
+                <p class="text-lg">Ayo bermain penjumlahan!</p>
+                <div class="mt-3 bg-white/20 rounded-full px-6 py-2 inline-block"><span class="font-bold">Skor: </span><span x-text="score" class="font-bold text-yellow-300 text-2xl"></span></div>
+            </div>
+        </header>
+
+        <main class="container mx-auto px-4 py-8">
+            <div class="mb-8"><div class="bg-white rounded-full h-6 shadow-lg overflow-hidden"><div class="bg-gradient-to-r from-orange-400 to-green-500 h-full transition-all duration-500 rounded-full flex items-center justify-center text-white font-bold text-sm" :style="'width: ' + ((currentQuestion / questions.length) * 100) + '%'"><span x-text="currentQuestion + '/' + questions.length"></span></div></div></div>
+
+            <div x-show="!finished" class="bg-white rounded-3xl shadow-2xl p-8 max-w-3xl mx-auto">
+                <!-- Visual Addition -->
+                <div x-show="questions[currentQuestionIndex].type === 'visual'">
+                    <h2 class="text-2xl font-bold text-orange-700 mb-6 text-center">➕ Hitung jumlahnya!</h2>
+                    <div class="flex justify-center items-center gap-4 mb-6 flex-wrap">
+                        <div class="text-center"><div class="text-5xl mb-2" x-text="questions[currentQuestionIndex].emoji1.repeat(questions[currentQuestionIndex].num1)"></div><div class="bg-orange-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl font-bold mx-auto" x-text="questions[currentQuestionIndex].num1"></div></div>
+                        <div class="text-5xl text-green-600 font-bold">+</div>
+                        <div class="text-center"><div class="text-5xl mb-2" x-text="questions[currentQuestionIndex].emoji2.repeat(questions[currentQuestionIndex].num2)"></div><div class="bg-blue-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl font-bold mx-auto" x-text="questions[currentQuestionIndex].num2"></div></div>
+                        <div class="text-5xl text-green-600 font-bold">=</div>
+                        <div class="text-center"><div class="text-5xl mb-2 text-gray-300">❓</div><div class="bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl font-bold mx-auto animate-pulse">?</div></div>
+                    </div>
+                    <p class="text-xl text-center text-gray-700 mb-6"><span x-text="questions[currentQuestionIndex].num1"></span> + <span x-text="questions[currentQuestionIndex].num2"></span> = ...</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <template x-for="option in questions[currentQuestionIndex].options"><button @click="checkAnswer(option)" class="option-btn bg-gradient-to-br from-purple-400 to-pink-500 text-white font-bold py-4 rounded-xl text-3xl shadow-lg"><span x-text="option"></span></button></template>
+                    </div>
+                </div>
+
+                <!-- Number Addition -->
+                <div x-show="questions[currentQuestionIndex].type === 'number'">
+                    <h2 class="text-2xl font-bold text-orange-700 mb-6 text-center">🔢 Berapa hasilnya?</h2>
+                    <div class="flex justify-center items-center gap-4 mb-8 text-7xl">
+                        <div class="bg-orange-500 text-white px-8 py-6 rounded-2xl font-bold" x-text="questions[currentQuestionIndex].num1"></div>
+                        <div class="text-green-600 font-bold">+</div>
+                        <div class="bg-blue-500 text-white px-8 py-6 rounded-2xl font-bold" x-text="questions[currentQuestionIndex].num2"></div>
+                        <div class="text-green-600 font-bold">=</div>
+                        <div class="bg-green-500 text-white px-8 py-6 rounded-2xl font-bold animate-pulse">?</div>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <template x-for="option in questions[currentQuestionIndex].options"><button @click="checkAnswer(option)" class="option-btn bg-gradient-to-br from-green-400 to-teal-500 text-white font-bold py-4 rounded-xl text-3xl shadow-lg"><span x-text="option"></span></button></template>
+                    </div>
+                </div>
+
+                <!-- Word Problem -->
+                <div x-show="questions[currentQuestionIndex].type === 'word'">
+                    <h2 class="text-2xl font-bold text-orange-700 mb-6 text-center">📖 Soal Cerita</h2>
+                    <div class="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl p-6 mb-6">
+                        <p class="text-xl text-gray-700 text-center leading-relaxed" x-text="questions[currentQuestionIndex].question"></p>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <template x-for="option in questions[currentQuestionIndex].options"><button @click="checkAnswer(option)" class="option-btn bg-gradient-to-br from-yellow-400 to-orange-500 text-white font-bold py-4 rounded-xl text-3xl shadow-lg"><span x-text="option"></span></button></template>
+                    </div>
+                </div>
+
+                <!-- Missing Number -->
+                <div x-show="questions[currentQuestionIndex].type === 'missing'">
+                    <h2 class="text-2xl font-bold text-orange-700 mb-6 text-center">❓ Angka yang hilang?</h2>
+                    <div class="flex justify-center items-center gap-4 mb-8 text-7xl">
+                        <div class="bg-orange-500 text-white px-8 py-6 rounded-2xl font-bold" x-text="questions[currentQuestionIndex].num1"></div>
+                        <div class="text-green-600 font-bold">+</div>
+                        <div class="bg-yellow-400 text-yellow-900 px-8 py-6 rounded-2xl font-bold border-4 border-yellow-500 animate-pulse">?</div>
+                        <div class="text-green-600 font-bold">=</div>
+                        <div class="bg-green-500 text-white px-8 py-6 rounded-2xl font-bold" x-text="questions[currentQuestionIndex].result"></div>
+                    </div>
+                    <p class="text-xl text-center text-gray-700 mb-6"><span x-text="questions[currentQuestionIndex].num1"></span> + ? = <span x-text="questions[currentQuestionIndex].result"></span></p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <template x-for="option in questions[currentQuestionIndex].options"><button @click="checkAnswer(option)" class="option-btn bg-gradient-to-br from-blue-400 to-indigo-500 text-white font-bold py-4 rounded-xl text-3xl shadow-lg"><span x-text="option"></span></button></template>
+                    </div>
+                </div>
+
+                <div x-show="feedback" x-transition class="mt-6 p-6 rounded-2xl text-center text-xl font-bold" :class="feedbackCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'"><p x-text="feedback"></p><button x-show="feedbackCorrect" @click="nextQuestion()" class="mt-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold py-3 px-6 rounded-full">Pertanyaan Selanjutnya →</button></div>
+            </div>
+
+            <div x-show="finished" x-transition class="bg-white rounded-3xl shadow-2xl p-8 max-w-2xl mx-auto text-center">
+                <div class="text-8xl mb-4">🎉</div>
+                <h2 class="text-4xl font-bold text-orange-700 mb-4">Hebat, Adik-adik!</h2>
+                <div class="bg-gradient-to-r from-yellow-200 to-orange-200 rounded-2xl p-6 mb-6"><p class="text-3xl font-bold text-orange-700 mb-2">Skor Kamu</p><p class="text-6xl font-bold text-orange-600"><span x-text="score"></span>/100</p></div>
+                <div class="mb-6"><p class="text-xl text-gray-600"><span x-show="score === 100">🌟 Sempurna! Kamu jago penjumlahan!</span><span x-show="score >= 80 && score < 100">⭐ Hebat! Terus berlatih!</span><span x-show="score >= 60 && score < 80">👍 Bagus! Ayo coba lagi!</span><span x-show="score < 60">💪 Jangan menyerah! Belajar lagi ya!</span></p></div>
+                <div class="space-y-4"><button @click="restart()" class="block w-full bg-gradient-to-r from-green-400 to-green-600 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg">🔄 Main Lagi</button><a href="evaluasi.html" class="block w-full bg-gradient-to-r from-purple-400 to-purple-600 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg">📝 Lanjut ke Evaluasi</a><a href="teori.html" class="block w-full bg-gradient-to-r from-blue-400 to-blue-600 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg">📖 Kembali ke Teori</a></div>
+            </div>
+        </main>
+
+        <footer class="bg-orange-600 text-white py-6 mt-8"><div class="container mx-auto px-4 text-center"><p class="text-lg">© 2025 Bahan Ajar Interaktif - TK-B Matematika</p></div></footer>
+    </div>
+
+    <script>
+        function latihanPenjumlahan() {
+            return {
+                score: 0, currentQuestion: 1, currentQuestionIndex: 0, feedback: '', feedbackCorrect: false, finished: false, answered: false,
+                questions: [
+                    { type: 'visual', emoji1: '🍎', emoji2: '🍎', num1: 2, num2: 3, options: [4, 5, 6, 7], correct: 5 },
+                    { type: 'number', num1: 4, num2: 2, options: [5, 6, 7, 8], correct: 6 },
+                    { type: 'word', question: 'Ibu memiliki 3 apel. Ayah memberikan 2 apel lagi. Berapa jumlah apel sekarang?', options: [4, 5, 6, 7], correct: 5 },
+                    { type: 'missing', num1: 5, result: 8, options: [2, 3, 4, 5], correct: 3 },
+                    { type: 'visual', emoji1: '⭐', emoji2: '⭐', num1: 4, num2: 4, options: [7, 8, 9, 10], correct: 8 },
+                    { type: 'number', num1: 6, num2: 3, options: [8, 9, 10, 11], correct: 9 },
+                    { type: 'word', question: 'Ada 4 kucing di tamu. Datang 3 kucing lagi. Berapa total kucing sekarang?', options: [6, 7, 8, 9], correct: 7 },
+                    { type: 'missing', num1: 7, result: 10, options: [2, 3, 4, 5], correct: 3 },
+                    { type: 'visual', emoji1: '🌸', emoji2: '🌺', num1: 5, num2: 5, options: [9, 10, 11, 12], correct: 10 },
+                    { type: 'number', num1: 3, num2: 7, options: [9, 10, 11, 12], correct: 10 }
+                ],
+                checkAnswer(answer) {
+                    if (this.answered) return;
+                    this.answered = true;
+                    const currentQ = this.questions[this.currentQuestionIndex];
+                    if (answer === currentQ.correct) {
+                        this.feedbackCorrect = true; this.score += 10; this.feedback = '🎉 Benar! Hebat!';
+                        for (let i = 0; i < 30; i++) {
+                            const confetti = document.createElement('div');
+                            confetti.className = 'confetti';
+                            confetti.style.left = Math.random() * 100 + 'vw';
+                            confetti.style.backgroundColor = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8'][Math.floor(Math.random() * 5)];
+                            document.body.appendChild(confetti);
+                            setTimeout(() => confetti.remove(), 3000);
+                        }
+                    } else {
+                        this.feedbackCorrect = false; this.feedback = '😅 Jawaban benar: ' + currentQ.correct;
+                        setTimeout(() => this.nextQuestion(), 2000);
+                    }
+                },
+                nextQuestion() { this.currentQuestionIndex++; this.currentQuestion++; this.feedback = ''; this.answered = false; if (this.currentQuestionIndex >= this.questions.length) this.finished = true; },
+                restart() { this.score = 0; this.currentQuestion = 1; this.currentQuestionIndex = 0; this.feedback = ''; this.feedbackCorrect = false; this.finished = false; this.answered = false; this.questions.sort(() => Math.random() - 0.5); }
+            }
+        }
+    </script>
+</body>
+</html>

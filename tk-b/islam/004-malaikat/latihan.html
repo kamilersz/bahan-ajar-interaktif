@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malaikat - Latihan | Islam TK-B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .font-comic { font-family: 'Comic Neue', cursive; }
+        .option-card:hover { transform: scale(1.03); }
+        .option-card { transition: all 0.3s ease; }
+        .correct { animation: correctPulse 0.5s ease; }
+        .wrong { animation: wrongShake 0.5s ease; }
+        @keyframes correctPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes wrongShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+        .bounce-in { animation: bounceIn 0.5s ease; }
+        @keyframes bounceIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-teal-100 via-cyan-100 to-sky-100 min-h-screen" x-data="malaikatQuiz()">
+    <header class="bg-gradient-to-r from-teal-500 via-cyan-500 to-sky-500 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <a href="teori.html" class="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/30 transition"><span>⬅️</span><span class="font-bold">Kembali</span></a>
+                <h1 class="text-xl md:text-2xl font-extrabold text-center">Latihan Malaikat</h1>
+                <div class="bg-white/20 px-4 py-2 rounded-full font-bold">Skor: <span x-text="score"></span></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-4">
+        <div class="bg-white rounded-full h-4 shadow-lg overflow-hidden"><div class="h-full bg-gradient-to-r from-green-400 to-emerald-500 transition-all duration-500" :style="'width: ' + ((currentQuestion / questions.length) * 100) + '%'"></div></div>
+        <p class="text-center mt-2 font-semibold text-gray-600">Soal <span x-text="currentQuestion"></span> dari <span x-text="questions.length"></span></p>
+    </div>
+
+    <main class="container mx-auto px-4 py-6" x-show="!showResult">
+        <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-teal-300 mb-6 bounce-in">
+            <div class="flex items-center gap-3 mb-4"><span class="text-4xl">❓</span><h2 class="text-xl md:text-2xl font-bold text-gray-800" x-text="questions[currentQuestion - 1].question"></h2></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <template x-for="(option, index) in questions[currentQuestion - 1].options" :key="index">
+                <div @click="checkAnswer(index)" :class="{'option-card cursor-pointer': !answered, 'correct bg-green-500 text-white': answered && index === questions[currentQuestion - 1].correctIndex, 'wrong bg-red-500 text-white opacity-60': answered && index !== questions[currentQuestion - 1].correctIndex && selectedOption === index, 'opacity-60': answered && index !== questions[currentQuestion - 1].correctIndex && selectedOption !== index}" class="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-2xl shadow-lg p-6 border-4" :class="answered && index === questions[currentQuestion - 1].correctIndex ? 'border-green-500' : 'border-teal-200'">
+                    <div class="flex items-center gap-4"><span class="text-5xl" x-text="option.emoji"></span><span class="text-lg md:text-xl font-bold" x-text="option.text"></span><span x-show="answered && index === questions[currentQuestion - 1].correctIndex" class="text-3xl ml-auto">✅</span><span x-show="answered && index === selectedOption && index !== questions[currentQuestion - 1].correctIndex" class="text-3xl ml-auto">❌</span></div>
+                </div>
+            </template>
+        </div>
+        <div x-show="answered" class="bg-white rounded-3xl shadow-2xl p-6 border-4 mb-6 bounce-in" :class="isCorrect ? 'border-green-400 from-green-50 to-emerald-50 bg-gradient-to-br' : 'border-red-400 from-red-50 to-rose-50 bg-gradient-to-br'">
+            <div class="text-center"><div class="text-5xl mb-3" x-text="isCorrect ? '🌟' : '💪'"></div><h3 class="text-2xl font-bold mb-2" x-text="isCorrect ? 'Masya Allah! Benar!' : 'Tepat Sekali!'" :class="isCorrect ? 'text-green-600' : 'text-red-600'"></h3><p class="text-lg text-gray-700" x-text="questions[currentQuestion - 1].explanation"></p></div>
+        </div>
+        <div x-show="answered" class="flex justify-center"><button @click="nextQuestion()" class="bg-gradient-to-r from-cyan-500 to-sky-500 text-white px-8 py-4 rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl hover:scale-105 transition"><span x-show="currentQuestion < questions.length">Soal Berikutnya ➡️</span><span x-show="currentQuestion === questions.length">Lihat Hasil 🏆</span></button></div>
+    </main>
+
+    <div x-show="showResult" class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 border-4 border-yellow-400 max-w-2xl mx-auto text-center">
+            <div class="text-6xl mb-4">🏆</div>
+            <h2 class="text-3xl font-bold text-gray-800 mb-4 font-comic">Alhamdulillah, Adik-adik!</h2>
+            <p class="text-xl text-gray-700 mb-4">Adik sudah menyelesaikan latihan Malaikat!</p>
+            <div class="bg-gradient-to-r from-teal-100 to-cyan-100 rounded-2xl p-6 mb-6"><p class="text-lg text-gray-600 mb-2">Skor Adik:</p><p class="text-5xl font-bold text-cyan-600" x-text="score + ' / ' + (questions.length * 10)"></p></div>
+            <div class="flex flex-col gap-3">
+                <a href="teori.html" class="block bg-gradient-to-r from-teal-500 to-cyan-500 text-white py-3 px-6 rounded-xl font-bold text-lg hover:shadow-xl transition">📖 Pelajari Lagi</a>
+                <a href="evaluasi.html" class="block bg-gradient-to-r from-green-500 to-emerald-500 text-white py-3 px-6 rounded-xl font-bold text-lg hover:shadow-xl transition">📝 Kerjakan Evaluasi</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gradient-to-r from-teal-600 to-cyan-600 text-white py-4 mt-8"><div class="container mx-auto px-4 text-center"><p class="font-semibold">© 2025 Bahan Ajar Interaktif - TK-B Islam</p></div></footer>
+
+    <script>
+        function malaikatQuiz() {
+            return {
+                score: 0, currentQuestion: 1, answered: false, isCorrect: false, selectedOption: null, showResult: false,
+                questions: [
+                    { question: "Berapa jumlah malaikat yang wajib diketahui?", options: [{text:"9",emoji:"9️⃣"},{text:"10",emoji:"🔟"},{text:"11",emoji:"1️⃣1️⃣"},{text:"12",emoji:"1️⃣2️⃣"}], correctIndex: 1, explanation: "Masya Allah! Benar! Ada 10 malaikat yang wajib kita ketahui." },
+                    { question: "Malaikat Jibril bertugas...", options: [{text:"Mengatur rezeki",emoji:"🌧️"},{text:"Menyampaikan wahyu",emoji:"✨"},{text:"Mencabut nyawa",emoji:"💀"},{text:"Meniup sangkakala",emoji:"🎺"}], correctIndex: 1, explanation: "Hebat! Malaikat Jibril bertugas menyampaikan wahyu dari Allah." },
+                    { question: "Malaikat Mikail bertugas...", options: [{text:"Menyampaikan wahyu",emoji:"✨"},{text:"Mengatur rezeki dan hujan",emoji:"🌧️"},{text:"Mencabut nyawa",emoji:"💀"},{text:"Mencatat amal",emoji:"📝"}], correctIndex: 1, explanation: "Alhamdulillah! Tepat! Malaikat Mikail mengatur rezeki dan hujan." },
+                    { question: "Malaikat yang mencabut nyawa adalah...", options: [{text:"Jibril",emoji:"✨"},{text:"Mikail",emoji:"🌧️"},{text:"Izrail",emoji:"💀"},{text:"Israfil",emoji:"🎺"}], correctIndex: 2, explanation: "Pintar! Izrail adalah malaikat pencabut nyawa." },
+                    { question: "Malaikat yang meniup sangkakala adalah...", options: [{text:"Jibril",emoji:"✨"},{text:"Izrail",emoji:"💀"},{text:"Israfil",emoji:"🎺"},{text:"Mikail",emoji:"🌧️"}], correctIndex: 2, explanation: "Luar biasa! Israfil akan meniup sangkakala pada hari kiamat." },
+                    { question: "Malaikat Raqib bertugas...", options: [{text:"Mencatat amal baik",emoji:"👍"},{text:"Mencatat amal buruk",emoji:"👎"},{text:"Menjaga pintu surga",emoji:"🚪"},{text:"Menjaga pintu neraka",emoji:"🔥"}], correctIndex: 0, explanation: "Masya Allah! Raqib mencatat amal kebaikan kita." },
+                    { question: "Malaikat Atid bertugas...", options: [{text:"Mencatat amal baik",emoji:"👍"},{text:"Mencatat amal buruk",emoji:"👎"},{text:"Menjaga pintu surga",emoji:"🚪"},{text:"Menanyai di kubur",emoji:"❓"}], correctIndex: 1, explanation: "Betul! Atid mencatat amal keburukan kita." },
+                    { question: "Malaikat Munkar dan Nakir bertugas...", options: [{text:"Mencatat amal",emoji:"📝"},{text:"Menanyai di kubur",emoji:"❓"},{text:"Menjaga pintu surga",emoji:"🚪"},{text:"Mengatur rezeki",emoji:"🌧️"}], correctIndex: 1, explanation: "Hebat sekali! Munkar dan Nakir akan menanyai di kubur." },
+                    { question: "Malaikat Malik bertugas...", options: [{text:"Menjaga pintu surga",emoji:"🚪"},{text:"Menjaga pintu neraka",emoji:"🔥"},{text:"Mencatat amal",emoji:"📝"},{text:"Menyampaikan wahyu",emoji:"✨"}], correctIndex: 1, explanation: "Alhamdulillah! Malik adalah penjaga pintu neraka." },
+                    { question: "Malaikat Ridwan bertugas...", options: [{text:"Menjaga pintu surga",emoji:"🚪"},{text:"Menjaga pintu neraka",emoji:"🔥"},{text:"Mencabut nyawa",emoji:"💀"},{text:"Meniup sangkakala",emoji:"🎺"}], correctIndex: 0, explanation: "Masya Allah! Ridwan adalah penjaga pintu surga." }
+                ],
+                checkAnswer(index) { if (this.answered) return; this.answered = true; this.selectedOption = index; this.isCorrect = index === this.questions[this.currentQuestion - 1].correctIndex; if (this.isCorrect) this.score += 10; },
+                nextQuestion() { if (this.currentQuestion < this.questions.length) { this.currentQuestion++; this.answered = false; this.selectedOption = null; } else { this.showResult = true; } }
+            }
+        }
+    </script>
+</body>
+</html>

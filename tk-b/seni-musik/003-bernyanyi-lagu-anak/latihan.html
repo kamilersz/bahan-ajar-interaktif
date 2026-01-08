@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Bernyanyi - TK-B Seni Musik</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Comic Neue', cursive; }
+        .title-font { font-family: 'Fredoka One', cursive; }
+        .wiggle { animation: wiggle 1s ease-in-out infinite; }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-green-100 via-emerald-100 to-teal-100 min-h-screen" x-data="singingGame()">
+    <header class="bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="title-font text-4xl md:text-5xl mb-2 wiggle inline-block">🎮 Latihan Bernyanyi 🎮</h1>
+            <p class="text-xl">Ayo Bermain dengan Lagu!</p>
+            <div class="mt-4 bg-white/20 rounded-full px-6 py-2 inline-block">
+                <span class="text-2xl">⭐ Skor: <span x-text="score"></span> ⭐</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Game 1: Complete the Lyrics -->
+        <div x-show="gameStage === 1" class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-green-300">
+            <h2 class="title-font text-3xl text-center text-green-600 mb-6">🎤 Lengkapi Lirik Lagu! 🎤</h2>
+            <p class="text-center text-xl text-gray-700 mb-6">Lengkapi lirik lagu yang hilang!</p>
+
+            <div class="text-center mb-8">
+                <div class="text-8xl mb-4" x-text="currentSong.emoji"></div>
+                <p class="title-font text-2xl text-gray-800 mb-4" x-text="currentSong.title"></p>
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 mb-6">
+                    <p class="text-xl text-gray-700 leading-relaxed" x-text="currentSong.partialLyrics"></p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <template x-for="option in currentOptions" :key="option">
+                    <button @click="checkLyric(option)"
+                            class="p-6 rounded-2xl title-font text-lg shadow-lg transition-all hover:scale-105"
+                            :class="getOptionClass(option)">
+                        <span x-text="option"></span>
+                    </button>
+                </template>
+            </div>
+
+            <div x-show="showFeedback" class="text-center p-6 rounded-2xl text-2xl"
+                 :class="isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
+                <div class="text-5xl mb-2" x-text="isCorrect ? '🎉' : '😅'"></div>
+                <p class="title-font" x-text="feedbackText"></p>
+                <button x-show="isCorrect" @click="nextLyric()"
+                        class="mt-4 bg-gradient-to-r from-green-400 to-emerald-600 text-white px-6 py-3 rounded-full title-font text-xl">
+                    ➡️ Lagu Berikutnya
+                </button>
+            </div>
+        </div>
+
+        <!-- Game 2: Guess the Song -->
+        <div x-show="gameStage === 2" class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-emerald-300">
+            <h2 class="title-font text-3xl text-center text-emerald-600 mb-6">🎵 Tebak Judul Lagu! 🎵</h2>
+            <p class="text-center text-xl text-gray-700 mb-6">Dari lirik ini, lagu apa ya?</p>
+
+            <div class="bg-gradient-to-br from-yellow-100 to-orange-100 rounded-2xl p-6 mb-8">
+                <p class="title-font text-2xl text-center text-gray-800 leading-relaxed" x-text="guessLyrics"></p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <template x-for="song in songOptions" :key="song.title">
+                    <button @click="checkSong(song)"
+                            class="p-6 rounded-2xl title-font text-lg shadow-lg transition-all hover:scale-105"
+                            :class="getSongClass(song)">
+                        <div class="text-4xl mb-2" x-text="song.emoji"></div>
+                        <span x-text="song.title"></span>
+                    </button>
+                </template>
+            </div>
+
+            <div x-show="showGuessFeedback" class="text-center p-6 rounded-2xl text-2xl"
+                 :class="isGuessCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
+                <div class="text-5xl mb-2" x-text="isGuessCorrect ? '🌟' : '💭'"></div>
+                <p class="title-font" x-text="guessFeedbackText"></p>
+                <button x-show="isGuessCorrect" @click="nextGuess()"
+                        class="mt-4 bg-gradient-to-r from-emerald-400 to-teal-400 text-white px-6 py-3 rounded-full title-font text-xl">
+                    ➡️ Lirik Berikutnya
+                </button>
+            </div>
+        </div>
+
+        <!-- Game 3: Match Song to Theme -->
+        <div x-show="gameStage === 3" class="bg-white rounded-3xl shadow-xl p-6 mb-8 border-4 border-teal-300">
+            <h2 class="title-font text-3xl text-center text-teal-600 mb-6">🎼 Tema Lagu Apa Ini? 🎼</h2>
+            <p class="text-center text-xl text-gray-700 mb-6">Lagu ini menceritakan tentang apa?</p>
+
+            <div class="text-center mb-8">
+                <div class="text-8xl mb-4" x-text="themeSong.emoji"></div>
+                <p class="title-font text-3xl text-gray-800" x-text="themeSong.title"></p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <template x-for="theme in themes" :key="theme">
+                    <button @click="checkTheme(theme)"
+                            class="p-6 rounded-2xl title-font text-xl shadow-lg transition-all hover:scale-105 bg-gradient-to-br from-green-100 to-emerald-100 hover:from-green-200 hover:to-emerald-200 text-green-700">
+                        <span x-text="theme"></span>
+                    </button>
+                </template>
+            </div>
+
+            <div x-show="showThemeFeedback" class="text-center p-6 rounded-2xl text-2xl"
+                 :class="isThemeCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
+                <div class="text-5xl mb-2" x-text="isThemeCorrect ? '🎊' : '🤔'"></div>
+                <p class="title-font" x-text="themeFeedbackText"></p>
+                <button x-show="isThemeCorrect" @click="nextTheme()"
+                        class="mt-4 bg-gradient-to-r from-teal-400 to-green-400 text-white px-6 py-3 rounded-full title-font text-xl">
+                    ➡️ Lagu Berikutnya
+                </button>
+            </div>
+        </div>
+
+        <!-- Completion -->
+        <div x-show="gameStage === 4" class="bg-white rounded-3xl shadow-xl p-8 border-4 border-yellow-400">
+            <div class="text-center">
+                <div class="text-8xl mb-4">🏆</div>
+                <h2 class="title-font text-4xl text-yellow-600 mb-4">LUAR BIASA!</h2>
+                <p class="text-2xl text-gray-700 mb-6">Adik-adik sudah menyelesaikan semua latihan bernyanyi!</p>
+                <div class="bg-gradient-to-r from-yellow-200 to-orange-200 rounded-2xl p-6 mb-6">
+                    <p class="title-font text-3xl text-orange-700">Skor Akhir: <span x-text="score"></span> ⭐</p>
+                </div>
+                <div class="space-y-4">
+                    <a href="evaluasi.html" class="inline-block bg-gradient-to-r from-green-400 to-emerald-600 text-white title-font text-2xl px-8 py-4 rounded-full shadow-lg">
+                        ➡️ Lanjut ke Evaluasi
+                    </a>
+                    <br>
+                    <button @click="restartGame()" class="inline-block bg-gradient-to-r from-green-400 to-teal-400 text-white title-font text-xl px-6 py-3 rounded-full shadow-lg">
+                        🔄 Main Lagi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 text-white py-4 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg">© 2024 Bahan Ajar Interaktif - TK-B Seni Musik</p>
+        </div>
+    </footer>
+
+    <script>
+        function singingGame() {
+            return {
+                score: 0,
+                gameStage: 1,
+                lyricIndex: 0,
+                guessIndex: 0,
+                themeIndex: 0,
+                showFeedback: false,
+                isCorrect: false,
+                feedbackText: '',
+                showGuessFeedback: false,
+                isGuessCorrect: false,
+                guessFeedbackText: '',
+                showThemeFeedback: false,
+                isThemeCorrect: false,
+                themeFeedbackText: '',
+                songs: [
+                    { emoji: '🎈', title: 'Balonku', partialLyrics: 'Balonku ada lima, rupa-rupa warnanya...', answer: 'Hijau, kuning, kelabu', options: ['Merah, biru, ungu', 'Hijau, kuning, kelabu', 'Putih, hitam, coklat', 'Pink, cyan, magenta'] },
+                    { emoji: '⭐', title: 'Bintang Kecil', partialLyrics: 'Bintang kecil di langit yang tinggi, amat banyak...', answer: 'Menghias angkasa', options: ['Menghias angkasa', 'Berkelip-kelip', 'Bersinar terang', 'Turun ke bumi'] },
+                    { emoji: '🌻', title: 'Lihat Kebunku', partialLyrics: 'Lihat kebunku, penuh dengan...', answer: 'Bunga', options: ['Buah', 'Sayur', 'Bunga', 'Pohon'] },
+                    { emoji: '🍌', title: 'Ampar-Ampar Pisang', partialLyrics: 'Ampar-ampar pisang, pisang goreng dari...', answer: 'Pagu-pagu', options: 'Daging', 'Pagu-pagu', 'Pasar', 'Kebun'] },
+                ],
+                guessQuestions: [
+                    { lyrics: 'Meletus balon hijau DOR! Hatiku sangat kacau', answer: 'Balonku', emoji: '🎈' },
+                    { lyrics: 'Aku ingin terbang dan menari, jauh tinggi menembusi awan', answer: 'Bintang Kecil', emoji: '⭐' },
+                    { lyrics: 'Ada yang putih, ada yang merah', answer: 'Lihat Kebunku', emoji: '🌻' },
+                    { lyrics: 'Pisangnya belum masak, minyaknya sudah habis', answer: 'Ampar-Ampar Pisang', emoji: '🍌' }
+                ],
+                themeQuestions: [
+                    { song: { emoji: '🎈', title: 'Balonku' }, answer: 'Balon', options: ['Balon', 'Bintang', 'Kebun', 'Pisang'] },
+                    { song: { emoji: '⭐', title: 'Bintang Kecil' }, answer: 'Bintang', options: ['Balon', 'Bintang', 'Kebun', 'Pisang'] },
+                    { song: { emoji: '🌻', title: 'Lihat Kebunku' }, answer: 'Kebun', options: ['Balon', 'Bintang', 'Kebun', 'Pisang'] },
+                    { song: { emoji: '🍌', title: 'Ampar-Ampar Pisang' }, answer: 'Makanan', options: ['Balon', 'Bintang', 'Kebun', 'Makanan'] }
+                ],
+                get currentSong() { return this.songs[this.lyricIndex]; },
+                get currentOptions() { return this.currentSong.options; },
+                get guessLyrics() { return this.guessQuestions[this.guessIndex].lyrics; },
+                get songOptions() {
+                    const all = this.songs.map(s => ({ title: s.title, emoji: s.emoji }));
+                    const correctTitle = this.guessQuestions[this.guessIndex].answer;
+                    const correct = all.find(s => s.title === correctTitle);
+                    const options = [correct];
+                    const remaining = all.filter(s => s.title !== correctTitle);
+                    while (options.length < 4 && remaining.length > 0) {
+                        const idx = Math.floor(Math.random() * remaining.length);
+                        options.push(remaining.splice(idx, 1)[0]);
+                    }
+                    return options.sort(() => Math.random() - 0.5);
+                },
+                get themeSong() { return this.themeQuestions[this.themeIndex].song; },
+                get themes() { return ['Balon', 'Bintang', 'Kebun', 'Pisang', 'Makanan'].slice(0, 4); },
+                getOptionClass(option) {
+                    const colors = {
+                        'Hijau, kuning, kelabu': 'bg-gradient-to-br from-green-400 to-emerald-500 text-white',
+                        'Merah, biru, ungu': 'bg-gradient-to-br from-red-400 to-pink-500 text-white',
+                        'Putih, hitam, coklat': 'bg-gradient-to-br from-gray-400 to-slate-500 text-white',
+                        'Pink, cyan, magenta': 'bg-gradient-to-br from-purple-400 to-violet-500 text-white'
+                    };
+                    return colors[option] || 'bg-gray-400 text-white';
+                },
+                getSongClass(song) {
+                    const colors = {
+                        'Balonku': 'bg-gradient-to-br from-red-400 to-pink-500 text-white',
+                        'Bintang Kecil': 'bg-gradient-to-br from-yellow-400 to-amber-500 text-white',
+                        'Lihat Kebunku': 'bg-gradient-to-br from-green-400 to-emerald-500 text-white',
+                        'Ampar-Ampar Pisang': 'bg-gradient-to-br from-amber-400 to-yellow-500 text-white'
+                    };
+                    return colors[song.title] || 'bg-gray-400 text-white';
+                },
+                checkLyric(option) {
+                    this.showFeedback = true;
+                    this.isCorrect = option === this.currentSong.answer;
+                    if (this.isCorrect) {
+                        this.score += 10;
+                        this.feedbackText = `🎉 Benar! Lirik lengkapnya adalah "${option}"!`;
+                    } else {
+                        this.feedbackText = `😅 Almost! Coba lagi ya!`;
+                        setTimeout(() => { this.showFeedback = false; }, 1500);
+                    }
+                },
+                nextLyric() {
+                    this.lyricIndex++;
+                    this.showFeedback = false;
+                    if (this.lyricIndex >= this.songs.length) {
+                        this.gameStage = 2;
+                    }
+                },
+                checkSong(song) {
+                    this.showGuessFeedback = true;
+                    this.isGuessCorrect = song.title === this.guessQuestions[this.guessIndex].answer;
+                    if (this.isGuessCorrect) {
+                        this.score += 15;
+                        this.guessFeedbackText = `✅ Benar! Itu adalah lagu "${song.title}"!`;
+                    } else {
+                        this.guessFeedbackText = `💭 Hmm, bukan lagu "${song.title}"`;
+                        setTimeout(() => { this.showGuessFeedback = false; }, 2000);
+                    }
+                },
+                nextGuess() {
+                    this.guessIndex++;
+                    this.showGuessFeedback = false;
+                    if (this.guessIndex >= this.guessQuestions.length) {
+                        this.gameStage = 3;
+                    }
+                },
+                checkTheme(theme) {
+                    this.showThemeFeedback = true;
+                    this.isThemeCorrect = theme === this.themeQuestions[this.themeIndex].answer;
+                    if (this.isThemeCorrect) {
+                        this.score += 20;
+                        this.themeFeedbackText = `✅ Benar! Lagu ini menceritakan tentang ${theme}!`;
+                    } else {
+                        this.themeFeedbackText = `🤔 Hmm, lagu ini bukan tentang ${theme}`;
+                        setTimeout(() => { this.showThemeFeedback = false; }, 2000);
+                    }
+                },
+                nextTheme() {
+                    this.themeIndex++;
+                    this.showThemeFeedback = false;
+                    if (this.themeIndex >= this.themeQuestions.length) {
+                        this.gameStage = 4;
+                    }
+                },
+                restartGame() {
+                    this.score = 0;
+                    this.gameStage = 1;
+                    this.lyricIndex = 0;
+                    this.guessIndex = 0;
+                    this.themeIndex = 0;
+                    this.showFeedback = false;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

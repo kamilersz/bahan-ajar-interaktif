@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Angka 1-10 - TK-B Matematika</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .number-card {
+            transition: all 0.3s ease;
+        }
+
+        .number-card:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .bounce {
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .wiggle {
+            animation: wiggle 0.5s ease-in-out;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        .star {
+            animation: twinkle 1.5s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-yellow-100 via-pink-50 to-blue-100 min-h-screen">
+    <div x-data="{ currentNumber: 0, showHint: false }">
+        <!-- Header -->
+        <header class="bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 text-white py-6 shadow-lg">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-3xl md:text-4xl font-bold mb-2">🔢 Belajar Angka 1-10</h1>
+                <p class="text-lg">Mari mengenal angka bersama, Adik-adik!</p>
+            </div>
+        </header>
+
+        <main class="container mx-auto px-4 py-8">
+            <!-- Introduction -->
+            <section class="bg-white rounded-3xl shadow-xl p-6 mb-8">
+                <div class="text-center mb-6">
+                    <div class="text-6xl mb-4 star">⭐</div>
+                    <h2 class="text-2xl font-bold text-purple-700 mb-3">Halo, Adik-adik! 👋</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Hari ini kita akan belajar mengenal <strong>angka 1 sampai 10</strong>!
+                        Angka sangat penting untuk membantu kita menghitung benda-benda di sekitar kita.
+                        Siap belajar? 🎉
+                    </p>
+                </div>
+            </section>
+
+            <!-- Number Cards Grid -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-center text-purple-700 mb-6">🎯 Kenali Angka-Angka Ini!</h2>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <!-- Number 1 -->
+                    <div @click="currentNumber = 1; showHint = true" class="number-card bg-gradient-to-br from-red-400 to-red-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-7xl font-bold mb-2">1</div>
+                        <div class="text-4xl mb-2">🍎</div>
+                        <p class="text-lg font-semibold">Satu</p>
+                        <p class="text-sm opacity-90">Satu Apel</p>
+                    </div>
+
+                    <!-- Number 2 -->
+                    <div @click="currentNumber = 2; showHint = true" class="number-card bg-gradient-to-br from-orange-400 to-orange-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-7xl font-bold mb-2">2</div>
+                        <div class="text-4xl mb-2">🍊🍊</div>
+                        <p class="text-lg font-semibold">Dua</p>
+                        <p class="text-sm opacity-90">Dua Jeruk</p>
+                    </div>
+
+                    <!-- Number 3 -->
+                    <div @click="currentNumber = 3; showHint = true" class="number-card bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-7xl font-bold mb-2">3</div>
+                        <div class="text-4xl mb-2">🍌🍌🍌</div>
+                        <p class="text-lg font-semibold">Tiga</p>
+                        <p class="text-sm opacity-90">Tiga Pisang</p>
+                    </div>
+
+                    <!-- Number 4 -->
+                    <div @click="currentNumber = 4; showHint = true" class="number-card bg-gradient-to-br from-green-400 to-green-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-7xl font-bold mb-2">4</div>
+                        <div class="text-4xl mb-2">🍇🍇🍇🍇</div>
+                        <p class="text-lg font-semibold">Empat</p>
+                        <p class="text-sm opacity-90">Empat Anggur</p>
+                    </div>
+
+                    <!-- Number 5 -->
+                    <div @click="currentNumber = 5; showHint = true" class="number-card bg-gradient-to-br from-blue-400 to-blue-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-7xl font-bold mb-2">5</div>
+                        <div class="text-4xl mb-2">🫐🫐🫐🫐🫐</div>
+                        <p class="text-lg font-semibold">Lima</p>
+                        <p class="text-sm opacity-90">Lima Buah Berry</p>
+                    </div>
+
+                    <!-- Number 6 -->
+                    <div @click="currentNumber = 6; showHint = true" class="number-card bg-gradient-to-br from-indigo-400 to-indigo-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-7xl font-bold mb-2">6</div>
+                        <div class="text-3xl mb-2">🥚🥚🥚🥚🥚🥚</div>
+                        <p class="text-lg font-semibold">Enam</p>
+                        <p class="text-sm opacity-90">Enam Telur</p>
+                    </div>
+
+                    <!-- Number 7 -->
+                    <div @click="currentNumber = 7; showHint = true" class="number-card bg-gradient-to-br from-purple-400 to-purple-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-7xl font-bold mb-2">7</div>
+                        <div class="text-3xl mb-2">🌈🌈🌈🌈🌈🌈🌈</div>
+                        <p class="text-lg font-semibold">Tujuh</p>
+                        <p class="text-sm opacity-90">Tujuh Pelangi</p>
+                    </div>
+
+                    <!-- Number 8 -->
+                    <div @click="currentNumber = 8; showHint = true" class="number-card bg-gradient-to-br from-pink-400 to-pink-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-7xl font-bold mb-2">8</div>
+                        <div class="text-3xl mb-2">⭐⭐⭐⭐⭐⭐⭐⭐</div>
+                        <p class="text-lg font-semibold">Delapan</p>
+                        <p class="text-sm opacity-90">Delapan Bintang</p>
+                    </div>
+
+                    <!-- Number 9 -->
+                    <div @click="currentNumber = 9; showHint = true" class="number-card bg-gradient-to-br from-rose-400 to-rose-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-7xl font-bold mb-2">9</div>
+                        <div class="text-3xl mb-2">🎈🎈🎈🎈🎈🎈🎈🎈🎈</div>
+                        <p class="text-lg font-semibold">Sembilan</p>
+                        <p class="text-sm opacity-90">Sembilan Balon</p>
+                    </div>
+
+                    <!-- Number 10 -->
+                    <div @click="currentNumber = 10; showHint = true" class="number-card bg-gradient-to-br from-teal-400 to-teal-500 rounded-3xl p-6 text-center text-white shadow-lg cursor-pointer">
+                        <div class="text-7xl font-bold mb-2">10</div>
+                        <div class="text-3xl mb-2">🎁🎁🎁🎁🎁🎁🎁🎁🎁🎁</div>
+                        <p class="text-lg font-semibold">Sepuluh</p>
+                        <p class="text-sm opacity-90">Sepuluh Hadiah</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detail Section (shows when clicking a number) -->
+            <div x-show="showHint" x-transition class="bg-white rounded-3xl shadow-xl p-8 mb-8">
+                <h3 class="text-2xl font-bold text-purple-700 mb-4 text-center">
+                    <span x-show="currentNumber === 1">🍎 Angka 1 - Satu</span>
+                    <span x-show="currentNumber === 2">🍊 Angka 2 - Dua</span>
+                    <span x-show="currentNumber === 3">🍌 Angka 3 - Tiga</span>
+                    <span x-show="currentNumber === 4">🍇 Angka 4 - Empat</span>
+                    <span x-show="currentNumber === 5">🫐 Angka 5 - Lima</span>
+                    <span x-show="currentNumber === 6">🥚 Angka 6 - Enam</span>
+                    <span x-show="currentNumber === 7">🌈 Angka 7 - Tujuh</span>
+                    <span x-show="currentNumber === 8">⭐ Angka 8 - Delapan</span>
+                    <span x-show="currentNumber === 9">🎈 Angka 9 - Sembilan</span>
+                    <span x-show="currentNumber === 10">🎁 Angka 10 - Sepuluh</span>
+                </h3>
+                <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6">
+                    <p class="text-lg text-gray-700 text-center leading-relaxed">
+                        <span x-show="currentNumber === 1">Angka <strong>1</strong> dibaca <strong>Satu</strong>. Contoh: satu ayam, satu meja, satu buku.</span>
+                        <span x-show="currentNumber === 2">Angka <strong>2</strong> dibaca <strong>Dua</strong>. Contoh: dua kucing, dua mata, dua tangan.</span>
+                        <span x-show="currentNumber === 3">Angka <strong>3</strong> dibaca <strong>Tiga</strong>. Contoh:tiga mobil, tiga kursi, tiga pensil.</span>
+                        <span x-show="currentNumber === 4">Angka <strong>4</strong> dibaca <strong>Empat</strong>. Contoh: empat sepeda, empat piring, empat sendok.</span>
+                        <span x-show="currentNumber === 5">Angka <strong>5</strong> dibaca <strong>Lima</strong>. Contoh: lima jari, lima bunga, lima bebek.</span>
+                        <span x-show="currentNumber === 6">Angka <strong>6</strong> dibaca <strong>Enam</strong>. Contoh: enam ikan, enam pensil, enam buku.</span>
+                        <span x-show="currentNumber === 7">Angka <strong>7</strong> dibaca <strong>Tujuh</strong>. Contoh: tujuh hari, tujuh warna, tujuh balon.</span>
+                        <span x-show="currentNumber === 8">Angka <strong>8</strong> dibaca <strong>Delapan</strong>. Contoh: delapan kaki laba-laba, delapan jam, delapan bintang.</span>
+                        <span x-show="currentNumber === 9">Angka <strong>9</strong> dibaca <strong>Sembilan</strong>. Contoh: sembilan planet, sembilan kue, sembilan boneka.</span>
+                        <span x-show="currentNumber === 10">Angka <strong>10</strong> dibaca <strong>Sepuluh</strong>. Contoh: sepuluh jari (tangan dan kaki), sepuluh angka, sepuluh kelereng.</span>
+                    </p>
+                </div>
+                <button @click="showHint = false" class="mt-4 mx-auto block bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-6 rounded-full transition">
+                    Tutup
+                </button>
+            </div>
+
+            <!-- Tips Section -->
+            <section class="bg-gradient-to-r from-yellow-200 to-orange-200 rounded-3xl shadow-xl p-6 mb-8">
+                <h2 class="text-2xl font-bold text-orange-700 mb-4 text-center">💡 Tips Belajar Angka!</h2>
+                <ul class="text-lg text-gray-700 space-y-3">
+                    <li class="flex items-start">
+                        <span class="text-2xl mr-3">1️⃣</span>
+                        <span>Hitung benda-benda di sekitar rumah: mainan, buku, sendok, dan lainnya!</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-2xl mr-3">2️⃣</span>
+                        <span>Tulis angka di kertas atau di udara dengan jari!</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-2xl mr-3">3️⃣</span>
+                        <span>Bernyanyi lagu angka bersama teman-teman!</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-2xl mr-3">4️⃣</span>
+                        <span>Gunakan jari tangan untuk menunjukkan angka 1-10!</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Navigation Button -->
+            <div class="text-center">
+                <a href="latihan.html" class="inline-block bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition">
+                    🎮 Lanjut ke Latihan!
+                </a>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-purple-600 text-white py-6 mt-8">
+            <div class="container mx-auto px-4 text-center">
+                <p class="text-lg">© 2025 Bahan Ajar Interaktif - TK-B Matematika</p>
+                <p class="text-sm opacity-75 mt-2">Belajar dengan Gembira! 🌟</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn Fruits - TK-B English</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+    body {
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .fruit-card {
+      transition: all .3s ease;
+    }
+
+    .fruit-card:hover {
+      transform: scale(1.1) rotate(-3deg);
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-red-100 via-yellow-50 to-orange-100 min-h-screen">
+  <div x-data="{ 
+    selectedFruit: null,
+    fruits: [
+      { id: 'apple', name: 'Apple', emoji: '🍎', color: 'Red', fact: 'Apples are crunchy and come in many colors!' },
+      { id: 'banana', name: 'Banana', emoji: '🍌', color: 'Yellow', fact: 'Bananas give you lots of energy for playing!' },
+      { id: 'orange', name: 'Orange', emoji: '🍊', color: 'Orange', fact: 'Oranges are full of Vitamin C to keep you healthy!' },
+      { id: 'grape', name: 'Grape', emoji: '🍇', color: 'Purple', fact: 'Grapes grow in bunches and can be sweet or sour!' },
+      { id: 'watermelon', name: 'Watermelon', emoji: '🍉', color: 'Green', fact: 'Watermelons are very juicy and great for summer!' },
+      { id: 'strawberry', name: 'Strawberry', emoji: '🍓', color: 'Red', fact: 'Strawberries have tiny seeds on the outside!' },
+      { id: 'mango', name: 'Mango', emoji: '🥭', color: 'Yellow', fact: 'Mangos are very sweet and have a big seed inside!' },
+      { id: 'pineapple', name: 'Pineapple', emoji: '🍍', color: 'Yellow', fact: 'Pineapples are prickly on the outside but sweet inside!' }
+    ]
+  }">
+    <header class="bg-gradient-to-r from-red-500 via-orange-400 to-yellow-400 text-white py-6 shadow-lg text-center">
+      <div class="container mx-auto px-4">
+        <h1 class="text-3xl md:text-4xl font-bold mb-2">🍎 Learn Fruits</h1>
+        <p class="text-lg text-white/90">Fruits are yummy and good for you!</p>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+      <!-- Intro Card -->
+      <section class="bg-white rounded-3xl shadow-xl p-6 mb-8">
+        <div class="text-center">
+          <div class="text-6xl mb-4 text-red-500">🍓</div>
+          <h2 class="text-2xl font-bold text-red-700 mb-3">Why Eat Fruits?</h2>
+          <p class="text-lg text-gray-700">Fruits help us grow strong and healthy. They are nature's candy — sweet and delicious!</p>
+        </div>
+      </section>
+
+      <!-- Selection Grid -->
+      <section class="bg-white/50 backdrop-blur-sm rounded-3xl shadow-xl p-6 mb-8">
+        <h2 class="text-2xl font-bold text-center text-orange-700 mb-6 font-primary">🍒 Choose a Fruit!</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          <template x-for="fruit in fruits" :key="fruit.id">
+            <button @click="selectedFruit = fruit" 
+              class="fruit-card bg-white hover:bg-orange-50 p-4 rounded-2xl shadow-md border-2 border-transparent hover:border-orange-300 transition-all flex flex-col items-center">
+              <span class="text-5xl mb-2" x-text="fruit.emoji"></span>
+              <span class="font-bold text-orange-800 text-lg" x-text="fruit.name"></span>
+            </button>
+          </template>
+        </div>
+      </section>
+
+      <!-- Detail View -->
+      <div x-show="selectedFruit" x-transition.scale.origin.bottom 
+           class="bg-white rounded-3xl shadow-2xl p-8 mb-8 border-4 border-red-100">
+        <div class="flex flex-col items-center text-center">
+          <h3 class="text-4xl font-extrabold text-red-600 mb-2" x-text="selectedFruit.name"></h3>
+          <div class="text-9xl mb-6 animate-pulse" x-text="selectedFruit.emoji"></div>
+          
+          <div class="bg-yellow-50 rounded-2xl p-6 w-full max-w-md shadow-inner">
+            <p class="text-xl text-orange-800 mb-2 font-bold">
+              Color: <span class="text-red-600 font-normal" x-text="selectedFruit.color"></span>
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed italic" x-text="selectedFruit.fact"></p>
+          </div>
+          
+          <button @click="selectedFruit = null" 
+            class="mt-8 bg-red-100 hover:bg-red-200 text-red-700 font-bold py-3 px-12 rounded-full text-lg transition shadow-md border-2 border-red-200">
+            Back to List 🔙
+          </button>
+        </div>
+      </div>
+
+      <!-- Tips Section -->
+      <section class="bg-gradient-to-r from-green-100 to-yellow-100 rounded-3xl shadow-xl p-6 mb-8 border-l-8 border-green-400">
+        <h2 class="text-2xl font-bold text-green-700 mb-4 flex items-center">
+          <span class="mr-2">💡</span> Health Tips!
+        </h2>
+        <ul class="text-lg text-gray-700 space-y-4">
+          <li class="flex items-center">
+            <span class="bg-white p-2 rounded-full mr-3 shadow-sm">💧</span>
+            <span>Always wash your fruit with water!</span>
+          </li>
+          <li class="flex items-center">
+            <span class="bg-white p-2 rounded-full mr-3 shadow-sm">🍐</span>
+            <span>Eat a different fruit every day!</span>
+          </li>
+          <li class="flex items-center">
+            <span class="bg-white p-2 rounded-full mr-3 shadow-sm">🥗</span>
+            <span>Share your fruit salad with friends!</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Action Button -->
+      <div class="text-center">
+        <a href="latihan.html" 
+           class="inline-block bg-gradient-to-r from-red-500 to-orange-600 text-white font-bold py-4 px-12 rounded-full text-xl shadow-lg transform hover:scale-105 transition hover:shadow-2xl">
+          🎮 Play Fruit Games!
+        </a>
+      </div>
+    </main>
+
+    <footer class="bg-red-600 text-white py-10 mt-12">
+      <div class="container mx-auto px-4 text-center">
+        <p class="text-xl font-bold mb-2">Eat Fruits, Grow Strong! 💪</p>
+        <p class="text-sm opacity-80">© 2025 Interactive Learning - Fruits Module</p>
+      </div>
+    </footer>
+  </div>
+</body>
+
+</html>

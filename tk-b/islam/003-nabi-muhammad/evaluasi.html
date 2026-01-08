@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nabi Muhammad - Evaluasi | Islam TK-B</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap');
+        body { font-family: 'Nunito', sans-serif; }
+        .font-comic { font-family: 'Comic Neue', cursive; }
+        .option-card:hover { transform: scale(1.02); }
+        .option-card { transition: all 0.3s ease; }
+        .selected-option { border-color: #10b981 !important; background: linear-gradient(to bottom right, #d1fae5, #a7f3d0); }
+        .correct-answer { border-color: #22c55e !important; background: linear-gradient(to bottom right, #dcfce7, #bbf7d0); }
+        .wrong-answer { border-color: #ef4444 !important; background: linear-gradient(to bottom right, #fee2e2, #fecaca); }
+        .bounce-in { animation: bounceIn 0.5s ease; }
+        @keyframes bounceIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-emerald-100 via-teal-100 to-green-100 min-h-screen" x-data="evaluasiNabiMuhammad()">
+    <header class="bg-gradient-to-r from-emerald-500 via-teal-500 to-green-500 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <a href="teori.html" class="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full hover:bg-white/30 transition">
+                    <span>⬅️</span><span class="font-bold">Kembali</span>
+                </a>
+                <h1 class="text-xl md:text-2xl font-extrabold text-center">Evaluasi Nabi Muhammad</h1>
+                <div class="bg-white/20 px-4 py-2 rounded-full font-bold"><span x-text="currentQuestion"></span>/<span x-text="questions.length"></span></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-6" x-show="!quizStarted && !quizFinished">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 border-4 border-emerald-300 max-w-2xl mx-auto text-center">
+            <div class="text-6xl mb-4">📝</div>
+            <h2 class="text-3xl font-bold text-gray-800 mb-4 font-comic">Waktu Evaluasi!</h2>
+            <p class="text-lg text-gray-700 mb-6">Assalamu'alaikum, adik-adik! Sekarang saatnya mengukur pemahaman tentang Nabi Muhammad SAW. Kerjakan dengan baik, ya! 💪</p>
+            <div class="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl p-4 mb-6 text-left">
+                <h3 class="font-bold text-lg mb-2">📌 Ketentuan:</h3>
+                <ul class="space-y-1 text-gray-700"><li>• Ada <strong>10 soal</strong> pilihan ganda</li><li>• Pilih satu jawaban yang paling tepat</li><li>• Tekan tombol "Kirim Jawaban" setelah selesai</li><li>• Hasil dan kunci jawaban akan muncul setelah submit</li></ul>
+            </div>
+            <button @click="startQuiz()" class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl hover:scale-105 transition">Mulai Evaluasi 🚀</button>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-6" x-show="quizStarted && !quizFinished">
+        <div class="bg-white rounded-full h-4 shadow-lg overflow-hidden mb-4"><div class="h-full bg-gradient-to-r from-emerald-400 to-teal-500 transition-all duration-500" :style="'width: ' + ((currentQuestion / questions.length) * 100) + '%'"></div></div>
+        <div class="bg-white rounded-3xl shadow-2xl p-6 border-4 border-emerald-300 mb-6 bounce-in">
+            <div class="flex items-center gap-3 mb-4"><span class="text-3xl">❓</span><h2 class="text-xl md:text-2xl font-bold text-gray-800">Soal <span x-text="currentQuestion"></span></h2></div>
+            <p class="text-lg text-gray-700 leading-relaxed" x-text="questions[currentQuestion - 1].question"></p>
+        </div>
+        <div class="grid grid-cols-1 gap-3 mb-6">
+            <template x-for="(option, index) in questions[currentQuestion - 1].options" :key="index">
+                <div @click="selectAnswer(index)" :class="{'selected-option': answers[currentQuestion - 1] === index, 'option-card cursor-pointer border-4 border-emerald-200 hover:border-emerald-400': true}" class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl shadow-lg p-4">
+                    <div class="flex items-center gap-3"><span class="flex items-center justify-center w-8 h-8 rounded-full bg-emerald-500 text-white font-bold text-sm" x-text="String.fromCharCode(65 + index)"></span><span class="text-lg" x-text="option"></span></div>
+                </div>
+            </template>
+        </div>
+        <div class="flex justify-between">
+            <button @click="prevQuestion()" :disabled="currentQuestion === 1" :class="currentQuestion === 1 ? 'opacity-50 cursor-not-allowed' : ''" class="bg-gradient-to-r from-gray-500 to-gray-600 text-white px-6 py-3 rounded-xl font-bold hover:shadow-lg transition">⬅️ Sebelumnya</button>
+            <button @click="nextQuestion()" x-show="currentQuestion < questions.length" class="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-6 py-3 rounded-xl font-bold hover:shadow-lg transition">Selanjutnya ➡️</button>
+            <button @click="submitQuiz()" x-show="currentQuestion === questions.length" class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-3 rounded-xl font-bold text-lg hover:shadow-lg transition">Kirim Jawaban ✅</button>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-6" x-show="quizFinished">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 border-4 border-emerald-300 max-w-4xl mx-auto">
+            <div class="text-center mb-8">
+                <div class="text-7xl mb-4" x-text="score >= 70 ? '🏆' : score >= 50 ? '⭐' : '💪'"></div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-2 font-comic"><span x-text="score >= 70 ? 'Alhamdulillah!' : score >= 50 ? 'Bagus Sekali!' : 'Terus Berlatih!'"></span></h2>
+                <p class="text-xl text-gray-600 mb-4">Adik-adik sudah menyelesaikan evaluasi!</p>
+                <div class="bg-gradient-to-r from-emerald-100 to-teal-100 rounded-2xl p-6 max-w-md mx-auto">
+                    <p class="text-lg text-gray-700 mb-2">Skor Adik:</p><p class="text-5xl font-bold text-emerald-600" x-text="score + ' / 100'"></p>
+                    <p class="text-lg mt-2"><span x-text="correctAnswers + ' benar'"></span> | <span x-text="(questions.length - correctAnswers) + ' salah'"></span></p>
+                </div>
+            </div>
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 text-center">📋 Kunci Jawaban</h3>
+                <div class="space-y-3">
+                    <template x-for="(q, index) in questions" :key="index">
+                        <div class="rounded-xl p-4 border-2" :class="answers[index] === q.correctIndex ? 'bg-green-50 border-green-300' : 'bg-red-50 border-red-300'">
+                            <div class="flex items-start gap-3">
+                                <span class="flex items-center justify-center w-8 h-8 rounded-full flex-shrink-0" :class="answers[index] === q.correctIndex ? 'bg-green-500 text-white' : 'bg-red-500 text-white'" x-text="index + 1"></span>
+                                <div class="flex-1"><p class="font-bold text-gray-800 mb-2" x-text="q.question"></p><div class="grid grid-cols-1 md:grid-cols-2 gap-2"><template x-for="(opt, optIndex) in q.options" :key="optIndex"><div class="text-sm p-2 rounded-lg" :class="{'bg-green-200 font-bold': optIndex === q.correctIndex, 'bg-red-200 line-through': optIndex === answers[index] && optIndex !== q.correctIndex, 'opacity-50': optIndex !== q.correctIndex && optIndex !== answers[index]}"><span x-text="String.fromCharCode(65 + optIndex)"></span>. <span x-text="opt"></span></div></template></div></div>
+                                <span class="text-2xl" x-text="answers[index] === q.correctIndex ? '✅' : '❌'"></span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row justify-center gap-3">
+                <a href="teori.html" class="bg-gradient-to-r from-green-500 to-emerald-500 text-white py-3 px-6 rounded-xl font-bold text-lg hover:shadow-xl transition text-center">📖 Pelajari Lagi</a>
+                <a href="rangkuman.html" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 px-6 rounded-xl font-bold text-lg hover:shadow-xl transition text-center">📚 Baca Rangkuman</a>
+                <button @click="resetQuiz()" class="bg-gradient-to-r from-emerald-500 to-teal-500 text-white py-3 px-6 rounded-xl font-bold text-lg hover:shadow-xl transition">🔄 Ulangi Evaluasi</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-4 mt-8"><div class="container mx-auto px-4 text-center"><p class="font-semibold">© 2025 Bahan Ajar Interaktif - TK-B Islam</p></div></footer>
+
+    <script>
+        function evaluasiNabiMuhammad() {
+            return {
+                quizStarted: false, quizFinished: false, currentQuestion: 1, score: 0, correctAnswers: 0,
+                answers: [null, null, null, null, null, null, null, null, null, null],
+                questions: [
+                    { question: "Nabi Muhammad SAW lahir di kota...", options: ["Madinah", "Mekah", "Yerusalem", "Mesir"], correctIndex: 1 },
+                    { question: "Siapakah istri pertama Nabi Muhammad SAW?", options: ["Aisyah", "Khadijah", "Fatimah", "Hafsah"], correctIndex: 1 },
+                    { question: "Nabi Muhammad SAW menerima wahyu pertama di gua...", options: ["Tsur", "Hira", "Nur", "Safa"], correctIndex: 1 },
+                    { question: "Malaikat yang membawa wahyu adalah...", options: ["Mikail", "Israfil", "Jibril", "Izrail"], correctIndex: 2 },
+                    { question: "Nabi Muhammad SAW dijuluki...", options: ["Al-Amin", "Al-Karim", "Ar-Rahman", "Al-Aziz"], correctIndex: 0 },
+                    { question: "Usia Nabi Muhammad SAW saat hijrah adalah...", options: ["40 tahun", "53 tahun", "63 tahun", "35 tahun"], correctIndex: 1 },
+                    { question: "Kitab suci Nabi Muhammad SAW adalah...", options: ["Zabur", "Taurat", "Injil", "Al-Quran"], correctIndex: 3 },
+                    { question: "Nabi Muhammad SAW wafat pada usia...", options: ["60 tahun", "63 tahun", "65 tahun", "70 tahun"], correctIndex: 1 },
+                    { question: "Sahabat terdekat Nabi adalah...", options: ["Abu Bakar", "Umar", "Utsman", "Ali"], correctIndex: 0 },
+                    { question: "Perilaku teladan Nabi Muhammad SAW adalah...", options: ["Suka marah", "Jujur dan sabar", "Suka berbohong", "Sombong"], correctIndex: 1 }
+                ],
+                startQuiz() { this.quizStarted = true; },
+                selectAnswer(index) { this.answers[this.currentQuestion - 1] = index; },
+                prevQuestion() { if (this.currentQuestion > 1) this.currentQuestion--; },
+                nextQuestion() { if (this.currentQuestion < this.questions.length) this.currentQuestion++; },
+                submitQuiz() {
+                    this.score = 0; this.correctAnswers = 0;
+                    for (let i = 0; i < this.questions.length; i++) { if (this.answers[i] === this.questions[i].correctIndex) { this.correctAnswers++; this.score += 10; } }
+                    this.quizFinished = true;
+                },
+                resetQuiz() { this.quizStarted = false; this.quizFinished = false; this.currentQuestion = 1; this.score = 0; this.correctAnswers = 0; this.answers = [null, null, null, null, null, null, null, null, null, null]; }
+            }
+        }
+    </script>
+</body>
+</html>
