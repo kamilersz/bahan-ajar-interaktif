@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bahan Ajar Interaktif - Homepage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Comic Neue', cursive; }
+        .title-font { font-family: 'Fredoka One', cursive; }
+        .wiggle { animation: wiggle 2s ease-in-out infinite; }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+        .float { animation: float 3s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        .bounce-hover:hover { animation: bounce 0.5s ease; }
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 107, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(255, 107, 107, 0.6); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 min-h-screen">
+    <!-- Hero Section -->
+    <header class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white py-16 shadow-2xl">
+        <div class="container mx-auto px-4 text-center">
+            <div class="text-8xl mb-6 float">📚</div>
+            <h1 class="title-font text-5xl md:text-7xl mb-4 wiggle inline-block">Bahan Ajar Interaktif</h1>
+            <p class="text-2xl md:text-3xl mb-6 gradient-text title-font">Sistem Pembelajaran Digital</p>
+            <p class="text-xl max-w-3xl mx-auto leading-relaxed">
+                Selamat datang di platform pembelajaran interaktif untuk <strong>PAUD</strong>,
+                <strong>TK-A</strong>, <strong>TK-B</strong>, <strong>SD</strong>, <strong>SMP</strong>,
+                <strong>SMA</strong>, hingga <strong>SMK</strong>!
+                Belajar jadi lebih seru dan menyenangkan! 🎉
+            </p>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="container mx-auto px-4 py-12 max-w-6xl">
+        <div class="bg-white rounded-3xl shadow-xl p-8 mb-12 border-4 border-purple-300">
+            <h2 class="title-font text-4xl text-center text-purple-600 mb-8">✨ Fitur Pembelajaran ✨</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="text-center p-6 bg-gradient-to-br from-red-50 to-pink-50 rounded-2xl">
+                    <div class="text-6xl mb-4">📖</div>
+                    <h3 class="title-font text-2xl text-pink-600 mb-2">Teori</h3>
+                    <p class="text-gray-700">Materi pembelajaran lengkap dan mudah dipahami</p>
+                </div>
+                <div class="text-center p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl">
+                    <div class="text-6xl mb-4">🎮</div>
+                    <h3 class="title-font text-2xl text-green-600 mb-2">Latihan</h3>
+                    <p class="text-gray-700">Interactive exercises dengan feedback langsung</p>
+                </div>
+                <div class="text-center p-6 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl">
+                    <div class="text-6xl mb-4">📝</div>
+                    <h3 class="title-font text-2xl text-blue-600 mb-2">Evaluasi</h3>
+                    <p class="text-gray-700">Kuis untuk mengukur pemahaman</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Jenjang Pendidikan -->
+        <h2 class="title-font text-5xl text-center text-indigo-600 mb-8">🎓 Pilih Jenjang Pendidikan 🎓</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            <!-- PAUD -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-pink-300 pulse-glow">
+                <div class="bg-gradient-to-r from-pink-400 to-rose-500 p-8 text-center">
+                    <div class="text-8xl mb-4">👶</div>
+                    <h3 class="title-font text-4xl text-white">PAUD</h3>
+                    <p class="text-xl text-pink-100 mt-2">Usia 3-4 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Pendidikan Anak Usia Dini dengan metode bermain sambil belajar</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm">Bermain</span>
+                        <span class="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm">Motorik</span>
+                        <span class="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm">Sosialisasi</span>
+                    </div>
+                    <a href="paud/" class="block w-full bg-gradient-to-r from-pink-400 to-pink-600 text-white text-center py-3 rounded-xl title-font text-lg hover:from-pink-500 hover:to-pink-700 transition-all">
+                        🚀 Masuk ke PAUD
+                    </a>
+                </div>
+            </div>
+
+            <!-- TK-A -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-orange-300">
+                <div class="bg-gradient-to-r from-orange-400 to-amber-500 p-8 text-center">
+                    <div class="text-8xl mb-4">🧒</div>
+                    <h3 class="title-font text-4xl text-white">TK-A</h3>
+                    <p class="text-xl text-orange-100 mt-2">Usia 4-5 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Taman Kanak-kanak Kelas A untuk persiapan dasar</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm">Membaca</span>
+                        <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm">Berhitung</span>
+                        <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm">Kreativitas</span>
+                    </div>
+                    <a href="tk-a/" class="block w-full bg-gradient-to-r from-orange-400 to-orange-600 text-white text-center py-3 rounded-xl title-font text-lg hover:from-orange-500 hover:to-orange-700 transition-all">
+                        🚀 Masuk ke TK-A
+                    </a>
+                </div>
+            </div>
+
+            <!-- TK-B -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-purple-300">
+                <div class="bg-gradient-to-r from-purple-400 to-violet-500 p-8 text-center">
+                    <div class="text-8xl mb-4">👧</div>
+                    <h3 class="title-font text-4xl text-white">TK-B</h3>
+                    <p class="text-xl text-purple-100 mt-2">Usia 5-6 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Taman Kanak-kanak Kelas B untuk persiapan ke SD</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">Seni</span>
+                        <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">Musik</span>
+                        <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">Karakter</span>
+                    </div>
+                    <a href="tk-b/" class="block w-full bg-gradient-to-r from-purple-400 to-purple-600 text-white text-center py-3 rounded-xl title-font text-lg hover:from-purple-500 hover:to-purple-700 transition-all">
+                        🚀 Masuk ke TK-B
+                    </a>
+                </div>
+            </div>
+
+            <!-- SD Kelas 1 -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-blue-300">
+                <div class="bg-gradient-to-r from-blue-400 to-cyan-500 p-8 text-center">
+                    <div class="text-8xl mb-4">🎒</div>
+                    <h3 class="title-font text-4xl text-white">SD Kelas 1</h3>
+                    <p class="text-xl text-blue-100 mt-2">Usia 6-7 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Sekolah Dasar kelas 1 untuk permulaan formal</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">Matematika</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">B. Indonesia</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">IPA</span>
+                    </div>
+                    <a href="sd-1/" class="block w-full bg-gradient-to-r from-blue-400 to-blue-600 text-white text-center py-3 rounded-xl title-font text-lg hover:from-blue-500 hover:to-blue-700 transition-all">
+                        🚀 Masuk ke SD-1
+                    </a>
+                </div>
+            </div>
+
+            <!-- SD Kelas 2 -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-teal-300">
+                <div class="bg-gradient-to-r from-teal-400 to-emerald-500 p-8 text-center">
+                    <div class="text-8xl mb-4">📚</div>
+                    <h3 class="title-font text-4xl text-white">SD Kelas 2</h3>
+                    <p class="text-xl text-teal-100 mt-2">Usia 7-8 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Sekolah Dasar kelas 2 untuk pengembangan</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">Matematika</span>
+                        <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">B. Indonesia</span>
+                        <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">IPS</span>
+                    </div>
+                    <a href="sd-2/" class="block w-full bg-gradient-to-r from-teal-400 to-teal-600 text-white text-center py-3 rounded-xl title-font text-lg hover:from-teal-500 hover:to-teal-700 transition-all">
+                        🚀 Masuk ke SD-2
+                    </a>
+                </div>
+            </div>
+
+            <!-- SD Kelas 3 -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-indigo-300">
+                <div class="bg-gradient-to-r from-indigo-400 to-violet-500 p-8 text-center">
+                    <div class="text-8xl mb-4">✏️</div>
+                    <h3 class="title-font text-4xl text-white">SD Kelas 3</h3>
+                    <p class="text-xl text-indigo-100 mt-2">Usia 8-9 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Sekolah Dasar kelas 3 untuk penguasaan dasar</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">Matematika</span>
+                        <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">B. Inggris</span>
+                        <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">IPAS</span>
+                    </div>
+                    <a href="sd-3/" class="block w-full bg-gradient-to-r from-indigo-400 to-indigo-600 text-white text-center py-3 rounded-xl title-font text-lg hover:from-indigo-500 hover:to-indigo-700 transition-all">
+                        🚀 Masuk ke SD-3
+                    </a>
+                </div>
+            </div>
+
+            <!-- SD Kelas 4 -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-sky-300">
+                <div class="bg-gradient-to-r from-sky-400 to-blue-500 p-8 text-center">
+                    <div class="text-8xl mb-4">📖</div>
+                    <h3 class="title-font text-4xl text-white">SD Kelas 4</h3>
+                    <p class="text-xl text-sky-100 mt-2">Usia 9-10 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Sekolah Dasar kelas 4 untuk pengembangan kemampuan</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-sky-100 text-sky-700 rounded-full text-sm">Matematika</span>
+                        <span class="px-3 py-1 bg-sky-100 text-sky-700 rounded-full text-sm">IPAS</span>
+                        <span class="px-3 py-1 bg-sky-100 text-sky-700 rounded-full text-sm">B. Inggris</span>
+                    </div>
+                    <a href="sd-4/" class="block w-full bg-gradient-to-r from-sky-400 to-sky-600 text-white text-center py-3 rounded-xl title-font text-lg hover:from-sky-500 hover:to-sky-700 transition-all">
+                        🚀 Masuk ke SD-4
+                    </a>
+                </div>
+            </div>
+
+            <!-- SD Kelas 5 -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-cyan-300">
+                <div class="bg-gradient-to-r from-cyan-400 to-teal-500 p-8 text-center">
+                    <div class="text-8xl mb-4">🎯</div>
+                    <h3 class="title-font text-4xl text-white">SD Kelas 5</h3>
+                    <p class="text-xl text-cyan-100 mt-2">Usia 10-11 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Sekolah Dasar kelas 5 untuk penguasaan konsep</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-sm">Matematika</span>
+                        <span class="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-sm">IPAS</span>
+                        <span class="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-sm">IPS</span>
+                    </div>
+                    <a href="sd-5/" class="block w-full bg-gradient-to-r from-cyan-400 to-cyan-600 text-white text-center py-3 rounded-xl title-font text-lg hover:from-cyan-500 hover:to-cyan-700 transition-all">
+                        🚀 Masuk ke SD-5
+                    </a>
+                </div>
+            </div>
+
+            <!-- SD Kelas 6 -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-blue-300">
+                <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-8 text-center">
+                    <div class="text-8xl mb-4">🎓</div>
+                    <h3 class="title-font text-4xl text-white">SD Kelas 6</h3>
+                    <p class="text-xl text-blue-100 mt-2">Usia 11-12 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Sekolah Dasar kelas 6 untuk persiapan SMP</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">Matematika</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">IPAS</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">PPKn</span>
+                    </div>
+                    <a href="sd-6/" class="block w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white text-center py-3 rounded-xl title-font text-lg hover:from-blue-600 hover:to-blue-800 transition-all">
+                        🚀 Masuk ke SD-6
+                    </a>
+                </div>
+            </div>
+
+            <!-- SMP Kelas 1 -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-green-300">
+                <div class="bg-gradient-to-r from-green-400 to-emerald-500 p-8 text-center">
+                    <div class="text-8xl mb-4">🔬</div>
+                    <h3 class="title-font text-4xl text-white">SMP Kelas 1</h3>
+                    <p class="text-xl text-green-100 mt-2">Usia 12-13 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Sekolah Menengah Pertama kelas 1 untuk transisi</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">Matematika</span>
+                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">IPA</span>
+                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">B. Inggris</span>
+                    </div>
+                    <a href="smp-1/" class="block w-full bg-gradient-to-r from-green-400 to-green-600 text-white text-center py-3 rounded-xl title-font text-lg hover:from-green-500 hover:to-green-700 transition-all">
+                        🚀 Masuk ke SMP-1
+                    </a>
+                </div>
+            </div>
+
+            <!-- SMP Kelas 2 -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-teal-300">
+                <div class="bg-gradient-to-r from-teal-400 to-cyan-500 p-8 text-center">
+                    <div class="text-8xl mb-4">🧪</div>
+                    <h3 class="title-font text-4xl text-white">SMP Kelas 2</h3>
+                    <p class="text-xl text-teal-100 mt-2">Usia 13-14 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Sekolah Menengah Pertama kelas 2 untuk pengembangan</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">Fisika</span>
+                        <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">Biologi</span>
+                        <span class="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm">Kimia</span>
+                    </div>
+                    <a href="smp-2/" class="block w-full bg-gradient-to-r from-teal-400 to-teal-600 text-white text-center py-3 rounded-xl title-font text-lg hover:from-teal-500 hover:to-teal-700 transition-all">
+                        🚀 Masuk ke SMP-2
+                    </a>
+                </div>
+            </div>
+
+            <!-- SMP Kelas 3 -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-emerald-300">
+                <div class="bg-gradient-to-r from-emerald-400 to-green-500 p-8 text-center">
+                    <div class="text-8xl mb-4">📚</div>
+                    <h3 class="title-font text-4xl text-white">SMP Kelas 3</h3>
+                    <p class="text-xl text-emerald-100 mt-2">Usia 14-15 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Sekolah Menengah Pertama kelas 3 untuk persiapan SMA</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm">Matematika</span>
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm">IPA</span>
+                        <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm">Bahasa</span>
+                    </div>
+                    <a href="smp-3/" class="block w-full bg-gradient-to-r from-emerald-400 to-emerald-600 text-white text-center py-3 rounded-xl title-font text-lg hover:from-emerald-500 hover:to-emerald-700 transition-all">
+                        🚀 Masuk ke SMP-3
+                    </a>
+                </div>
+            </div>
+
+            <!-- SMA Kelas 1 -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-orange-300">
+                <div class="bg-gradient-to-r from-orange-400 to-amber-500 p-8 text-center">
+                    <div class="text-8xl mb-4">🎓</div>
+                    <h3 class="title-font text-4xl text-white">SMA Kelas 1</h3>
+                    <p class="text-xl text-orange-100 mt-2">Usia 15-16 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Sekolah Menengah Atas kelas 1 untuk pendalaman</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm">Matematika</span>
+                        <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm">Fisika</span>
+                        <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm">Kimia</span>
+                    </div>
+                    <a href="sma-1/" class="block w-full bg-gradient-to-r from-orange-400 to-orange-600 text-white text-center py-3 rounded-xl title-font text-lg hover:from-orange-500 hover:to-orange-700 transition-all">
+                        🚀 Masuk ke SMA-1
+                    </a>
+                </div>
+            </div>
+
+            <!-- SMA Kelas 2 -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-amber-300">
+                <div class="bg-gradient-to-r from-amber-400 to-yellow-500 p-8 text-center">
+                    <div class="text-8xl mb-4">📐</div>
+                    <h3 class="title-font text-4xl text-white">SMA Kelas 2</h3>
+                    <p class="text-xl text-amber-100 mt-2">Usia 16-17 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Sekolah Menengah Atas kelas 2 untuk spesialisasi</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm">Biologi</span>
+                        <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm">Ekonomi</span>
+                        <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm">Sejarah</span>
+                    </div>
+                    <a href="sma-2/" class="block w-full bg-gradient-to-r from-amber-400 to-amber-600 text-white text-center py-3 rounded-xl title-font text-lg hover:from-amber-500 hover:to-amber-700 transition-all">
+                        🚀 Masuk ke SMA-2
+                    </a>
+                </div>
+            </div>
+
+            <!-- SMA Kelas 3 -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-yellow-300">
+                <div class="bg-gradient-to-r from-yellow-400 to-orange-500 p-8 text-center">
+                    <div class="text-8xl mb-4">🏆</div>
+                    <h3 class="title-font text-4xl text-white">SMA Kelas 3</h3>
+                    <p class="text-xl text-yellow-100 mt-2">Usia 17-18 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Sekolah Menengah Atas kelas 3 untuk persiapan universitas</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm">Matematika</span>
+                        <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm">Bahasa</span>
+                        <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm">Sosiologi</span>
+                    </div>
+                    <a href="sma-3/" class="block w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-center py-3 rounded-xl title-font text-lg hover:from-yellow-500 hover:to-yellow-700 transition-all">
+                        🚀 Masuk ke SMA-3
+                    </a>
+                </div>
+            </div>
+
+            <!-- SMK-RPL Kelas 1 -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-red-300">
+                <div class="bg-gradient-to-r from-red-400 to-rose-500 p-8 text-center">
+                    <div class="text-8xl mb-4">💻</div>
+                    <h3 class="title-font text-4xl text-white">SMK-RPL Kelas 1</h3>
+                    <p class="text-xl text-red-100 mt-2">Usia 15-16 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Sekolah Menengah Kejuruan RPL kelas 1 untuk dasar pemrograman</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm">Algoritma</span>
+                        <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm">HTML/CSS</span>
+                        <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm">Dasar Java</span>
+                    </div>
+                    <a href="smk-rpl-1/" class="block w-full bg-gradient-to-r from-red-400 to-red-600 text-white text-center py-3 rounded-xl title-font text-lg hover:from-red-500 hover:to-red-700 transition-all">
+                        🚀 Masuk ke SMK-RPL-1
+                    </a>
+                </div>
+            </div>
+
+            <!-- SMK-RPL Kelas 2 -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-rose-300">
+                <div class="bg-gradient-to-r from-rose-400 to-pink-500 p-8 text-center">
+                    <div class="text-8xl mb-4">🖥️</div>
+                    <h3 class="title-font text-4xl text-white">SMK-RPL Kelas 2</h3>
+                    <p class="text-xl text-rose-100 mt-2">Usia 16-17 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Sekolah Menengah Kejuruan RPL kelas 2 untuk pengembangan aplikasi</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-rose-100 text-rose-700 rounded-full text-sm">JavaScript</span>
+                        <span class="px-3 py-1 bg-rose-100 text-rose-700 rounded-full text-sm">Database</span>
+                        <span class="px-3 py-1 bg-rose-100 text-rose-700 rounded-full text-sm">Framework</span>
+                    </div>
+                    <a href="smk-rpl-2/" class="block w-full bg-gradient-to-r from-rose-400 to-rose-600 text-white text-center py-3 rounded-xl title-font text-lg hover:from-rose-500 hover:to-rose-700 transition-all">
+                        🚀 Masuk ke SMK-RPL-2
+                    </a>
+                </div>
+            </div>
+
+            <!-- SMK-RPL Kelas 3 -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-crimson-300">
+                <div class="bg-gradient-to-r from-red-500 to-red-700 p-8 text-center">
+                    <div class="text-8xl mb-4">🌐</div>
+                    <h3 class="title-font text-4xl text-white">SMK-RPL Kelas 3</h3>
+                    <p class="text-xl text-red-100 mt-2">Usia 17-18 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Sekolah Menengah Kejuruan RPL kelas 3 untuk proyek nyata</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm">Web Dev</span>
+                        <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm">Mobile Dev</span>
+                        <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm">Projek</span>
+                    </div>
+                    <a href="smk-rpl-3/" class="block w-full bg-gradient-to-r from-red-500 to-red-700 text-white text-center py-3 rounded-xl title-font text-lg hover:from-red-600 hover:to-red-800 transition-all">
+                        🚀 Masuk ke SMK-RPL-3
+                    </a>
+                </div>
+            </div>
+
+            <!-- SMK-RPL Kelas 4 -->
+            <div class="card-hover bg-white rounded-3xl shadow-xl overflow-hidden border-4 border-red-400">
+                <div class="bg-gradient-to-r from-red-600 to-rose-700 p-8 text-center">
+                    <div class="text-8xl mb-4">🚀</div>
+                    <h3 class="title-font text-4xl text-white">SMK-RPL Kelas 4</h3>
+                    <p class="text-xl text-red-100 mt-2">Usia 18-19 Tahun</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 text-lg mb-4">Sekolah Menengah Kejuruan RPL kelas 4 untuk keahlian lanjut</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm">Advanced</span>
+                        <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm">Enterprise</span>
+                        <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm">Karir</span>
+                    </div>
+                    <a href="smk-rpl-4/" class="block w-full bg-gradient-to-r from-red-600 to-red-800 text-white text-center py-3 rounded-xl title-font text-lg hover:from-red-700 hover:to-red-900 transition-all">
+                        🚀 Masuk ke SMK-RPL-4
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Section -->
+        <div class="bg-gradient-to-br from-yellow-100 to-orange-100 rounded-3xl shadow-xl p-8 border-4 border-yellow-400">
+            <div class="text-center">
+                <h2 class="title-font text-4xl text-yellow-700 mb-6">💡 Tips Belajar 💡</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="bg-white rounded-2xl p-5 flex items-start gap-4">
+                        <span class="text-4xl">1️⃣</span>
+                        <div>
+                            <h3 class="font-bold text-xl text-gray-800 mb-2">Pilih Jenjang yang Sesuai</h3>
+                            <p class="text-gray-700">Sesuaikan dengan usia dan kemampuan anak</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 flex items-start gap-4">
+                        <span class="text-4xl">2️⃣</span>
+                        <div>
+                            <h3 class="font-bold text-xl text-gray-800 mb-2">Belajar Bertahap</h3>
+                            <p class="text-gray-700">Mulai dari teori, latihan, lalu evaluasi</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 flex items-start gap-4">
+                        <span class="text-4xl">3️⃣</span>
+                        <div>
+                            <h3 class="font-bold text-xl text-gray-800 mb-2">Berinteraksi Aktif</h3>
+                            <p class="text-gray-700">Ikuti semua permainan dan latihan</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-5 flex items-start gap-4">
+                        <span class="text-4xl">4️⃣</span>
+                        <div>
+                            <h3 class="font-bold text-xl text-gray-800 mb-2">Rayakan Prestasi</h3>
+                            <p class="text-gray-700">Beri apresiasi setiap kali selesai belajar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <h3 class="title-font text-3xl mb-4">Bahan Ajar Interaktif</h3>
+            <p class="text-xl mb-2">Sistem Pembelajaran Digital untuk Anak Indonesia</p>
+            <p class="text-lg mb-4">Membuat belajar menjadi menyenangkan! 🌟</p>
+            <div class="flex justify-center gap-4 text-sm flex-wrap">
+                <span>📚 PAUD</span>
+                <span>🎨 TK-A</span>
+                <span>🎵 TK-B</span>
+                <span>📖 SD-1</span>
+                <span>✏️ SD-2</span>
+                <span>🎓 SD-3</span>
+                <span>📚 SD-4</span>
+                <span>🎯 SD-5</span>
+                <span>🏆 SD-6</span>
+                <span>🔬 SMP-1</span>
+                <span>🧪 SMP-2</span>
+                <span>📖 SMP-3</span>
+                <span>🎓 SMA-1</span>
+                <span>📐 SMA-2</span>
+                <span>🏆 SMA-3</span>
+                <span>💻 SMK-RPL-1</span>
+                <span>🖥️ SMK-RPL-2</span>
+                <span>🌐 SMK-RPL-3</span>
+                <span>🚀 SMK-RPL-4</span>
+            </div>
+            <p class="text-sm mt-6 opacity-80">© 2026 Bahan Ajar Interaktif. Dibuat dengan ❤️ untuk pendidikan Indonesia.</p>
+        </div>
+    </footer>
+</body>
+</html>
